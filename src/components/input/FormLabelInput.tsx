@@ -33,7 +33,7 @@ export function FormLabelInput({
       name={name}
       render={({ field }) => (
         <FormItem
-          className={`flex flex-col gap-y-8 text-[2rem] text-black ${className}`}
+          className={`flex w-full flex-col gap-y-8 text-[2rem] text-black ${className}`}
         >
           <FormLabel>{label}</FormLabel>
           <Input

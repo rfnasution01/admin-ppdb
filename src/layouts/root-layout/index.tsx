@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { RootMain } from './root-main'
 import { LoadingCandles } from '@/components/loadings'
+import RootMain from './root-main'
 
 export default function RootLayout() {
   const [loading, setLoading] = useState(true)
