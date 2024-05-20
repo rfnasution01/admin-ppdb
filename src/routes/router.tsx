@@ -3,7 +3,9 @@ import {
   ComingSoonPage,
   DashBoardPage,
   DayaTampungPage,
+  DetailSiswaPage,
   LoginPage,
+  MappingSiswaPage,
   ProfilSekolahPage,
   RootLayout,
   VerifikasiPage,
@@ -40,6 +42,16 @@ export const router = createBrowserRouter([
       {
         path: 'permintaan-verifikasi',
         element: <VerifikasiPage />,
+        children: [
+          {
+            path: '',
+            element: <MappingSiswaPage />,
+          },
+          {
+            path: 'detail-siswa',
+            element: <DetailSiswaPage />,
+          },
+        ],
       },
       {
         path: 'data-pendaftar',

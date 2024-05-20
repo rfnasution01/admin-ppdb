@@ -18,3 +18,9 @@ export const VerifikasiPage = loadable(() => import('@/pages/verifikasi'))
 export const ProfilSekolahPage = loadable(
   () => import('@/pages/profil-sekolah'),
 )
+export const DetailSiswaPage = loadable(
+  () => import('@/features/verifikasi/detail-siswa'),
+)
+export const MappingSiswaPage = loadable(
+  () => import('@/features/verifikasi/mapping-siswa'),
+)

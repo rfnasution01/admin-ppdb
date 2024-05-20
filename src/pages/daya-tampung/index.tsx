@@ -1,58 +1,96 @@
-import { ListDayaTampung } from '@/libs/dummy/list-daya-tampung'
 import { DataContent } from './data-content'
-import { Backpack, BringToFront, MapPin, Trophy, Users } from 'lucide-react'
+import {
+  Accessibility,
+  Backpack,
+  BringToFront,
+  GraduationCap,
+  MapPin,
+  Trophy,
+} from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { DayaTampungType } from '@/libs/types/profil-type'
+import { useGetDayaTampungQuery } from '@/store/slices/dayaTampungAPI'
+import { enumJalur } from '@/libs/enum/enum-jalur'
+import clsx from 'clsx'
+import Loading from '@/components/Loading'
 
 export default function DayaTampung() {
+  // --- DayaTampung ---
+  const [DayaTampung, setDayaTampung] = useState<DayaTampungType[]>()
+  const { data, isLoading, isFetching } = useGetDayaTampungQuery()
+
+  const loading = isLoading || isFetching
+
+  useEffect(() => {
+    if (data?.data) {
+      setDayaTampung(data?.data)
+    }
+  }, [data?.data])
+
   return (
-    <div className="flex w-full flex-col items-center justify-start gap-32 phones:flex-col">
+    <div className="grid w-full grid-cols-12 gap-32">
       {/* --- Gelombang 2 --- */}
-      {ListDayaTampung?.map((item, idx) => (
-        <div
-          key={idx}
-          className="flex w-full flex-col items-start justify-start gap-32"
-        >
-          <p className="text-[2.4rem] font-bold phones:text-[2.8rem]">
-            {item?.name}
-          </p>
-          <div className="flex w-full items-start justify-start gap-32 phones:flex-col">
-            <DataContent
-              value={item?.zonasi}
-              label="Zonasi"
-              icon={<MapPin size={24} />}
-              bgColor="bg-gradient-to-br from-indigo-500 via-indigo-400 to-indigo-600"
-              textColor="text-indigo-700"
-            />
-            <DataContent
-              value={item?.afirmasi}
-              label="Afirmasi"
-              icon={<Backpack size={24} />}
-              bgColor="bg-gradient-to-br from-rose-500 via-rose-400 to-rose-600"
-              textColor="text-rose-700"
-            />
-            <DataContent
-              value={item?.prestasi}
-              label="Prestasi"
-              icon={<Trophy size={24} />}
-              bgColor="bg-gradient-to-br from-orange-500 via-orange-400 to-orange-600"
-              textColor="text-orange-500"
-            />
-            <DataContent
-              value={item?.pindah_tugas}
-              label="Pindah Tugas"
-              icon={<BringToFront size={24} />}
-              bgColor="bg-gradient-to-br from-emerald-500 via-emerlad-400 to-emerald-600"
-              textColor="text-lime-500"
-            />
-            <DataContent
-              value={item?.prestasi}
-              label="Total"
-              icon={<Users size={24} />}
-              bgColor="bg-gradient-to-br from-sky-500 via-sky-400 to-sky-600"
-              textColor="text-sky-700"
-            />
-          </div>
+      {loading ? (
+        <div className="col-span-12 flex items-center justify-center p-32">
+          <Loading />
         </div>
-      ))}
+      ) : (
+        <>
+          {DayaTampung?.map((item, idx) => (
+            <div
+              key={idx}
+              className={clsx(
+                'col-span-3 w-full gap-32 rounded-2xl text-white shadow-md hover:cursor-pointer hover:shadow-lg phones:col-span-12 phones:w-full',
+                {
+                  'bg-gradient-to-br from-indigo-500 via-indigo-400 to-indigo-600':
+                    item?.kode === enumJalur.ZONASI,
+                  'bg-gradient-to-br from-orange-500 via-orange-400 to-orange-600':
+                    item?.kode === enumJalur.PRESTASI,
+                  'bg-gradient-to-br from-rose-500 via-rose-400 to-rose-600':
+                    item?.kode === enumJalur.AFIRMASI,
+                  'via-emerlad-400 bg-gradient-to-br from-emerald-500 to-emerald-600':
+                    item?.kode === enumJalur.PINDAHTUGAS,
+                  'bg-gradient-to-br from-sky-500 via-sky-400 to-sky-600':
+                    item?.kode === enumJalur.DISABILITAS,
+                },
+              )}
+            >
+              <DataContent
+                value={item?.jumlah}
+                label={item?.nama}
+                icon={
+                  item?.kode === enumJalur.ZONASI ? (
+                    <MapPin size={24} />
+                  ) : item?.kode === enumJalur.PRESTASI ? (
+                    <Trophy size={24} />
+                  ) : item?.kode === enumJalur.AFIRMASI ? (
+                    <Backpack size={24} />
+                  ) : item?.kode === enumJalur.PINDAHTUGAS ? (
+                    <BringToFront size={24} />
+                  ) : item?.kode === enumJalur.DISABILITAS ? (
+                    <Accessibility size={24} />
+                  ) : (
+                    <GraduationCap size={24} />
+                  )
+                }
+                textColor={
+                  item?.kode === enumJalur.ZONASI
+                    ? 'text-indigo-700'
+                    : item?.kode === enumJalur.PRESTASI
+                      ? 'text-orange-700'
+                      : item?.kode === enumJalur.AFIRMASI
+                        ? 'text-rose-700'
+                        : item?.kode === enumJalur.PINDAHTUGAS
+                          ? 'text-emerald-700'
+                          : item?.kode === enumJalur.DISABILITAS
+                            ? 'text-sky-700'
+                            : 'text-cyan-700'
+                }
+              />
+            </div>
+          ))}
+        </>
+      )}
     </div>
   )
 }
