@@ -30,7 +30,7 @@ export const ListNavigasi = [
     icon: <Clipboard size={16} />,
   },
   {
-    title: 'Open Ticket / Layanan',
+    title: 'Open Ticket',
     icon: <Ticket size={16} />,
   },
   {

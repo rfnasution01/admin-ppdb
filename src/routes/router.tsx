@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   ComingSoonPage,
   DashBoardPage,
@@ -9,11 +9,21 @@ import {
   VerifikasiPage,
 } from './loadables'
 import { NoData } from '@/components/NoData'
+import Cookies from 'js-cookie'
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    loader: async () => {
+      const jwtPayload = Cookies.get('token')
+
+      if (!jwtPayload) {
+        return redirect('/login')
+      }
+
+      return null
+    },
     children: [
       {
         path: '',
@@ -36,7 +46,7 @@ export const router = createBrowserRouter([
         element: <NoData />,
       },
       {
-        path: 'open-ticket-layanan',
+        path: 'open-ticket',
         element: <ComingSoonPage />,
       },
       {
@@ -48,6 +58,15 @@ export const router = createBrowserRouter([
   {
     path: 'login',
     element: <LoginPage />,
+    loader: async () => {
+      const jwtPayload = Cookies.get('token')
+
+      if (jwtPayload) {
+        return redirect('/')
+      }
+
+      return null
+    },
   },
   {
     path: '*',

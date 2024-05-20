@@ -38,7 +38,7 @@ export function LoginForm({
     <div className="flex flex-col gap-y-32">
       {disabled && <Loading />}
       {loginIsError && (
-        <div className="flex items-center gap-x-12  border-l-8 border-red-500 bg-red-100 px-16 py-8 text-[2rem]">
+        <div className="flex items-center gap-x-12  border-l-8 border-red-500 bg-red-100 px-16 py-8 text-[2rem] text-red-500">
           <span>
             <CircleAlert />
           </span>
@@ -46,7 +46,7 @@ export function LoginForm({
         </div>
       )}
       {loginIsSuccess && (
-        <div className="flex items-center gap-x-12  border-l-8 border-emerald-500 bg-emerald-100 px-16 py-8 text-[2rem]">
+        <div className="flex items-center gap-x-12  border-l-8 border-emerald-500 bg-emerald-100 px-16 py-8 text-[2rem] text-emerald-500">
           <span>
             <CircleCheck />
           </span>

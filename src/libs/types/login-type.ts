@@ -1,6 +1,6 @@
 export type LoginType = {
   username: string
-  tanggal_lahir: string
+  password: string
 }
 
 export type ResponseLoginType = {

@@ -34,18 +34,14 @@ export default function Login() {
   async function handleFormLogin(values) {
     const body = {
       username: values?.username,
-      tanggal_lahir: `${values?.tahun_lahir}-${values?.bulan_lahir}-${values?.tanggal_lahir}`,
+      password: values?.password,
     }
 
     try {
       const res = await createLogin({ data: body })
       if ('data' in res) {
         const token = res?.data?.data?.token
-        const jenjang = res?.data?.data?.jenjang
-        const jalur = res?.data?.data?.jalur
         Cookies.set('token', token)
-        Cookies.set('jalur', jalur)
-        Cookies.set('jenjang', jenjang)
       } else {
         console.error('Error occurred:', res.error)
       }
@@ -58,7 +54,7 @@ export default function Login() {
     if (loginIsSuccess) {
       setMsg('Login Berhasil!')
       setTimeout(() => {
-        navigate('/main')
+        navigate('/')
       }, 1000)
     }
   }, [loginIsSuccess])
