@@ -5,6 +5,7 @@ import {
   DayaTampungPage,
   LoginPage,
   RootLayout,
+  VerifikasiPage,
 } from './loadables'
 
 export const router = createBrowserRouter([
@@ -26,7 +27,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'permintaan-verifikasi',
-        element: <ComingSoonPage />,
+        element: <VerifikasiPage />,
       },
       {
         path: 'data-pendaftar',

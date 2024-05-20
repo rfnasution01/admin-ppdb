@@ -15,7 +15,7 @@ export default function RootMain() {
       </aside>
       <section className="scrollbar h-full w-full flex-1 overflow-auto">
         <div className="flex h-full w-full flex-col items-start justify-start gap-32">
-          <div className="hidden phones:block">
+          <div className="hidden w-full phones:block">
             {/* --- Header --- */}
             <div className="flex items-center justify-between gap-32 bg-white p-32 shadow-md">
               <Link to="/">
