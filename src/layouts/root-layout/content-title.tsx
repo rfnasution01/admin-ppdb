@@ -12,7 +12,7 @@ export function ContentTitle() {
   const { firstPathname, splittedPath } = usePathname()
 
   return (
-    <div className="flex w-full items-center justify-between gap-32">
+    <div className="flex w-full items-center justify-between gap-32 phones:flex-col-reverse phones:items-start phones:gap-12">
       {/* --- Title --- */}
       <div className="text-[2.4rem] phones:text-[2.8rem]">
         {firstPathname === '' ? (
