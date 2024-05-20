@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { MainHeader } from './main-header'
 import { ModalAside } from './modal-aside'
+import { ContentTitle } from './content-title'
 
 export default function RootMain() {
   const [isShow, setIsShow] = useState<boolean>(false)
@@ -25,8 +26,11 @@ export default function RootMain() {
               </span>
             </div>
           </div>
-          <div className="h-full flex-1 p-32">
-            <Outlet />
+          <div className="flex h-full flex-1 flex-col items-start justify-start gap-32 p-32">
+            <ContentTitle />
+            <div className="w-full flex-1">
+              <Outlet />
+            </div>
           </div>
         </div>
       </section>
