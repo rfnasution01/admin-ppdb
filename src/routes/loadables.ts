@@ -24,3 +24,6 @@ export const DetailSiswaPage = loadable(
 export const MappingSiswaPage = loadable(
   () => import('@/features/verifikasi/mapping-siswa'),
 )
+export const GantiPasswordPage = loadable(
+  () => import('@/pages/ganti-password'),
+)

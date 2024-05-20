@@ -55,7 +55,8 @@ export function ContentTitle() {
             <Link
               to={idx !== splittedPath.length - 1 ? convertToSlug(item) : ''}
               className={clsx('', {
-                'hover:cursor-not-allowed': idx === splittedPath.length - 1,
+                'text-nowrap hover:cursor-not-allowed':
+                  idx === splittedPath.length - 1,
               })}
             >
               {item === '' ? 'Dashboard' : convertSlugToText(item)}

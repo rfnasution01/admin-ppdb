@@ -1,5 +1,6 @@
 import {
   Clipboard,
+  KeySquare,
   LayoutDashboard,
   PencilLine,
   School,
@@ -36,5 +37,9 @@ export const ListNavigasi = [
   {
     title: 'Pengguna Aplikasi',
     icon: <PencilLine size={16} />,
+  },
+  {
+    title: 'Ganti Password',
+    icon: <KeySquare size={16} />,
   },
 ]

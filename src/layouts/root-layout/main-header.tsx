@@ -28,8 +28,12 @@ export function MainHeader() {
   return (
     <div className="flex h-full flex-col gap-64">
       {/* --- Logo --- */}
-      <Link to="/" className="flex justify-center text-center">
-        <img src="/img/logo.png" alt="PPDB" className="w-[28rem]" />
+      <Link to="/" className="flex justify-center gap-12 text-center">
+        <img src="/img/batubara.png" alt="PPDB" className="w-[4rem]" />
+        <div className="flex flex-col items-start justify-start">
+          <p>Pemerintah</p>
+          <p>Kabupaten Batu Bara</p>
+        </div>
       </Link>
 
       <div className="flex flex-1 flex-col justify-between">
