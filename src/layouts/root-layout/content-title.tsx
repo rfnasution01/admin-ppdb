@@ -1,8 +1,4 @@
-import {
-  capitalizeFirstLetterFromLowercase,
-  convertSlugToText,
-  convertToSlug,
-} from '@/libs/helpers/format-text'
+import { convertSlugToText, convertToSlug } from '@/libs/helpers/format-text'
 import { getGreetingBasedOnTime } from '@/libs/helpers/time-greetings'
 import { usePathname } from '@/libs/hooks/usePathname'
 import clsx from 'clsx'
@@ -21,7 +17,9 @@ export function ContentTitle() {
             <span className="font-bold">John Doe</span>
           </p>
         ) : (
-          <p>{capitalizeFirstLetterFromLowercase(firstPathname)}</p>
+          <p className="text-[3rem] font-bold">
+            {convertSlugToText(firstPathname)}
+          </p>
         )}
       </div>
       {/* --- BreadCrumbs ---- */}

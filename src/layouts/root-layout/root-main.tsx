@@ -28,7 +28,7 @@ export default function RootMain() {
           </div>
           <div className="flex h-full w-full flex-1 flex-col items-start justify-start gap-32 p-32">
             <ContentTitle />
-            <div className="flex w-full flex-1 items-start justify-start">
+            <div className="scrollbar flex h-full w-full flex-1 items-start justify-start overflow-auto">
               <Outlet />
             </div>
           </div>

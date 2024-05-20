@@ -4,9 +4,11 @@ import {
   DashBoardPage,
   DayaTampungPage,
   LoginPage,
+  ProfilSekolahPage,
   RootLayout,
   VerifikasiPage,
 } from './loadables'
+import { NoData } from '@/components/NoData'
 
 export const router = createBrowserRouter([
   {
@@ -19,7 +21,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profil-sekolah',
-        element: <ComingSoonPage />,
+        element: <ProfilSekolahPage />,
       },
       {
         path: 'daya-tampung',
@@ -31,7 +33,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'data-pendaftar',
-        element: <ComingSoonPage />,
+        element: <NoData />,
       },
       {
         path: 'open-ticket-layanan',

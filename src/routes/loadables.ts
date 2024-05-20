@@ -15,3 +15,6 @@ export const LoginPage = loadable(() => import('@/pages/login'))
 export const DashBoardPage = loadable(() => import('@/pages/dashboard'))
 export const DayaTampungPage = loadable(() => import('@/pages/daya-tampung'))
 export const VerifikasiPage = loadable(() => import('@/pages/verifikasi'))
+export const ProfilSekolahPage = loadable(
+  () => import('@/pages/profil-sekolah'),
+)
