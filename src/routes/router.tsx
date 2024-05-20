@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import {
   ComingSoonPage,
   DashBoardPage,
+  DayaTampungPage,
   LoginPage,
   RootLayout,
 } from './loadables'
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'daya-tampung',
-        element: <ComingSoonPage />,
+        element: <DayaTampungPage />,
       },
       {
         path: 'permintaan-verifikasi',
