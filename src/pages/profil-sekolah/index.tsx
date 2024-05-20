@@ -159,7 +159,7 @@ export default function ProfilSekolah() {
                 <p className="bg-danger-100 p-24 text-left font-bold text-danger-tint-1">
                   Operator
                 </p>
-                <FormOperator form={form} profil={profil} isLoading={loading} />
+                <FormOperator form={form} profil={profil} />
               </div>
             </div>
             {/* --- button --- */}
