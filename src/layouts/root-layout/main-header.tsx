@@ -7,13 +7,13 @@ import { Trash2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 
 export function MainHeader() {
-  const { secondPathname } = usePathname()
+  const { firstPathname } = usePathname()
   const navigate = useNavigate()
 
   const isActivePage = (item: string) => {
     if (
-      convertToSlug(item) === secondPathname ||
-      (item.toLowerCase() === 'dashboard' && secondPathname === undefined)
+      convertToSlug(item) === firstPathname ||
+      (item.toLowerCase() === 'dashboard' && firstPathname === '')
     ) {
       return true
     }
@@ -38,9 +38,9 @@ export function MainHeader() {
           {ListNavigasi.map((item, idx) => (
             <Link
               to={
-                item?.title === 'Beranda'
-                  ? '/main'
-                  : `/main/${convertToSlug(item?.title)}`
+                item?.title === 'Dashboard'
+                  ? ''
+                  : `/${convertToSlug(item?.title)}`
               }
               key={idx}
               className={clsx(

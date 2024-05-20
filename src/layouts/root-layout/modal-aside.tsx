@@ -15,7 +15,7 @@ export function ModalAside({
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) {
-  const { secondPathname } = usePathname()
+  const { firstPathname } = usePathname()
   const token = Cookies.get('token')
   const navigate = useNavigate()
 
@@ -26,8 +26,8 @@ export function ModalAside({
 
   const isActivePage = (item: string) => {
     if (
-      convertToSlug(item) === secondPathname ||
-      (item.toLowerCase() === 'beranda' && secondPathname === undefined)
+      convertToSlug(item) === firstPathname ||
+      (item.toLowerCase() === 'dashboard' && firstPathname === '')
     ) {
       return true
     }
@@ -61,7 +61,7 @@ export function ModalAside({
                 kab. Batu Bara
               </p>
               <hr className="w-full border border-white" />
-              <p className="text-[2.4rem]">John Doe</p>
+              <p className="text-[2.4rem]">PPDB ADMIN</p>
             </div>
           </div>
           {/* --- Navigasi --- */}
@@ -69,9 +69,9 @@ export function ModalAside({
             {ListNavigasi.map((item, idx) => (
               <Link
                 to={
-                  item?.title?.toLowerCase() === 'beranda'
-                    ? '/main'
-                    : `/main/${convertToSlug(item?.title)}`
+                  item?.title?.toLowerCase() === 'dashboard'
+                    ? ''
+                    : `/${convertToSlug(item?.title)}`
                 }
                 onClick={() => {
                   setIsOpen(false)
