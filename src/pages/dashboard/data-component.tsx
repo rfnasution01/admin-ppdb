@@ -3,7 +3,7 @@ export function DataComponent({
   value,
 }: {
   label?: string
-  value?: string
+  value?: number
 }) {
   return (
     <div className="flex items-center justify-between gap-32">
