@@ -32,7 +32,7 @@ export type ProfilType = {
   identitas: IdentitasType
   kontak: KontakType
   kepala_sekolah: KepalaSekolahType
-  operator_sekolah: OperatorSekolahType[]
+  operator_sekolah: OperatorSekolahType
 }
 
 export type DayaTampungType = {

@@ -2,21 +2,21 @@ import { SingleSkeleton } from '@/components/skeleton'
 import { convertSlugToText, convertToSlug } from '@/libs/helpers/format-text'
 import { getGreetingBasedOnTime } from '@/libs/helpers/time-greetings'
 import { usePathname } from '@/libs/hooks/usePathname'
-import { ProfilType } from '@/libs/types/profil-type'
-import { useGetProfilQuery } from '@/store/slices/profilAPI'
+import { BiodataType } from '@/libs/types/biodata-type'
+import { useGetBiodataQuery } from '@/store/slices/biodataAPI'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export function ContentTitle() {
   const { firstPathname, splittedPath } = usePathname()
-  // --- Profil ---
-  const [profil, setProfil] = useState<ProfilType>()
-  const { data, isLoading, isFetching } = useGetProfilQuery()
+  // --- Biodata ---
+  const [biodata, setBiodata] = useState<BiodataType>()
+  const { data, isLoading, isFetching } = useGetBiodataQuery()
 
   useEffect(() => {
     if (data?.data) {
-      setProfil(data?.data)
+      setBiodata(data?.data)
     }
   }, [data?.data])
 
@@ -36,9 +36,7 @@ export function ContentTitle() {
             ) : (
               <p>
                 {getGreetingBasedOnTime()},{' '}
-                <span className="font-bold">
-                  {profil?.operator_sekolah?.[0]?.nama}
-                </span>
+                <span className="font-bold">{biodata?.nama}</span>
               </p>
             )}
           </>
