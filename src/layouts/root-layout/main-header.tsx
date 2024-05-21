@@ -25,6 +25,13 @@ export function MainHeader() {
     navigate('/login')
   }
 
+  const level = Cookies.get('level')
+  const menuOperator = ListNavigasi?.filter(
+    (item) => item?.title !== 'Data Operator',
+  )
+
+  const menu = level === 'Operator' ? menuOperator : ListNavigasi
+
   return (
     <div className="flex h-full flex-col gap-64">
       {/* --- Logo --- */}
@@ -39,7 +46,7 @@ export function MainHeader() {
       <div className="flex flex-1 flex-col justify-between">
         {/* --- Navigasi --- */}
         <div className="flex flex-col gap-12">
-          {ListNavigasi.map((item, idx) => (
+          {menu.map((item, idx) => (
             <Link
               to={
                 item?.title === 'Dashboard'

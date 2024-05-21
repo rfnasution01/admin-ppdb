@@ -7,6 +7,7 @@ import {
   LoginPage,
   ProfilSekolahPage,
   RootLayout,
+  VerifikasiPage,
 } from './loadables'
 import { NoData } from '@/components/NoData'
 import Cookies from 'js-cookie'
@@ -39,7 +40,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'permintaan-verifikasi',
-        element: <NoData />,
+        element: <VerifikasiPage />,
         // children: [
         //   {
         //     path: '',

@@ -28,7 +28,7 @@ export function FormIdentitas({
     <div className="flex flex-col gap-12 px-24 phones:gap-32">
       <FormLabelComponent
         form={form}
-        label="NPSN"
+        label="NPSN*"
         placeHolder="Masukkan NPSN"
         name="nisn"
         type="text"
@@ -37,7 +37,7 @@ export function FormIdentitas({
 
       <FormLabelComponent
         form={form}
-        label="Nama Sekolah"
+        label="Nama Sekolah*"
         placeHolder="Masukkan Nama Sekolah"
         name="nama_sekolah"
         type="text"
@@ -45,7 +45,7 @@ export function FormIdentitas({
       />
       <FormLabelComponent
         form={form}
-        label="Jenjang"
+        label="Jenjang*"
         placeHolder="Masukkan Jenjang"
         name="jenjang"
         type="text"
@@ -53,7 +53,7 @@ export function FormIdentitas({
       />
       <FormLabelComponent
         form={form}
-        label="Status"
+        label="Status*"
         placeHolder="Masukkan Status"
         name="status"
         type="text"
@@ -61,7 +61,7 @@ export function FormIdentitas({
       />
       <FormLabelComponent
         form={form}
-        label="Akreditas"
+        label="Akreditas*"
         placeHolder="Masukkan Akreditas"
         name="akreditasi"
         type="text"
@@ -69,14 +69,14 @@ export function FormIdentitas({
       />
       <FormListKecamatan
         useFormReturn={form}
-        headerLabel="Kecamatan"
+        headerLabel="Kecamatan*"
         placeholder="Masukkan Kecamatan"
         name="kecamatan"
         isDisabled={isLoading}
       />
       <FormLabelComponent
         form={form}
-        label="Alamat"
+        label="Alamat*"
         placeHolder="Masukkan Alamat"
         name="alamat"
         type="text"

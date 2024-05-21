@@ -25,7 +25,7 @@ export function FormKontak({
     <div className="flex flex-col gap-12 px-24 phones:gap-32">
       <FormLabelComponent
         form={form}
-        label="Telepon"
+        label="Telepon*"
         placeHolder="Masukkan Telepon"
         name="telepon"
         type="text"
@@ -35,7 +35,7 @@ export function FormKontak({
 
       <FormLabelComponent
         form={form}
-        label="Email"
+        label="Email*"
         placeHolder="Masukkan Email"
         name="email"
         type="email"
@@ -43,7 +43,7 @@ export function FormKontak({
       />
       <FormLabelComponent
         form={form}
-        label="Website"
+        label="Website*"
         placeHolder="Masukkan Website"
         name="website"
         type="text"
@@ -51,7 +51,7 @@ export function FormKontak({
       />
       <FormLabelComponent
         form={form}
-        label="Latitude"
+        label="Latitude*"
         placeHolder="Masukkan Latitude"
         name="latitude"
         type="text"
@@ -59,7 +59,7 @@ export function FormKontak({
       />
       <FormLabelComponent
         form={form}
-        label="Longitude"
+        label="Longitude*"
         placeHolder="Masukkan Longitude"
         name="longitude"
         type="text"

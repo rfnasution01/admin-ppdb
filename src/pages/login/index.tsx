@@ -41,7 +41,9 @@ export default function Login() {
       const res = await createLogin({ data: body })
       if ('data' in res) {
         const token = res?.data?.data?.token
+        const level = res?.data?.data?.level
         Cookies.set('token', token)
+        Cookies.set('level', level)
       } else {
         console.error('Error occurred:', res.error)
       }

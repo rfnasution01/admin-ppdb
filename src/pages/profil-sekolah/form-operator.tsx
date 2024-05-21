@@ -6,9 +6,11 @@ import { useEffect } from 'react'
 export function FormOperator({
   form,
   profil,
+  isLoading,
 }: {
   form: UseFormReturn
   profil: ProfilType
+  isLoading: boolean
 }) {
   useEffect(() => {
     if (profil?.operator_sekolah) {
@@ -16,6 +18,7 @@ export function FormOperator({
       form.setValue('telepon_operator', profil?.operator_sekolah?.[0]?.hp)
     }
   }, [profil?.operator_sekolah])
+
   return (
     <div className="flex flex-col gap-12 px-24 phones:gap-32">
       <FormLabelComponent
@@ -24,7 +27,7 @@ export function FormOperator({
         placeHolder="Masukkan Nama"
         name="nama_operator"
         type="text"
-        isDisabled
+        isDisabled={isLoading}
       />
 
       <FormLabelComponent
@@ -34,7 +37,7 @@ export function FormOperator({
         name="telepon_operator"
         type="text"
         isNumber
-        isDisabled
+        isDisabled={isLoading}
       />
     </div>
   )

@@ -6,6 +6,7 @@ import {
   School,
   ShieldCheck,
   Ticket,
+  UserRound,
   Users2,
 } from 'lucide-react'
 
@@ -29,6 +30,10 @@ export const ListNavigasi = [
   {
     title: 'Data Pendaftar',
     icon: <Clipboard size={16} />,
+  },
+  {
+    title: 'Data Operator',
+    icon: <UserRound size={16} />,
   },
   {
     title: 'Open Ticket',

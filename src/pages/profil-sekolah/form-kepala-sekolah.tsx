@@ -23,7 +23,7 @@ export function FormKepalaSekolah({
     <div className="flex flex-col gap-12 px-24 phones:gap-32">
       <FormLabelComponent
         form={form}
-        label="Nama"
+        label="Nama*"
         placeHolder="Masukkan Nama"
         name="nama_kepala_sekolah"
         type="text"
@@ -32,7 +32,7 @@ export function FormKepalaSekolah({
 
       <FormLabelComponent
         form={form}
-        label="NIP"
+        label="NIP*"
         placeHolder="Masukkan NIP"
         name="nip"
         type="text"
@@ -40,7 +40,7 @@ export function FormKepalaSekolah({
       />
       <FormLabelComponent
         form={form}
-        label="Telepon"
+        label="Telepon*"
         placeHolder="Masukkan Telepon"
         name="telepon_kepala_sekolah"
         type="text"

@@ -34,6 +34,13 @@ export function ModalAside({
     return false
   }
 
+  const level = Cookies.get('level')
+  const menuOperator = ListNavigasi?.filter(
+    (item) => item?.title !== 'Data Operator',
+  )
+
+  const menu = level === 'Operator' ? menuOperator : ListNavigasi
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
@@ -66,7 +73,7 @@ export function ModalAside({
           </div>
           {/* --- Navigasi --- */}
           <div className="flex flex-col gap-16 pl-16">
-            {ListNavigasi.map((item, idx) => (
+            {menu.map((item, idx) => (
               <Link
                 to={
                   item?.title?.toLowerCase() === 'dashboard'
