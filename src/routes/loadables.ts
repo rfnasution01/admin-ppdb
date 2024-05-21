@@ -27,3 +27,4 @@ export const MappingSiswaPage = loadable(
 export const GantiPasswordPage = loadable(
   () => import('@/pages/ganti-password'),
 )
+export const DataOperatorPage = loadable(() => import('@/pages/data-operator'))

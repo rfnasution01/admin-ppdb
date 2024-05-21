@@ -7,6 +7,7 @@ export const BiodataEndpoints = api.injectEndpoints({
       query: () => ({
         url: `sekolah/biodata`,
       }),
+      providesTags: ['biodata'],
     }),
   }),
 })

@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   ComingSoonPage,
   DashBoardPage,
+  DataOperatorPage,
   DayaTampungPage,
   GantiPasswordPage,
   LoginPage,
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path: 'data-pendaftar',
         element: <NoData />,
+      },
+      {
+        path: 'data-operator',
+        element: <DataOperatorPage />,
       },
       {
         path: 'open-ticket',

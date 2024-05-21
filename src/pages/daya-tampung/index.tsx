@@ -40,7 +40,7 @@ export default function DayaTampung() {
             <div
               key={idx}
               className={clsx(
-                'col-span-3 w-full gap-32 rounded-2xl text-white shadow-md hover:cursor-pointer hover:shadow-lg phones:col-span-12 phones:w-full',
+                'w-full gap-32 rounded-2xl text-white shadow-md hover:cursor-pointer hover:shadow-lg phones:col-span-12 phones:w-full',
                 {
                   'bg-gradient-to-br from-indigo-500 via-indigo-400 to-indigo-600':
                     item?.kode === enumJalur.ZONASI,
@@ -52,6 +52,10 @@ export default function DayaTampung() {
                     item?.kode === enumJalur.PINDAHTUGAS,
                   'bg-gradient-to-br from-sky-500 via-sky-400 to-sky-600':
                     item?.kode === enumJalur.DISABILITAS,
+                },
+                {
+                  'col-span-4': DayaTampung?.length > 4,
+                  'col-span-3': DayaTampung?.length <= 4,
                 },
               )}
             >

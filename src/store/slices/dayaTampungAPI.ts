@@ -7,6 +7,7 @@ export const DayaTampungEndpoints = api.injectEndpoints({
       query: () => ({
         url: `sekolah/daya_tampung`,
       }),
+      providesTags: ['daya-tampung'],
     }),
   }),
 })

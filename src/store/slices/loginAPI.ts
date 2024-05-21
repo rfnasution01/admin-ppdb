@@ -9,6 +9,13 @@ export const LoginEndpoints = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: [
+        'profil',
+        'biodata',
+        'kecamatan',
+        'operator',
+        'daya-tampung',
+      ],
     }),
   }),
 })

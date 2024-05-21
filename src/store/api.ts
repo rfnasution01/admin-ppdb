@@ -31,7 +31,7 @@ export const api = createApi({
       return headers
     },
   }),
-  tagTypes: ['profil', 'kecamatan'],
+  tagTypes: ['profil', 'kecamatan', 'biodata', 'operator', 'daya-tampung'],
   // * it's okay to disable eslint here, because the warning is unnecessary. Each endpoint will be injected from an api slice.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: (_builder) => ({}),

@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import 'react-toastify/dist/ReactToastify.css'
 import { profilSekolahSchema } from '@/libs/schema/profil-sekolah-schema'
 import { Form } from '@/components/Form'
 import { FormIdentitas } from './form-identitas'
