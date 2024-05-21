@@ -25,7 +25,7 @@ export type KepalaSekolahType = {
 
 export type OperatorSekolahType = {
   nama: string
-  hp: string
+  telepon: string
 }
 
 export type ProfilType = {

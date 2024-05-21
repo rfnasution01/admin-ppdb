@@ -14,8 +14,8 @@ export function FormOperator({
 }) {
   useEffect(() => {
     if (profil?.operator_sekolah) {
-      form.setValue('nama_operator', profil?.operator_sekolah?.[0]?.nama)
-      form.setValue('telepon_operator', profil?.operator_sekolah?.[0]?.hp)
+      form.setValue('nama_operator', profil?.operator_sekolah?.nama)
+      form.setValue('telepon_operator', profil?.operator_sekolah?.telepon)
     }
   }, [profil?.operator_sekolah])
 

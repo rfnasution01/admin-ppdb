@@ -61,6 +61,8 @@ export default function ProfilSekolah() {
       nama_kepala_sekolah: values?.nama_kepala_sekolah,
       nip_kepala_sekolah: values?.nip,
       telepon_kepala_sekolah: values?.telepon_kepala_sekolah,
+      nama_operator_sekolah: values?.nama_operator,
+      telepon_operator_sekolah: values?.telepon_operator,
     }
 
     try {
