@@ -15,6 +15,8 @@ export const LoginEndpoints = api.injectEndpoints({
         'kecamatan',
         'operator',
         'daya-tampung',
+        'dashboard',
+        'verifikasi',
       ],
     }),
   }),
