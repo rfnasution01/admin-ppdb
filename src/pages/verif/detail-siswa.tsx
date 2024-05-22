@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { enumVerifikasi } from '@/libs/enum/enum-verifikasi'
 import { ModalTOlak } from './modal-tolak'
 import { useNavigate } from 'react-router-dom'
+import { enumFile } from '@/libs/enum/enum-file'
 
 export default function DetailSiswa() {
   const navigate = useNavigate()
@@ -181,6 +182,12 @@ export default function DetailSiswa() {
     }
   }, [isErrorVerifikasiSetuju, errorVerifikasiSetuju])
 
+  const isWajibDiIsiSemua = detail?.dokumen?.some(
+    (item) =>
+      item.status === 'Wajib' &&
+      item.status_verifikasi === enumFile.BELUMUPLOAD,
+  )
+
   return (
     <div className="flex h-full w-full flex-col gap-32">
       <p className="font-bold">Detail Data</p>
@@ -234,7 +241,7 @@ export default function DetailSiswa() {
         <div className="flex items-center gap-12">
           <button
             type="button"
-            disabled={isLoadingVerifikasiSetuju}
+            disabled={isLoadingVerifikasiSetuju || isWajibDiIsiSemua}
             onClick={() => {
               setIsOpen(true)
             }}
@@ -243,7 +250,7 @@ export default function DetailSiswa() {
             Tolak
           </button>
           <button
-            disabled={isLoadingVerifikasiSetuju}
+            disabled={isLoadingVerifikasiSetuju || isWajibDiIsiSemua}
             type="button"
             onClick={() => {
               handleVerifikasiSetuju(enumVerifikasi.DISETUJUI.toString())
