@@ -17,6 +17,7 @@ export function FormLabelComponent({
   isNumber,
   isDisabled,
   isOperator,
+  isKomentar,
 }: {
   name: string
   form: UseFormReturn
@@ -26,6 +27,7 @@ export function FormLabelComponent({
   isNumber?: boolean
   isDisabled?: boolean
   isOperator?: boolean
+  isKomentar?: boolean
 }) {
   return (
     <FormField
@@ -38,7 +40,9 @@ export function FormLabelComponent({
           <div className="w-1/6 text-left phones:w-full phones:text-left">
             <FormLabel>{label}</FormLabel>
           </div>
-          <div className={`${isOperator ? 'w-5/6' : 'w-2/6'} phones:w-full`}>
+          <div
+            className={`${isOperator ? 'w-5/6' : isKomentar ? 'w-5/6' : 'w-2/6'} phones:w-full`}
+          >
             <FormControl>
               <Input
                 {...field}

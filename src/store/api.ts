@@ -39,6 +39,7 @@ export const api = createApi({
     'daya-tampung',
     'dashboard',
     'verifikasi',
+    'verifikasi-detail',
   ],
   // * it's okay to disable eslint here, because the warning is unnecessary. Each endpoint will be injected from an api slice.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

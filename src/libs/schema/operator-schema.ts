@@ -8,3 +8,7 @@ export const OperatorSchema = zod.object({
   password: zod.string().optional().nullable(),
   id: zod.string().optional().nullable(),
 })
+
+export const TolakSchema = zod.object({
+  komentar: zod.string().optional().nullable(),
+})

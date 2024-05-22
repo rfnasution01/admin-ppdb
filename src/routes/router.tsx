@@ -4,11 +4,13 @@ import {
   DashBoardPage,
   DataOperatorPage,
   DayaTampungPage,
+  DeetailSiswaPage,
   GantiPasswordPage,
   LoginPage,
   ProfilSekolahPage,
   RootLayout,
-  VerifikasiPage,
+  VerifPage,
+  VerifikasiLayout,
 } from './loadables'
 import { NoData } from '@/components/NoData'
 import Cookies from 'js-cookie'
@@ -41,18 +43,19 @@ export const router = createBrowserRouter([
       },
       {
         path: 'permintaan-verifikasi',
-        element: <VerifikasiPage />,
-        // children: [
-        //   {
-        //     path: '',
-        //     element: <MappingSiswaPage />,
-        //   },
-        //   {
-        //     path: 'detail-siswa',
-        //     element: <DetailSiswaPage />,
-        //   },
-        // ],
+        element: <VerifikasiLayout />,
+        children: [
+          {
+            path: '',
+            element: <VerifPage />,
+          },
+          {
+            path: 'detail-siswa',
+            element: <DeetailSiswaPage />,
+          },
+        ],
       },
+
       {
         path: 'data-pendaftar',
         element: <NoData />,
