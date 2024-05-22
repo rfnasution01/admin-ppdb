@@ -2,6 +2,7 @@ import Loading from '@/components/Loading'
 import { VerifikasiDetailType } from '@/libs/types/verifikasi-type'
 import {
   useCreateVerifikasiDokumenMutation,
+  useCreateVerifikasiPrestasiMutation,
   useCreateVerifikasiSetujuMutation,
   useGetVerifikasiByIdQuery,
 } from '@/store/slices/verifikasiAPI'
@@ -13,6 +14,7 @@ import {
   FormJalur,
   FormOrangTua,
   FormPilihan,
+  FormPrestasi,
   FormSekolah,
 } from '@/features/verifikasi'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
@@ -113,6 +115,76 @@ export default function DetailSiswa() {
       })
     }
   }, [isErrorDokumen, errorDokumen])
+
+  // --- Prestasi ---
+  const [
+    createPrestasi,
+    {
+      isError: isErrorPrestasi,
+      error: errorPrestasi,
+      isLoading: isLoadingPrestasi,
+      isSuccess: isSuccessPrestasi,
+    },
+  ] = useCreateVerifikasiPrestasiMutation()
+
+  const handleSubmitPrestasi = async (
+    id_prestasi: string,
+    status: string,
+    komentar?: string,
+  ) => {
+    const body = {
+      id: id,
+      id_prestasi: id_prestasi,
+      validasi: status,
+      catatan: komentar ?? null,
+    }
+
+    try {
+      await createPrestasi({ data: body })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // --- Sukses ---
+  useEffect(() => {
+    if (isSuccessPrestasi) {
+      toast.success(`Veerifikasi file berhasil!`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isSuccessPrestasi])
+
+  // --- Error ---
+  useEffect(() => {
+    if (isErrorPrestasi) {
+      const errorMsg = errorPrestasi as {
+        data?: {
+          message?: string
+        }
+      }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isErrorPrestasi, errorPrestasi])
 
   // --- Handle Verifikasi Setuju ---
   const [
@@ -230,9 +302,22 @@ export default function DetailSiswa() {
           />
 
           <Accordion
+            title="Prestasi"
+            content={
+              <FormPrestasi
+                detail={detail}
+                id={id}
+                isLoading={isLoadingPrestasi}
+                handleSubmit={handleSubmitPrestasi}
+              />
+            }
+            idx={4}
+          />
+
+          <Accordion
             title="Pilihan"
             content={<FormPilihan detail={detail} />}
-            idx={4}
+            idx={5}
           />
         </div>
       )}

@@ -1,6 +1,7 @@
 import {
   VerifikasiDetailType,
   VerifikasiDokumenParams,
+  VerifikasiPrestasiParams,
   VerifikasiType,
 } from '@/libs/types/verifikasi-type'
 import { Res, api } from '../api'
@@ -54,6 +55,17 @@ export const VerifikasiEndpoints = api.injectEndpoints({
       }),
       invalidatesTags: ['verifikasi', 'verifikasi-detail'],
     }),
+    createVerifikasiPrestasi: builder.mutation<
+      void,
+      { data: VerifikasiPrestasiParams }
+    >({
+      query: ({ data }) => ({
+        url: `sekolah/verifikasi/prestasi`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['verifikasi', 'verifikasi-detail'],
+    }),
   }),
 })
 
@@ -63,4 +75,5 @@ export const {
   useCreateVerifikasiClaimMutation,
   useCreateVerifikasiSetujuMutation,
   useCreateVerifikasiDokumenMutation,
+  useCreateVerifikasiPrestasiMutation,
 } = VerifikasiEndpoints

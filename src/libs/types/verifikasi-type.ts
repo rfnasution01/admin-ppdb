@@ -97,6 +97,7 @@ export type VerifikasiDetailType = {
   orangtua: OrangTuaDetailsType
   dokumen: DokumenType[]
   pilihan: PilihanType
+  prestasi: PrestasiType
 }
 
 export type VerifikasiDokumenParams = {
@@ -106,10 +107,36 @@ export type VerifikasiDokumenParams = {
   komentar?: string
 }
 
+export type VerifikasiPrestasiParams = {
+  id: string
+  id_dokumen?: string
+  validasi?: string
+  catatan?: string
+}
+
 export type SekolahParams = {
   nisn?: string
   npsn: string
   nama_sekolah: string
   tahun_lulus: string
   status?: boolean
+}
+
+export type PrestasiType = {
+  jalur_prestasi: boolean
+  data: ListPrestasiType[]
+}
+
+export type ListPrestasiType = {
+  id: string
+  nama_prestasi: string
+  tingkat: string
+  juara: string
+  kelas: string
+  penyelenggara: string
+  sertifikat: string
+  validasi: number
+  tgl_validasi?: string
+  user_validasi?: string
+  catatan?: string
 }
