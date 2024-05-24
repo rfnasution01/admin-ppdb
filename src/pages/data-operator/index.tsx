@@ -111,108 +111,114 @@ export default function DataOperator() {
           Tambah Data
         </button>
       </div>
-      <table className="scrollbar h-full w-full flex-1 border-collapse overflow-auto text-[2.4rem]">
-        <thead className="relative z-10 align-top leading-medium">
-          <tr className="border-b-[1.6rem] border-transparent">
-            <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
-              No
-            </th>
-            <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
-              Username
-            </th>
-            <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
-              Nama
-            </th>
-            <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
-              No. HP
-            </th>
-            <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
-              Email
-            </th>
-            <th className="sticky top-0 text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
-              Status
-            </th>
-            <th className="sticky top-0 text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
-              Aksi
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {loading ? (
-            <tr className="p-24">
-              <td colSpan={7}>
-                <Loading />
-              </td>
+      <div className="w-full overflow-x-auto">
+        <table className="scrollbar mb-24 h-full w-full flex-1 border-collapse overflow-auto text-[2.4rem]">
+          <thead className="relative z-10 align-top leading-medium">
+            <tr className="border-b-[1.6rem] border-transparent">
+              <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                No
+              </th>
+              <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                Username
+              </th>
+              <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                Nama
+              </th>
+              <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                No. HP
+              </th>
+              <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                Email
+              </th>
+              <th className="sticky top-0 text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                Status
+              </th>
+              <th className="sticky top-0 text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                Aksi
+              </th>
             </tr>
-          ) : !operator ? (
-            <tr>
-              <td colSpan={7}>
-                <NoData title="Terjadi Kesalahan" />
-              </td>
-            </tr>
-          ) : operator?.length === 0 ? (
-            <td colSpan={7}>
-              <NoData />
-            </td>
-          ) : (
-            operator?.map((item, idx) => (
-              <tr
-                className="scrollbar h-full w-full overflow-auto border-b-[1.6rem] border-transparent transition-all ease-in odd:bg-surface-disabled hover:cursor-pointer hover:bg-warning-tint-2"
-                key={idx}
-                onClick={() => {
-                  setModalIsOpen(idx)
-                }}
-              >
-                <td className="px-24 py-12 leading-medium">{idx + 1}</td>
-                <td className="px-24 py-12 leading-medium">{item?.username}</td>
-                <td className="px-24 py-12 leading-medium">
-                  {capitalizeFirstLetterFromLowercase(item?.nama.toLowerCase())}
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr className="p-24">
+                <td colSpan={7}>
+                  <Loading />
                 </td>
-                <td className="px-24 py-12 leading-medium">{item?.hp}</td>
-                <td className="px-24 py-12 leading-medium">{item?.email}</td>
-                <td className="px-24 py-12 leading-medium">
-                  <p
-                    className={clsx(
-                      'rounded-full px-24 py-8 text-center text-[1.6rem] text-white phones:text-[2rem]',
-                      {
-                        'bg-emerald-700': item?.status === 'Y',
-                        'bg-rose-700': item?.status !== 'Y',
-                      },
-                    )}
-                  >
-                    {item?.status === 'Y' ? 'Aktif' : 'Tidak Aktif'}
-                  </p>
-                </td>
-                <td>
-                  <MenubarOperator
-                    data={item}
-                    setName={setName}
-                    setIsShow={setShow}
-                    handleGantiStatus={handleGantiStatus}
-                  />
-                </td>
-                {idx === modalIsOpen && name === 'Edit' && (
-                  <ModalEditOperator
-                    setIsOpen={setShow}
-                    isOpen={show}
-                    data={item}
-                  />
-                )}
-                {idx === modalIsOpen && name === 'Ganti Password' && (
-                  <ModalEditPassword
-                    setIsOpen={setShow}
-                    isOpen={show}
-                    data={item}
-                  />
-                )}
               </tr>
-            ))
-          )}
-          {name === 'Tambah' && (
-            <ModalTambahOperator setIsOpen={setShow} isOpen={show} />
-          )}
-        </tbody>
-      </table>
+            ) : !operator ? (
+              <tr>
+                <td colSpan={7}>
+                  <NoData title="Terjadi Kesalahan" />
+                </td>
+              </tr>
+            ) : operator?.length === 0 ? (
+              <td colSpan={7}>
+                <NoData />
+              </td>
+            ) : (
+              operator?.map((item, idx) => (
+                <tr
+                  className="scrollbar h-full w-full overflow-auto border-b-[1.6rem] border-transparent transition-all ease-in odd:bg-surface-disabled hover:cursor-pointer hover:bg-warning-tint-2"
+                  key={idx}
+                  onClick={() => {
+                    setModalIsOpen(idx)
+                  }}
+                >
+                  <td className="px-24 py-12 leading-medium">{idx + 1}</td>
+                  <td className="px-24 py-12 leading-medium">
+                    {item?.username}
+                  </td>
+                  <td className="px-24 py-12 leading-medium">
+                    {capitalizeFirstLetterFromLowercase(
+                      item?.nama.toLowerCase(),
+                    )}
+                  </td>
+                  <td className="px-24 py-12 leading-medium">{item?.hp}</td>
+                  <td className="px-24 py-12 leading-medium">{item?.email}</td>
+                  <td className="px-24 py-12 leading-medium">
+                    <p
+                      className={clsx(
+                        'rounded-full px-24 py-8 text-center text-[1.6rem] text-white phones:text-[2rem]',
+                        {
+                          'bg-emerald-700': item?.status === 'Y',
+                          'bg-rose-700': item?.status !== 'Y',
+                        },
+                      )}
+                    >
+                      {item?.status === 'Y' ? 'Aktif' : 'Tidak Aktif'}
+                    </p>
+                  </td>
+                  <td>
+                    <MenubarOperator
+                      data={item}
+                      setName={setName}
+                      setIsShow={setShow}
+                      handleGantiStatus={handleGantiStatus}
+                    />
+                  </td>
+                  {idx === modalIsOpen && name === 'Edit' && (
+                    <ModalEditOperator
+                      setIsOpen={setShow}
+                      isOpen={show}
+                      data={item}
+                    />
+                  )}
+                  {idx === modalIsOpen && name === 'Ganti Password' && (
+                    <ModalEditPassword
+                      setIsOpen={setShow}
+                      isOpen={show}
+                      data={item}
+                    />
+                  )}
+                </tr>
+              ))
+            )}
+            {name === 'Tambah' && (
+              <ModalTambahOperator setIsOpen={setShow} isOpen={show} />
+            )}
+          </tbody>
+        </table>
+      </div>
       <ToastContainer />
     </div>
   )
