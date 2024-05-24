@@ -97,7 +97,7 @@ export default function DataOperator() {
   const loading = isFetching || isLoading
 
   return (
-    <div className="flex w-full flex-col gap-32">
+    <div className="scrollbar flex h-full w-full flex-col gap-32">
       <div className="flex w-full">
         <button
           type="button"
@@ -111,7 +111,7 @@ export default function DataOperator() {
           Tambah Data
         </button>
       </div>
-      <div className="w-full overflow-x-auto">
+      <div className="scrollbar h-full w-full flex-1 overflow-x-auto">
         <table className="scrollbar mb-24 h-full w-full flex-1 border-collapse overflow-auto text-[2.4rem]">
           <thead className="relative z-10 align-top leading-medium">
             <tr className="border-b-[1.6rem] border-transparent">

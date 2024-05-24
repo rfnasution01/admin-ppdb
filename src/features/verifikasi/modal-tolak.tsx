@@ -6,102 +6,30 @@ import {
   DialogTitle,
 } from '@/components/Dialog'
 import { FormLabelComponent } from '@/components/form/form-label-component'
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
-import { TolakSchema } from '@/libs/schema/operator-schema'
+import { UseFormReturn } from 'react-hook-form'
 import { Form } from '@/components/Form'
 import { Save, X } from 'lucide-react'
-import { Bounce, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { useCreateVerifikasiDokumenMutation } from '@/store/slices/verifikasiAPI'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 
 export function ModalTOlak({
   isOpen,
   setIsOpen,
-  id,
-  id_dokumen,
+  form,
+  handleSubmit,
+  setIdData,
+  setStatus,
+  idData,
 }: {
+  setIdData: Dispatch<SetStateAction<string>>
+  setStatus: Dispatch<SetStateAction<number>>
+  form: UseFormReturn
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
-  id: string
-  id_dokumen: string
+  handleSubmit: (values: any) => Promise<void>
+  idData: string
 }) {
-  // --- Form Schema ---
-  const form = useForm<zod.infer<typeof TolakSchema>>({
-    resolver: zodResolver(TolakSchema),
-    defaultValues: {},
-  })
-
-  // --- Dokumen ---
-  const [
-    createDokumen,
-    {
-      isError: isErrorDokumen,
-      error: errorDokumen,
-      isLoading: isLoadingDokumen,
-      isSuccess: isSuccessDokumen,
-    },
-  ] = useCreateVerifikasiDokumenMutation()
-
-  const handleSubmit = async (values) => {
-    const body = {
-      id: id,
-      id_dokumen: id_dokumen,
-      status: '2',
-      komentar: values?.komentar ?? null,
-    }
-
-    try {
-      await createDokumen({ data: body })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // --- Sukses ---
-  useEffect(() => {
-    if (isSuccessDokumen) {
-      toast.success(`Update data berhasil!`, {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-  }, [isSuccessDokumen])
-
-  // --- Error ---
-  useEffect(() => {
-    if (isErrorDokumen) {
-      const errorMsg = errorDokumen as {
-        data?: {
-          message?: string
-        }
-      }
-
-      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-  }, [isErrorDokumen, errorDokumen])
-
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
@@ -146,9 +74,12 @@ export function ModalTOlak({
 
               <div className="flex items-center justify-end gap-16 text-[2rem]">
                 <button
-                  disabled={isLoadingDokumen}
                   className="flex items-center justify-center gap-12 rounded-2xl bg-green-800 px-24 py-12 text-white hover:bg-green-900"
                   type="submit"
+                  onClick={() => {
+                    setIdData(idData)
+                    setStatus(2)
+                  }}
                 >
                   Simpan
                   <Save size={16} />

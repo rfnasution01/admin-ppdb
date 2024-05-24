@@ -18,7 +18,7 @@ export function FormBiodata({ detail }: { detail: VerifikasiDetailType }) {
         value={detail?.biodata?.tanggal_lahir ?? '-'}
       />
       <DataComponent
-        label="Tanggal Lahir"
+        label="Jenis Kelamin"
         value={
           detail?.biodata?.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'
         }

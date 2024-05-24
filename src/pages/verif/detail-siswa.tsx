@@ -23,12 +23,24 @@ import { enumVerifikasi } from '@/libs/enum/enum-verifikasi'
 import { ModalTOlak } from './modal-tolak'
 import { useNavigate } from 'react-router-dom'
 import { enumFile } from '@/libs/enum/enum-file'
+import { TolakSchema } from '@/libs/schema/operator-schema'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
 
 export default function DetailSiswa() {
   const navigate = useNavigate()
   const searchParams = new URLSearchParams(location.search)
   const idParams = searchParams.get('id')
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [idData, setIdData] = useState<string>(null)
+  const [status, setStatus] = useState<number>(null)
+
+  // --- Form Schema ---
+  const form = useForm<zod.infer<typeof TolakSchema>>({
+    resolver: zodResolver(TolakSchema),
+    defaultValues: {},
+  })
 
   const id = idParams ?? null
   // --- Detail ---
@@ -57,16 +69,12 @@ export default function DetailSiswa() {
     },
   ] = useCreateVerifikasiDokumenMutation()
 
-  const handleSubmit = async (
-    id_dokumen: string,
-    status: string,
-    komentar?: string,
-  ) => {
+  const handleSubmit = async (values) => {
     const body = {
       id: id,
-      id_dokumen: id_dokumen,
-      status: status,
-      komentar: komentar ?? null,
+      id_dokumen: idData,
+      status: status.toString(),
+      komentar: values?.komentar ?? null,
     }
 
     try {
@@ -293,9 +301,12 @@ export default function DetailSiswa() {
             content={
               <FormDokumen
                 detail={detail}
-                id={id}
+                idData={idData}
                 isLoading={isLoadingDokumen}
                 handleSubmit={handleSubmit}
+                form={form}
+                setIdData={setIdData}
+                setStatus={setStatus}
               />
             }
             idx={3}

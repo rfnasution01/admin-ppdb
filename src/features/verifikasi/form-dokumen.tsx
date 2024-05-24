@@ -1,29 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { VerifikasiDetailType } from '@/libs/types/verifikasi-type'
 import Loading from '@/components/Loading'
 import { NoData } from '@/components/NoData'
 import { enumFile } from '@/libs/enum/enum-file'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { ModalFile } from './modal-file'
 import { DataComponent2 } from './data-component2'
 import dayjs from 'dayjs'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { ModalTOlak } from './modal-tolak'
+import { Form } from '@/components/Form'
+import { UseFormReturn } from 'react-hook-form'
 
 export function FormDokumen({
   detail,
-  id,
+  idData,
   isLoading,
+  form,
   handleSubmit,
+  setIdData,
+  setStatus,
 }: {
   detail: VerifikasiDetailType
-  id: string
+  setIdData: Dispatch<SetStateAction<string>>
+  setStatus: Dispatch<SetStateAction<number>>
+  idData: string
+  form: UseFormReturn
   isLoading: boolean
-  handleSubmit: (
-    id_dokumen: string,
-    status: string,
-    komentar?: string,
-  ) => Promise<void>
+  handleSubmit: (values: any) => Promise<void>
 }) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -114,21 +117,30 @@ export function FormDokumen({
                       onClick={() => {
                         setIsOpen(true)
                         setModalId(idx)
+                        setIdData(item?.id)
                       }}
                       className="text-nowrap rounded-full  bg-rose-700 px-24 py-12 text-center text-[1.6rem] text-white hover:bg-rose-900 disabled:cursor-not-allowed phones:text-[2rem]"
                     >
                       Tolak
                     </button>
-                    <button
-                      disabled={isLoading || item?.status_verifikasi !== 0}
-                      type="button"
-                      onClick={() => {
-                        handleSubmit(item?.id, '1')
-                      }}
-                      className="text-nowrap rounded-full  bg-green-700 px-24 py-12 text-center text-[1.6rem] text-white hover:bg-green-900 disabled:cursor-not-allowed phones:text-[2rem]"
-                    >
-                      Verifikasi
-                    </button>
+                    <Form {...form}>
+                      <form
+                        className="flex w-full flex-col"
+                        onSubmit={form.handleSubmit(handleSubmit)}
+                      >
+                        <button
+                          disabled={isLoading || item?.status_verifikasi !== 0}
+                          type="submit"
+                          onClick={() => {
+                            setIdData(item?.id)
+                            setStatus(1)
+                          }}
+                          className="text-nowrap rounded-full  bg-green-700 px-24 py-12 text-center text-[1.6rem] text-white hover:bg-green-900 disabled:cursor-not-allowed phones:text-[2rem]"
+                        >
+                          Verifikasi
+                        </button>
+                      </form>
+                    </Form>
                   </div>
                 </td>
                 <td className="px-24 py-12 leading-medium">
@@ -166,8 +178,11 @@ export function FormDokumen({
                   <ModalTOlak
                     setIsOpen={setIsOpen}
                     isOpen={isOpen}
-                    id={id}
-                    id_dokumen={item?.id}
+                    idData={idData}
+                    setIdData={setIdData}
+                    setStatus={setStatus}
+                    form={form}
+                    handleSubmit={handleSubmit}
                   />
                 )}
               </tr>
@@ -175,7 +190,6 @@ export function FormDokumen({
           )}
         </tbody>
       </table>
-      <ToastContainer />
     </div>
   )
 }

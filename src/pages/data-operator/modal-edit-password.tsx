@@ -111,7 +111,7 @@ export function ModalEditPassword({
           <DialogHeader>
             <DialogTitle>
               <p className="text-[2.4rem] font-bold phones:text-[2.8rem]">
-                Form Tambah Data
+                Form Edit Password
               </p>
             </DialogTitle>
             <DialogPrimitive.Close className="focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-32 top-32 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
