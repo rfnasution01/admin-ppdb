@@ -70,18 +70,24 @@ export function FormPrestasi({
         <tbody>
           {loading ? (
             <tr className="p-24">
-              <td colSpan={6}>
+              <td colSpan={10}>
                 <Loading />
               </td>
             </tr>
           ) : !detail ? (
             <tr>
-              <td colSpan={6}>
+              <td colSpan={10}>
                 <NoData title="Terjadi Kesalahan" />
               </td>
             </tr>
+          ) : detail?.prestasi?.jalur_prestasi === false ? (
+            <tr>
+              <td colSpan={10}>
+                <NoData />
+              </td>
+            </tr>
           ) : detail?.prestasi?.data?.length === 0 ? (
-            <td colSpan={6}>
+            <td colSpan={10}>
               <NoData />
             </td>
           ) : (

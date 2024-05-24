@@ -112,7 +112,7 @@ export default function DataOperator() {
         </button>
       </div>
       <div className="scrollbar h-full w-full flex-1 overflow-x-auto">
-        <table className="scrollbar mb-24 h-full w-full flex-1 border-collapse overflow-auto text-[2.4rem]">
+        <table className="scrollbar mb-24 w-full flex-1 border-collapse overflow-auto text-[2.4rem]">
           <thead className="relative z-10 align-top leading-medium">
             <tr className="border-b-[1.6rem] border-transparent">
               <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
