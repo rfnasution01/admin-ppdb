@@ -30,3 +30,6 @@ export const VerifPage = loadable(() => import('@/pages/verif'))
 export const DeetailSiswaPage = loadable(
   () => import('@/pages/verif/detail-siswa'),
 )
+export const DataPendaftarPage = loadable(
+  () => import('@/pages/data-pendaftar'),
+)

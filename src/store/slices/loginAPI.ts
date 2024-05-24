@@ -18,6 +18,7 @@ export const LoginEndpoints = api.injectEndpoints({
         'dashboard',
         'verifikasi',
         'verifikasi-detail',
+        'pendaftar',
       ],
     }),
   }),

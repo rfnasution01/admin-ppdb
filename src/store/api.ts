@@ -1,3 +1,4 @@
+import { PageInfoType, PendaftarJalur } from '@/libs/types/pendaftar-type'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import Cookies from 'js-cookie'
 
@@ -15,6 +16,8 @@ export type Res<T, M = undefined> = {
   related: T
   meta: Meta
   mapped?: M
+  page_info?: PageInfoType
+  pendaftar_jalur?: PendaftarJalur[]
 }
 
 const baseURL = import.meta.env.VITE_BASE_URL
@@ -40,6 +43,7 @@ export const api = createApi({
     'dashboard',
     'verifikasi',
     'verifikasi-detail',
+    'pendaftar',
   ],
   // * it's okay to disable eslint here, because the warning is unnecessary. Each endpoint will be injected from an api slice.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

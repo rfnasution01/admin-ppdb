@@ -3,6 +3,7 @@ import {
   ComingSoonPage,
   DashBoardPage,
   DataOperatorPage,
+  DataPendaftarPage,
   DayaTampungPage,
   DeetailSiswaPage,
   GantiPasswordPage,
@@ -12,7 +13,6 @@ import {
   VerifPage,
   VerifikasiLayout,
 } from './loadables'
-import { NoData } from '@/components/NoData'
 import Cookies from 'js-cookie'
 
 export const router = createBrowserRouter([
@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
 
       {
         path: 'data-pendaftar',
-        element: <NoData />,
+        element: <DataPendaftarPage />,
       },
       {
         path: 'data-operator',
