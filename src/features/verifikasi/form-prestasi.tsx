@@ -31,7 +31,7 @@ export function FormPrestasi({
   const loading = false
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex w-full flex-col gap-12 overflow-x-auto">
       <table className="scrollbar h-full w-full flex-1 border-collapse overflow-auto text-[2.4rem]">
         <thead className="relative z-10 align-top leading-medium">
           <tr className="border-b-[1.6rem] border-transparent">
