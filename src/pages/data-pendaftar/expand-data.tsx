@@ -41,7 +41,7 @@ export function ExpandData({
   const loading = isFetching || isLoading
 
   return (
-    <div className="flex flex-col gap-32 bg-white p-24 ">
+    <div className="flex flex-col gap-32 bg-white px-96 py-24 phones:p-24">
       {loading ? (
         <Loading />
       ) : (
