@@ -13,6 +13,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 import { DataComponent } from './data-component'
+import { ProfilType } from '@/libs/types/profil-type'
+import { useGetProfilQuery } from '@/store/slices/profilAPI'
 
 export default function Verif() {
   const navigate = useNavigate()
@@ -26,6 +28,16 @@ export default function Verif() {
       setVerifikasi(data?.data)
     }
   }, [data?.data])
+
+  // --- Profil ---
+  const [profil, setProfil] = useState<ProfilType>()
+  const { data: dataProfil } = useGetProfilQuery()
+
+  useEffect(() => {
+    if (dataProfil?.data) {
+      setProfil(dataProfil?.data)
+    }
+  }, [dataProfil?.data])
 
   // --- Claim ---
   const [
@@ -150,7 +162,9 @@ export default function Verif() {
                 </p>
                 <div className="flex flex-col gap-12 p-32">
                   <DataComponent label="Jalur" value={item?.jalur ?? '-'} />
-                  <DataComponent label="NISN" value={item?.nisn ?? '-'} />
+                  {profil?.identitas?.jenjang.toLowerCase() === 'smp' && (
+                    <DataComponent label="NISN" value={item?.nisn ?? '-'} />
+                  )}
                   <DataComponent label="NIK" value={item?.nik ?? '-'} />
                   <DataComponent
                     label="TTL"
