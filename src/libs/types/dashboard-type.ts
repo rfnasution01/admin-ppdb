@@ -23,4 +23,7 @@ export type DashboardType = {
   kata_bijak: KataBijakType
   gelombang: GelombangType[]
   lulus: LulusType
+  batas_verifikasi: string
+  tgl_pengumuman: string
+  batas_daftar_ulang: string
 }

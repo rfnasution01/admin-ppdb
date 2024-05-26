@@ -10,6 +10,8 @@ import { LoginForm } from '@/features/login'
 
 export default function Login() {
   const [msg, setMsg] = useState<string>('')
+  const [isChange, setIsChange] = useState<boolean>(false)
+
   const navigate = useNavigate()
   // --- Post API ---
   const [
@@ -42,6 +44,8 @@ export default function Login() {
       if ('data' in res) {
         const token = res?.data?.data?.token
         const level = res?.data?.data?.level
+        const changePassword = res?.data?.data?.change_password
+        setIsChange(changePassword)
         Cookies.set('token', token)
         Cookies.set('level', level)
       } else {
@@ -56,7 +60,7 @@ export default function Login() {
     if (loginIsSuccess) {
       setMsg('Login Berhasil!')
       setTimeout(() => {
-        navigate('/')
+        navigate(isChange ? '/ganti-password' : '/')
       }, 1000)
     }
   }, [loginIsSuccess])

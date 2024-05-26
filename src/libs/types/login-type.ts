@@ -6,6 +6,7 @@ export type LoginType = {
 export type ResponseLoginType = {
   token: string
   level: string
+  change_password: boolean
 }
 
 export type ChangePasswordType = {
