@@ -13,6 +13,8 @@ import { useEffect, useState } from 'react'
 import { MappingDataPendaftar } from './mapping-pendaftar'
 import { FormListDataPerPage } from '@/components/form/formListDataPerPage'
 import { Pagination } from '@/components/Pagination'
+import { ProfilType } from '@/libs/types/profil-type'
+import { useGetProfilQuery } from '@/store/slices/profilAPI'
 
 export default function DataPendaftar() {
   const [search, setSearch] = useState<string>('')
@@ -62,6 +64,16 @@ export default function DataPendaftar() {
   }, [getPendaftarMasuk?.data, jalur, search, page, pageSize])
 
   const isLoading = isFetchingPendaftarmasuk || isLoadingPendaftarMasuk
+
+  // --- Profil ---
+  const [profil, setProfil] = useState<ProfilType>()
+  const { data } = useGetProfilQuery()
+
+  useEffect(() => {
+    if (data?.data) {
+      setProfil(data?.data)
+    }
+  }, [data?.data])
 
   return (
     <div className="flex h-full w-full flex-col gap-32">
@@ -141,8 +153,12 @@ export default function DataPendaftar() {
         )}
       </div>
       {/* --- Content --- */}
-      <div className="h-full w-full flex-1">
-        <MappingDataPendaftar loading={isLoading} data={pendaftarMasuk} />
+      <div className="scrollbar h-full w-full flex-1 overflow-auto">
+        <MappingDataPendaftar
+          loading={isLoading}
+          data={pendaftarMasuk}
+          jenjang={profil?.identitas?.jenjang}
+        />
       </div>
       {/* --- Footer --- */}
       <div className="flex items-center justify-end">
