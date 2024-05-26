@@ -25,13 +25,13 @@ export default function RootMain() {
 
   const batasVerifikasi = dayjs(dashboard?.batas_verifikasi)
     .locale('id')
-    .format('DD MMMM YYYY hh:mm:ss')
+    .format('DD MMMM YYYY HH:mm:ss')
   const tglPengumuman = dayjs(dashboard?.tgl_pengumuman)
     .locale('id')
-    .format('DD MMMM YYYY hh:mm:ss')
+    .format('DD MMMM YYYY HH:mm:ss')
   const batas_daftar_ulang = dayjs(dashboard?.batas_daftar_ulang)
     .locale('id')
-    .format('DD MMMM YYYY hh:mm:ss')
+    .format('DD MMMM YYYY HH:mm:ss')
 
   const isLoadingText = isLoading || isFetching
   const runningText = `Batas Verifikasi: ${batasVerifikasi} • Tanggal Pengumuman: ${tglPengumuman} • Batas Daftar Ulang: ${batas_daftar_ulang}`

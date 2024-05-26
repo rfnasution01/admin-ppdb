@@ -77,7 +77,7 @@ export function MappingDataPendaftar({
                       label="Daftar"
                       value={dayjs(item?.daftar)
                         .locale('id')
-                        .format('DD MMMM YYYY hh:mm:ss')}
+                        .format('DD MMMM YYYY HH:mm:ss')}
                     />
                   </div>
                 </td>
@@ -112,7 +112,7 @@ export function MappingDataPendaftar({
                         label="Tanggal"
                         value={dayjs(item?.verifikasi_on)
                           .locale('id')
-                          .format('DD MMMM YYYY hh:mm:ss')}
+                          .format('DD MMMM YYYY HH:mm:ss')}
                       />
                     </div>
                   </div>

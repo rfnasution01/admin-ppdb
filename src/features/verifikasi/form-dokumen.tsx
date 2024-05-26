@@ -155,7 +155,7 @@ export function FormDokumen({
                         item?.verifikasi_on
                           ? dayjs(item?.verifikasi_on)
                               ?.locale('id')
-                              .format('DD/MMMM/YYYY hh:mm A')
+                              .format('DD/MMMM/YYYY HH:mm')
                           : '-'
                       }
                     />

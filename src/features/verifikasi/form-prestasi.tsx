@@ -182,7 +182,7 @@ export function FormPrestasi({
                           item?.tgl_validasi
                             ? dayjs(item?.tgl_validasi)
                                 ?.locale('id')
-                                .format('DD/MMMM/YYYY hh:mm A')
+                                .format('DD/MMMM/YYYY HH:mm')
                             : '-'
                         }
                       />
