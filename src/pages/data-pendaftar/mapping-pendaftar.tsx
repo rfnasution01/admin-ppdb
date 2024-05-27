@@ -114,26 +114,9 @@ export function MappingDataPendaftar({
                   </td>
                   <td className="px-24 py-12 align-top leading-medium">
                     <div className="flex flex-col gap-4">
-                      <div className="pr-32">
-                        <DataComponent
-                          label="Sekolah"
-                          value={item?.verifikasi_sekolah}
-                        />
-                      </div>
-                      <div className="pr-32">
-                        <DataComponent
-                          label="Petugas"
-                          value={item?.verifikasi_user}
-                        />
-                      </div>
-                      <div className="pr-32">
-                        <DataComponent
-                          label="Tanggal"
-                          value={dayjs(item?.verifikasi_on)
-                            .locale('id')
-                            .format('DD MMMM YYYY HH:mm:ss')}
-                        />
-                      </div>
+                      <p>{item?.verifikasi_sekolah}</p>
+                      <p>{item?.verifikasi_user}</p>
+                      <p>{item?.verifikasi_on}</p>
                     </div>
                   </td>
                   <td className="align-top">

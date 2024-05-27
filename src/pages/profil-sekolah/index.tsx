@@ -17,6 +17,8 @@ import {
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Loading from '@/components/Loading'
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 
 export default function ProfilSekolah() {
   // --- Form Schema ---
@@ -27,13 +29,24 @@ export default function ProfilSekolah() {
 
   // --- Profil ---
   const [profil, setProfil] = useState<ProfilType>()
-  const { data, isLoading, isFetching } = useGetProfilQuery()
+  const { data, isLoading, isFetching, isError, error } = useGetProfilQuery()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (data?.data) {
       setProfil(data?.data)
     }
-  }, [data?.data])
+    const errorMsg = error as {
+      data?: {
+        message?: string
+      }
+    }
+
+    if (errorMsg?.data?.message === 'Token Tidak Sesuai') {
+      Cookies.remove('token')
+      navigate('/login')
+    }
+  }, [data?.data, isError, error])
 
   // --- Create Profil ---
   const [
