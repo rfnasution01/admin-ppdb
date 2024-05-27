@@ -1,4 +1,3 @@
-import FileUploadForm from './form-upload'
 import { Link } from 'react-router-dom'
 import './dokumen.css'
 import { NoData } from '@/components/NoData'
@@ -14,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ModalValidasi } from './modal-validasi'
 import { Form } from '@/components/Form'
 import { FormLabelComponent } from './form-label-component'
+import { FileUploadForm } from './form-upload'
 
 export function FormDokumen({
   getProfil,
@@ -128,7 +128,7 @@ export function FormDokumen({
       <table className="w-full flex-1 border-collapse text-[2.4rem]">
         <thead className="relative z-10 align-top leading-medium">
           <tr className="border-b-[1.6rem] border-transparent">
-            <th className="no sticky top-0 !w-[5%] border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+            <th className="no sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
               No
             </th>
             <th className="file sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">

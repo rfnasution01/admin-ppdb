@@ -26,3 +26,7 @@ export const TolakPrestasi = zod.object({
     invalid_type_error: 'Format komentar tidak valid',
   }),
 })
+
+export const UploadSchema = zod.object({
+  file: zod.string().optional(),
+})

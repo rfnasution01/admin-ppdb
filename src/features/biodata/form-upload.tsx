@@ -3,8 +3,22 @@ import { useCreateUploadFileMutation } from '@/store/slices/pendaftaranAPI'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Zoom from 'react-medium-image-zoom'
+import { Bounce, toast } from 'react-toastify'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+import { UploadSchema } from '@/libs/schema/operator-schema'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/Form'
+import { Input } from '@/components/input'
+import { Loader2, ShieldBan, ShieldCheck, Upload } from 'lucide-react'
 
-const FileUploadForm = ({
+export const FileUploadForm = ({
   id_dokumen,
   format,
   status_verifikasi,
@@ -27,11 +41,13 @@ const FileUploadForm = ({
   setIsShowTolak: Dispatch<SetStateAction<boolean>>
   id: string
 }) => {
-  const [file, setFile] = useState()
-  const [errorMessage, setErrorMessage] = useState('')
+  const [file, setFile] = useState<File | null>(null)
+  const [selectedFile, setSelectedFile] = useState(
+    'Tidak ada file yang dipilih',
+  )
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0]
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0]
     const allowedTypesAll = ['image/jpeg', 'image/png', 'application/pdf']
     const allowedTypesImage = ['image/jpeg', 'image/png']
 
@@ -44,15 +60,41 @@ const FileUploadForm = ({
       selectedFile.size <= maxSize
     ) {
       setFile(selectedFile)
-      setErrorMessage('')
+      setSelectedFile(selectedFile?.name)
     } else {
-      console.log('tas')
-
       setFile(null)
-      if (!allowedTypes.includes(selectedFile.type)) {
-        setErrorMessage('File harus berupa gambar (JPEG/PNG) atau PDF')
-      } else if (selectedFile.size > maxSize) {
-        setErrorMessage('Ukuran file tidak boleh lebih dari 5MB')
+      setSelectedFile('Tidak ada file yang dipilih')
+
+      if (!allowedTypes.includes(selectedFile?.type || '')) {
+        toast.error(
+          `Type file tidak valid. Upload file dengan type ${allowedTypes}`,
+          {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            transition: Bounce,
+          },
+        )
+      } else if (selectedFile?.size > maxSize) {
+        toast.error(
+          `Ukuran file terlalu besar. Upload file dengan ukuran <5 MB`,
+          {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            transition: Bounce,
+          },
+        )
       }
     }
   }
@@ -80,35 +122,58 @@ const FileUploadForm = ({
         console.error('Gagal mengunggah file:', error)
       }
     } else {
-      setErrorMessage('Silakan pilih file terlebih dahulu')
+      toast.error(`Silakan pilih file terlebih dahulu`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
   }
 
   useEffect(() => {
     if (isSuccessUpload) {
-      setErrorMessage(`Upload file berhasil disimpan!`)
+      toast.success('Data berhasil diperbaharui!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
   }, [isSuccessUpload])
 
   useEffect(() => {
     if (isErrorUpload) {
-      const errorMsg = errorUpload as {
-        data?: {
-          message?: string
-        }
-      }
+      const errorMsg = errorUpload as { data?: { message?: string } }
 
-      setErrorMessage(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`)
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
   }, [isErrorUpload, errorUpload])
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setErrorMessage('')
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }, [isSuccessUpload, isErrorUpload])
+  const form = useForm<zod.infer<typeof UploadSchema>>({
+    resolver: zodResolver(UploadSchema),
+    defaultValues: {},
+  })
 
   return (
     <div
@@ -120,32 +185,70 @@ const FileUploadForm = ({
         },
       )}
     >
-      <input
-        className="w-full"
-        type="file"
-        onChange={handleFileChange}
-        disabled={isLoadingUpload || status_verifikasi === 1 || isLoading}
-      />
-      <div className="flex flex-col gap-8">
-        <button
-          className="text-nowrap rounded-lg bg-primary p-8 text-[2rem] text-white hover:bg-primary-background disabled:cursor-not-allowed"
-          disabled={
-            isLoadingUpload || status_verifikasi === 1 || isLoading || disabled
-          }
-          onClick={handleSubmit}
+      <Form {...form}>
+        <form
+          className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto"
+          onSubmit={form.handleSubmit(handleSubmit)}
         >
-          {dok_siswa ? 'Ganti File' : 'Unggah File'}
-        </button>
-        {errorMessage && (
-          <p
-            className={clsx('text-[2rem]', {
-              'text-danger': isErrorUpload,
-              'text-emerald-700': isSuccessUpload,
-            })}
+          <FormField
+            name="file"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="flex w-full items-center  text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]">
+                <div className="flex w-full flex-col gap-12 phones:w-full">
+                  <label
+                    htmlFor="filesUpload"
+                    className="flex items-center justify-center text-nowrap rounded-lg border bg-white px-24 py-12"
+                  >
+                    Pilih File
+                  </label>
+                  <p
+                    className={`${selectedFile === 'Tidak ada file yang dipilih' ? 'text-danger-300' : 'text-black'}`}
+                  >
+                    File: {selectedFile}
+                  </p>
+
+                  <FormControl>
+                    <Input
+                      id="filesUpload"
+                      type="file"
+                      className="hidden"
+                      disabled={status_verifikasi === 1 || isLoading}
+                      onChange={(e) => {
+                        field.onChange(e)
+                        handleFileChange(e)
+                      }}
+                    />
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <button
+            type="submit"
+            className="flex items-center justify-center gap-12 text-nowrap rounded-lg bg-primary p-8 text-[2rem] text-white hover:bg-primary-background disabled:cursor-not-allowed"
+            disabled={
+              isLoadingUpload ||
+              status_verifikasi === 1 ||
+              isLoading ||
+              disabled
+            }
           >
-            {errorMessage}
-          </p>
-        )}
+            {isLoadingUpload ? (
+              <span className="animate-spin duration-300">
+                <Loader2 size={16} />
+              </span>
+            ) : (
+              <Upload size={16} />
+            )}
+            {dok_siswa ? 'Ganti File' : 'Unggah File'}
+          </button>
+        </form>
+      </Form>
+
+      <div className="flex flex-col gap-8">
         {dok_siswa ? (
           <Zoom>
             <img
@@ -166,8 +269,15 @@ const FileUploadForm = ({
               setIsShowSetuju(true)
               setIsIdDokumen(id)
             }}
-            className="text-nowrap rounded-lg bg-green-700 p-8 text-center text-[2rem] text-white hover:bg-green-900 disabled:cursor-not-allowed"
+            className="flex items-center justify-center gap-8 text-nowrap rounded-lg bg-green-700 p-8 text-center text-[2rem] text-white hover:bg-green-900 disabled:cursor-not-allowed"
           >
+            {isLoadingUpload ? (
+              <span className="animate-spin duration-200">
+                <Loader2 size={16} />
+              </span>
+            ) : (
+              <ShieldCheck size={16} />
+            )}
             Verifikasi
           </button>
         )}
@@ -179,8 +289,15 @@ const FileUploadForm = ({
               setIsShowTolak(true)
               setIsIdDokumen(id)
             }}
-            className="text-nowrap rounded-lg bg-rose-700 p-8 text-center text-[2rem] text-white hover:bg-rose-900 disabled:cursor-not-allowed"
+            className="flex items-center justify-center gap-8 text-nowrap rounded-lg bg-rose-700 p-8 text-center text-[2rem] text-white hover:bg-rose-900 disabled:cursor-not-allowed"
           >
+            {isLoadingUpload ? (
+              <span className="animate-spin duration-300">
+                <Loader2 size={16} />
+              </span>
+            ) : (
+              <ShieldBan size={16} />
+            )}
             Tolak
           </button>
         )}
@@ -188,5 +305,3 @@ const FileUploadForm = ({
     </div>
   )
 }
-
-export default FileUploadForm
