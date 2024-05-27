@@ -38,6 +38,7 @@
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
     "tailwind-merge": "^2.2.2",
+    "react-to-print": "^2.15.1",
     "zod": "^3.22.5"
   },
   "devDependencies": {

@@ -36,6 +36,10 @@ export type PendaftarType = {
   verifikasi_on: string // Format: ISO 8601 datetime
   verifikasi_user: string
   verifikasi_sekolah: string
+  jenis_kelamin: string
+  nama_sekolah: string
+  alamat_lengkap: string
+  verifikasi: string
   skor1: string
   skor2: string
 }
