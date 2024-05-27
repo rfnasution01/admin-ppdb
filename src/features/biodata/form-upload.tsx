@@ -2,7 +2,7 @@
 import { useCreateUploadFileMutation } from '@/store/slices/pendaftaranAPI'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import Zoom from 'react-medium-image-zoom'
 
 const FileUploadForm = ({
   id_dokumen,
@@ -147,13 +147,14 @@ const FileUploadForm = ({
           </p>
         )}
         {dok_siswa ? (
-          <Link
-            to={dok_siswa}
-            className="text-nowrap rounded-lg bg-primary p-8 text-center text-[2rem] text-white hover:bg-primary-background disabled:cursor-not-allowed"
-            target="_blank"
-          >
-            Lihat Gambar
-          </Link>
+          <Zoom>
+            <img
+              src={dok_siswa}
+              alt="File Gambar"
+              className="h-full w-full"
+              style={{ cursor: 'pointer' }}
+            />
+          </Zoom>
         ) : (
           'File belum diupload'
         )}

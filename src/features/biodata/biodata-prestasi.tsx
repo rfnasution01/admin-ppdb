@@ -1,7 +1,7 @@
 import { Plus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { ModalTambahPrestasi } from './modal-tambah-prestasi'
-import { Link } from 'react-router-dom'
+import Zoom from 'react-medium-image-zoom'
 import dayjs from 'dayjs'
 import { MenubarPrestasi } from './menubar-prestasi'
 import { ModalEditPrestasi } from './modal-edit-prestasi'
@@ -145,22 +145,22 @@ export function BiodataPrestasi({
           <table className="w-full flex-1 border-collapse text-[2.4rem]">
             <thead className="relative z-10 align-top leading-medium">
               <tr className="border-b-[1.6rem] border-transparent">
-                <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                <th className="sticky top-0 w-[5%] border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
                   No
                 </th>
-                <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                <th className="sticky top-0 w-[30%] border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
                   Nama Prestasi
                 </th>
-                <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                <th className="sticky top-0 w-[20%] border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
                   Informasi Prestasi
                 </th>
-                <th className="sticky top-0 text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                <th className="sticky top-0 w-[20%] text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
                   Konfirmasi
                 </th>
-                <th className="sticky top-0 text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                <th className="sticky top-0 w-[20%] text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
                   Info
                 </th>
-                <th className="sticky top-0 text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+                <th className="sticky top-0 w-[5%] text-nowrap border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
                   Action
                 </th>
               </tr>
@@ -201,13 +201,14 @@ export function BiodataPrestasi({
 
                       <td className="px-24 py-12 align-top leading-medium">
                         <div className="flex flex-col gap-8">
-                          <Link
-                            target="_blank"
-                            to={item?.sertifikat}
-                            className="rounded-2xl bg-primary px-24  py-12 text-center text-[2rem] text-white hover:bg-primary-background"
-                          >
-                            Tampilkan
-                          </Link>
+                          <Zoom>
+                            <img
+                              src={item?.sertifikat}
+                              alt="File Gambar"
+                              className="h-full w-full"
+                              style={{ cursor: 'pointer' }}
+                            />
+                          </Zoom>
                           <button
                             type="button"
                             disabled={item?.validasi !== 0}
