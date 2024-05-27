@@ -16,6 +16,10 @@ export const TolakSchema = zod.object({
   }),
 })
 
+export const SetujuSchema = zod.object({
+  komentar: zod.string().nullish().nullable().optional(),
+})
+
 export const TolakPrestasi = zod.object({
   catatan: zod.string({
     required_error: 'Komentar harus di isi',

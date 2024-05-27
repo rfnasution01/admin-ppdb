@@ -6,7 +6,7 @@ import { VerifikasiDetailType } from '@/libs/types/verifikasi-type'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { TolakSchema } from '@/libs/schema/operator-schema'
+import { SetujuSchema, TolakSchema } from '@/libs/schema/operator-schema'
 import { useCreateVerifikasiDokumenMutation } from '@/store/slices/verifikasiAPI'
 import { useEffect, useState } from 'react'
 import { Bounce, toast } from 'react-toastify'
@@ -28,8 +28,13 @@ export function FormDokumen({
   const [isShowTolak, setIsShowTolak] = useState<boolean>(false)
 
   // --- Form Schema ---
-  const form = useForm<zod.infer<typeof TolakSchema>>({
+  const formTolak = useForm<zod.infer<typeof TolakSchema>>({
     resolver: zodResolver(TolakSchema),
+    defaultValues: {},
+  })
+
+  const formSetuju = useForm<zod.infer<typeof SetujuSchema>>({
+    resolver: zodResolver(SetujuSchema),
     defaultValues: {},
   })
 
@@ -46,15 +51,16 @@ export function FormDokumen({
 
   const [idDokumen, setIdDokumen] = useState<string>('')
 
-  const handleSubmitSetuju = async () => {
+  const handleSubmitSetuju = async (values) => {
     const body = {
       id: id,
       id_dokumen: idDokumen,
       status: '1',
+      komentar: values.komentar,
     }
 
     try {
-      await createValidasi({ data: body })
+      await createValidasi({ data: body }).unwrap()
     } catch (error) {
       console.log(error)
     }
@@ -222,24 +228,40 @@ export function FormDokumen({
             children={
               <div className="flex w-full flex-col gap-32 text-[2rem]">
                 <p>Apakah setuju ingin memvalidasi file?</p>
-                <div className="flex items-center justify-end gap-12">
-                  <button
-                    disabled={isLoadingValidasi}
-                    className="rounded-lg bg-rose-700 px-24 py-12 text-center text-white hover:bg-rose-900"
-                    type="button"
-                    onClick={() => setIsShowSetuju(false)}
+                <Form {...formSetuju}>
+                  <form
+                    className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto"
+                    onSubmit={formSetuju.handleSubmit(handleSubmitSetuju)}
                   >
-                    Tidak
-                  </button>
-                  <button
-                    disabled={isLoadingValidasi}
-                    className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
-                    type="button"
-                    onClick={handleSubmitSetuju}
-                  >
-                    Ya
-                  </button>
-                </div>
+                    <div className="hidden">
+                      <FormLabelComponent
+                        form={formSetuju}
+                        label="Komentar"
+                        placeHolder="Masukkan Komentar"
+                        name="komentar"
+                        type="text"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-end gap-12">
+                      <button
+                        disabled={isLoadingValidasi}
+                        className="rounded-lg bg-rose-700 px-24 py-12 text-center text-white hover:bg-rose-900"
+                        type="button"
+                        onClick={() => setIsShowSetuju(false)}
+                      >
+                        Tidak
+                      </button>
+                      <button
+                        disabled={isLoadingValidasi}
+                        className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
+                        type="submit"
+                      >
+                        Ya
+                      </button>
+                    </div>
+                  </form>
+                </Form>
               </div>
             }
           />
@@ -250,13 +272,13 @@ export function FormDokumen({
             children={
               <div className="flex w-full flex-col gap-32 text-[2rem]">
                 <p>Apakah setuju ingin menolak file ini?</p>
-                <Form {...form}>
+                <Form {...formTolak}>
                   <form
                     className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto"
-                    onSubmit={form.handleSubmit(handleSubmitTolak)}
+                    onSubmit={formTolak.handleSubmit(handleSubmitTolak)}
                   >
                     <FormLabelComponent
-                      form={form}
+                      form={formTolak}
                       label="Komentar"
                       placeHolder="Masukkan Komentar"
                       name="komentar"
