@@ -42,9 +42,7 @@ export const FileUploadForm = ({
   id: string
 }) => {
   const [file, setFile] = useState<File | null>(null)
-  const [selectedFile, setSelectedFile] = useState(
-    'Tidak ada file yang dipilih',
-  )
+  const [selectedFile, setSelectedFile] = useState('')
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0]
@@ -202,11 +200,13 @@ export const FileUploadForm = ({
                   >
                     Pilih File
                   </label>
-                  <p
-                    className={`${selectedFile === 'Tidak ada file yang dipilih' ? 'text-danger-300' : 'text-black'}`}
-                  >
-                    File: {selectedFile}
-                  </p>
+                  {selectedFile !== '' && (
+                    <p
+                      className={`${selectedFile === 'Tidak ada file yang dipilih' ? 'text-danger-300' : 'text-black'}`}
+                    >
+                      File: {selectedFile}
+                    </p>
+                  )}
 
                   <FormControl>
                     <Input

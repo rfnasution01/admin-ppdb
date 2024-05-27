@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react'
+import { Loader2, Plus, ShieldBan, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { ModalTambahPrestasi } from './modal-tambah-prestasi'
 import Zoom from 'react-medium-image-zoom'
@@ -210,17 +210,6 @@ export function BiodataPrestasi({
                             />
                           </Zoom>
                           <button
-                            type="button"
-                            disabled={item?.validasi !== 0}
-                            className="rounded-2xl bg-rose-700 px-24 py-12 text-center  text-[2rem] text-white hover:bg-rose-900 disabled:cursor-not-allowed"
-                            onClick={() => {
-                              setIsShowTolak(true)
-                              setIdDokumen(item?.id)
-                            }}
-                          >
-                            Tolak
-                          </button>
-                          <button
                             disabled={item?.validasi !== 0}
                             type="button"
                             className={`rounded-2xl bg-green-700 px-24 py-12 text-center  text-[2rem] text-white hover:bg-green-900 disabled:hover:cursor-not-allowed`}
@@ -230,6 +219,17 @@ export function BiodataPrestasi({
                             }}
                           >
                             Verifikasi
+                          </button>
+                          <button
+                            type="button"
+                            disabled={item?.validasi !== 0}
+                            className="rounded-2xl bg-rose-700 px-24 py-12 text-center  text-[2rem] text-white hover:bg-rose-900 disabled:cursor-not-allowed"
+                            onClick={() => {
+                              setIsShowTolak(true)
+                              setIdDokumen(item?.id)
+                            }}
+                          >
+                            Tolak
                           </button>
                         </div>
                       </td>
@@ -312,10 +312,17 @@ export function BiodataPrestasi({
               </button>
               <button
                 disabled={isLoadingValidasi}
-                className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
+                className="flex items-center justify-center gap-8 rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
                 type="button"
                 onClick={handleSubmitSetuju}
               >
+                {isLoadingValidasi ? (
+                  <span className="animate-spin duration-200">
+                    <Loader2 size={16} />
+                  </span>
+                ) : (
+                  <ShieldCheck size={16} />
+                )}
                 Ya
               </button>
             </div>
@@ -351,9 +358,16 @@ export function BiodataPrestasi({
                   </button>
                   <button
                     disabled={isLoadingValidasi}
-                    className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
+                    className="flex items-center justify-center gap-8 rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
                     type="submit"
                   >
+                    {isLoadingValidasi ? (
+                      <span className="animate-spin duration-200">
+                        <Loader2 size={16} />
+                      </span>
+                    ) : (
+                      <ShieldBan size={16} />
+                    )}
                     Ya
                   </button>
                 </div>
