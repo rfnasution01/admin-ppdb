@@ -5,20 +5,33 @@ import { usePathname } from '@/libs/hooks/usePathname'
 import { BiodataType } from '@/libs/types/biodata-type'
 import { useGetBiodataQuery } from '@/store/slices/biodataAPI'
 import clsx from 'clsx'
+import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export function ContentTitle() {
   const { firstPathname, splittedPath } = usePathname()
+  const navigate = useNavigate()
+
   // --- Biodata ---
   const [biodata, setBiodata] = useState<BiodataType>()
-  const { data, isLoading, isFetching } = useGetBiodataQuery()
+  const { data, isLoading, isFetching, isError, error } = useGetBiodataQuery()
 
   useEffect(() => {
     if (data?.data) {
       setBiodata(data?.data)
     }
-  }, [data?.data])
+    const errorMsg = error as {
+      data?: {
+        message?: string
+      }
+    }
+
+    if (errorMsg?.data?.message === 'Token Tidak Sesuai') {
+      Cookies.remove('token')
+      navigate('/login')
+    }
+  }, [data?.data, isError, error])
 
   const loading = isFetching || isLoading
 

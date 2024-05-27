@@ -7,6 +7,8 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 import React from 'react'
 import { ExpandData } from './expand-data'
+import { CetakBuktiPendaftaran } from './cetak-bukti-pendaftaran'
+import { CetakHasilVerifikasi } from './cetak-hasil-verifikasi'
 
 export function MappingDataPendaftar({
   loading,
@@ -39,6 +41,9 @@ export function MappingDataPendaftar({
             </th>
             <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
               Verifikasi
+            </th>
+            <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase">
+              Cetak
             </th>
             <th className="sticky top-0 border-b-2 bg-background p-4 px-24 py-12 text-left uppercase"></th>
           </tr>
@@ -109,26 +114,15 @@ export function MappingDataPendaftar({
                   </td>
                   <td className="px-24 py-12 align-top leading-medium">
                     <div className="flex flex-col gap-4">
-                      <div className="pr-32">
-                        <DataComponent
-                          label="Sekolah"
-                          value={item?.verifikasi_sekolah}
-                        />
-                      </div>
-                      <div className="pr-32">
-                        <DataComponent
-                          label="Petugas"
-                          value={item?.verifikasi_user}
-                        />
-                      </div>
-                      <div className="pr-32">
-                        <DataComponent
-                          label="Tanggal"
-                          value={dayjs(item?.verifikasi_on)
-                            .locale('id')
-                            .format('DD MMMM YYYY HH:mm:ss')}
-                        />
-                      </div>
+                      <p>{item?.verifikasi_sekolah}</p>
+                      <p>{item?.verifikasi_user}</p>
+                      <p>{item?.verifikasi_on}</p>
+                    </div>
+                  </td>
+                  <td className="align-top">
+                    <div className="flex flex-col gap-12">
+                      <CetakBuktiPendaftaran profil={item} jenjang={jenjang} />
+                      <CetakHasilVerifikasi profil={item} jenjang={jenjang} />
                     </div>
                   </td>
                   <td className="align-top">
