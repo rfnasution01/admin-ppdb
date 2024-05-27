@@ -35,5 +35,20 @@ export const columnsVerifikasi: Column<VerifikasiType>[] = [
       )
     },
   },
-  { header: 'Diajukan', key: 'diajukan', width: '!min-w-[12rem]' },
+  {
+    header: 'Diajukan',
+    key: 'diajukan',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>
+            {dayjs(rowData?.diajukan)
+              .locale('id')
+              .format('DD MMMM YYYY HH:mm:ss')}
+          </p>
+        </div>
+      )
+    },
+  },
 ]
