@@ -33,3 +33,5 @@ export const DeetailSiswaPage = loadable(
 export const DataPendaftarPage = loadable(
   () => import('@/pages/data-pendaftar'),
 )
+
+export const PendaftarPage = loadable(() => import('@/pages/pendaftaran'))

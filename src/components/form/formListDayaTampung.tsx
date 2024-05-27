@@ -1,10 +1,3 @@
-import { cn } from '@/libs/helpers/utils'
-import { useEffect, useState } from 'react'
-import { UseFormReturn } from 'react-hook-form'
-import Select, { components } from 'react-select'
-import { customStyles } from '@/libs/dummy/selectProps'
-import { KecamatanType } from '@/libs/types/profil-type'
-import { useGetKecamatanQuery } from '@/store/slices/profilAPI'
 import {
   FormControl,
   FormField,
@@ -12,6 +5,13 @@ import {
   FormLabel,
   FormMessage,
 } from '../Form'
+import { cn } from '@/libs/helpers/utils'
+import { useEffect, useState } from 'react'
+import { UseFormReturn } from 'react-hook-form'
+import Select, { components } from 'react-select'
+import { customStyles } from '@/libs/dummy/selectProps'
+import { useGetDayaTampungQuery } from '@/store/slices/dayaTampungAPI'
+import { DayaTampungType } from '@/libs/types/profil-type'
 
 type inputProps = {
   placeholder: string
@@ -20,12 +20,10 @@ type inputProps = {
   headerLabel: string
   useFormReturn: UseFormReturn
   className?: string
-  isBiodata?: boolean
 }
 
-export function FormListKecamatan({
+export function FormListDayaTampung({
   name,
-  isBiodata,
   headerLabel,
   placeholder,
   isDisabled,
@@ -33,25 +31,24 @@ export function FormListKecamatan({
   className,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
-  const [listKecamatan, setListKecamatan] = useState<KecamatanType[]>([])
-
-  const { data, isSuccess, isLoading, isFetching } = useGetKecamatanQuery()
+  const [listDayaTampung, setListDayaTampung] = useState<DayaTampungType[]>([])
+  const { data, isSuccess, isLoading, isFetching } = useGetDayaTampungQuery()
 
   useEffect(() => {
     if (!isFetching) {
       if (data?.meta?.page > 1) {
-        setListKecamatan((prevData) => [...prevData, ...(data?.data ?? [])])
+        setListDayaTampung((prevData) => [...prevData, ...(data?.data ?? [])])
       } else {
-        setListKecamatan([...(data?.data ?? [])])
+        setListDayaTampung([...(data?.data ?? [])])
       }
     }
-  }, [data])
+  }, [data?.data])
 
-  let kecamatanOption = []
+  let DayaTampungOption = []
   if (isSuccess) {
-    kecamatanOption = listKecamatan.map((item) => {
+    DayaTampungOption = listDayaTampung.map((item) => {
       return {
-        value: item?.id,
+        value: item?.kode,
         label: item?.nama,
       }
     })
@@ -81,16 +78,14 @@ export function FormListKecamatan({
         return (
           <FormItem
             className={cn(
-              'flex w-full items-center gap-32 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
+              'flex items-center gap-32 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
               className,
             )}
           >
-            <div
-              className={`${isBiodata ? 'w-1/6' : 'w-2/6'} phones:w-full phones:text-left`}
-            >
+            <div className="w-2/6 text-right text-emerald-900 phones:w-full phones:text-left">
               <FormLabel>{headerLabel}</FormLabel>
             </div>
-            <div className={`${isBiodata ? 'w-2/6' : 'w-full'} phones:w-full`}>
+            <div className="w-2/6 phones:w-full">
               <FormControl>
                 <Select
                   {...field}
@@ -144,9 +139,9 @@ export function FormListKecamatan({
                     }),
                   }}
                   className={'text-[2rem]'}
-                  options={kecamatanOption}
+                  options={DayaTampungOption}
                   value={
-                    kecamatanOption.filter(
+                    DayaTampungOption.filter(
                       (item) => item.value === field.value,
                     )[0]
                   }
@@ -154,7 +149,6 @@ export function FormListKecamatan({
                   onInputChange={search}
                   onChange={(optionSelected) => {
                     field.onChange(optionSelected.value)
-                    useFormReturn.setValue('kecamatan', optionSelected.value)
                   }}
                   isDisabled={isDisabled}
                   isLoading={isFetching || isLoading}

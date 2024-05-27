@@ -1,10 +1,3 @@
-import { cn } from '@/libs/helpers/utils'
-import { useEffect, useState } from 'react'
-import { UseFormReturn } from 'react-hook-form'
-import Select, { components } from 'react-select'
-import { customStyles } from '@/libs/dummy/selectProps'
-import { KecamatanType } from '@/libs/types/profil-type'
-import { useGetKecamatanQuery } from '@/store/slices/profilAPI'
 import {
   FormControl,
   FormField,
@@ -12,6 +5,13 @@ import {
   FormLabel,
   FormMessage,
 } from '../Form'
+import { cn } from '@/libs/helpers/utils'
+import { ProvinsiType } from '@/libs/types/pendaftaran-type'
+import { useGetDusunQuery } from '@/store/slices/pendaftaranAPI'
+import { useEffect, useState } from 'react'
+import { UseFormReturn } from 'react-hook-form'
+import Select, { components } from 'react-select'
+import { customStyles } from '@/libs/dummy/selectProps'
 
 type inputProps = {
   placeholder: string
@@ -20,12 +20,10 @@ type inputProps = {
   headerLabel: string
   useFormReturn: UseFormReturn
   className?: string
-  isBiodata?: boolean
 }
 
-export function FormListKecamatan({
+export function FormListDusun({
   name,
-  isBiodata,
   headerLabel,
   placeholder,
   isDisabled,
@@ -33,23 +31,27 @@ export function FormListKecamatan({
   className,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
-  const [listKecamatan, setListKecamatan] = useState<KecamatanType[]>([])
+  const [listDusun, setListDusun] = useState<ProvinsiType[]>([])
+  const desa = useFormReturn.watch('desa')
 
-  const { data, isSuccess, isLoading, isFetching } = useGetKecamatanQuery()
+  const { data, isSuccess, isLoading, isFetching } = useGetDusunQuery(
+    { id_desa: desa },
+    { skip: !desa },
+  )
 
   useEffect(() => {
     if (!isFetching) {
       if (data?.meta?.page > 1) {
-        setListKecamatan((prevData) => [...prevData, ...(data?.data ?? [])])
+        setListDusun((prevData) => [...prevData, ...(data?.data ?? [])])
       } else {
-        setListKecamatan([...(data?.data ?? [])])
+        setListDusun([...(data?.data ?? [])])
       }
     }
-  }, [data])
+  }, [data, desa])
 
-  let kecamatanOption = []
+  let dusunOption = []
   if (isSuccess) {
-    kecamatanOption = listKecamatan.map((item) => {
+    dusunOption = listDusun.map((item) => {
       return {
         value: item?.id,
         label: item?.nama,
@@ -85,12 +87,10 @@ export function FormListKecamatan({
               className,
             )}
           >
-            <div
-              className={`${isBiodata ? 'w-1/6' : 'w-2/6'} phones:w-full phones:text-left`}
-            >
+            <div className="w-2/6 phones:w-full phones:text-left">
               <FormLabel>{headerLabel}</FormLabel>
             </div>
-            <div className={`${isBiodata ? 'w-2/6' : 'w-full'} phones:w-full`}>
+            <div className="w-full phones:w-full">
               <FormControl>
                 <Select
                   {...field}
@@ -144,17 +144,15 @@ export function FormListKecamatan({
                     }),
                   }}
                   className={'text-[2rem]'}
-                  options={kecamatanOption}
+                  options={dusunOption}
                   value={
-                    kecamatanOption.filter(
-                      (item) => item.value === field.value,
-                    )[0]
+                    dusunOption.filter((item) => item.value === field.value)[0]
                   }
                   placeholder={placeholder ?? 'Pilih'}
                   onInputChange={search}
                   onChange={(optionSelected) => {
                     field.onChange(optionSelected.value)
-                    useFormReturn.setValue('kecamatan', optionSelected.value)
+                    useFormReturn.setValue('dusun', optionSelected.value)
                   }}
                   isDisabled={isDisabled}
                   isLoading={isFetching || isLoading}

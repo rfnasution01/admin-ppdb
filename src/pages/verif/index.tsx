@@ -122,23 +122,23 @@ export default function Verif() {
       ) : (
         <>
           {verifikasi?.map((item, idx) => (
-            <div className="col-span-4 phones:col-span-12" key={idx}>
+            <div
+              className="col-span-4 rounded-2xl border bg-white shadow hover:cursor-pointer hover:shadow-md phones:col-span-12"
+              key={idx}
+            >
               <div
-                className={clsx(
-                  'flex flex-col rounded-2xl border bg-white shadow hover:cursor-pointer hover:shadow-md',
-                  {
-                    'border-indigo-100':
-                      item?.kode?.toUpperCase() === enumJalur?.ZONASI,
-                    'border-rose-100':
-                      item?.kode?.toUpperCase() === enumJalur?.AFIRMASI,
-                    'border-orange-100':
-                      item?.kode?.toUpperCase() === enumJalur?.PRESTASI,
-                    'border-emerald-100':
-                      item?.kode?.toUpperCase() === enumJalur?.PINDAHTUGAS,
-                    'border-sky-100':
-                      item?.kode?.toUpperCase() === enumJalur?.DISABILITAS,
-                  },
-                )}
+                className={clsx('flex flex-col ', {
+                  'border-indigo-100':
+                    item?.kode?.toUpperCase() === enumJalur?.ZONASI,
+                  'border-rose-100':
+                    item?.kode?.toUpperCase() === enumJalur?.AFIRMASI,
+                  'border-orange-100':
+                    item?.kode?.toUpperCase() === enumJalur?.PRESTASI,
+                  'border-emerald-100':
+                    item?.kode?.toUpperCase() === enumJalur?.PINDAHTUGAS,
+                  'border-sky-100':
+                    item?.kode?.toUpperCase() === enumJalur?.DISABILITAS,
+                })}
               >
                 <p
                   className={clsx('p-32 text-white', {
@@ -211,7 +211,9 @@ export default function Verif() {
                       },
                     )}
                   >
-                    Proses Verifikasi
+                    {item?.verifikasi === 1
+                      ? 'Proses Verifikasi'
+                      : 'Verifikasi Data'}
                   </button>
                 </div>
               </div>

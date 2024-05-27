@@ -73,6 +73,7 @@ export function FormIdentitas({
         placeholder="Masukkan Kecamatan"
         name="kecamatan"
         isDisabled={isLoading}
+        isBiodata
       />
       <FormLabelComponent
         form={form}
