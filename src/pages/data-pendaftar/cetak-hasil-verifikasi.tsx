@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import ReactToPrint from 'react-to-print'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
@@ -13,22 +13,31 @@ export function CetakHasilVerifikasi({
   profil: PendaftarType
   jenjang: string
 }) {
-  const ref = useRef<HTMLDivElement>()
+  const ref = useRef<HTMLDivElement>(null)
+  const [dataSiap, setDataSiap] = useState(false)
+
+  useEffect(() => {
+    if (profil && jenjang) {
+      setDataSiap(true)
+    }
+  }, [profil, jenjang])
 
   return (
     <>
-      <ReactToPrint
-        bodyClass="print-agreement"
-        content={() => ref.current}
-        trigger={() => (
-          <div className="flex items-center gap-12 hover:cursor-pointer">
-            <p className="text-nowrap rounded-full bg-slate-200 px-24 py-12 text-[2rem] text-slate-700 phones:text-[2.4rem]">
-              Hasil Verifikasi
-            </p>
-          </div>
-        )}
-      />
-      {ref && (
+      {dataSiap && (
+        <ReactToPrint
+          bodyClass="print-agreement"
+          content={() => ref.current}
+          trigger={() => (
+            <div className="flex items-center gap-12 hover:cursor-pointer">
+              <p className="text-nowrap rounded-full bg-slate-200 px-24 py-12 text-[2rem] text-slate-700 phones:text-[2.4rem]">
+                Hasil Verifikasi
+              </p>
+            </div>
+          )}
+        />
+      )}
+      {dataSiap && (
         <section
           className="absolute left-[-10000px] top-auto h-auto overflow-hidden"
           aria-hidden
@@ -145,7 +154,6 @@ export function CetakHasilVerifikasi({
                 </div>
               </div>
               {/* --- Divider --- */}
-
               <div className="flex flex-col text-[2.4rem]">
                 <p className="border-l border-r border-t border-black bg-background p-24 text-[3rem] font-bold">
                   Status Verifikasi Sekolah
@@ -173,7 +181,7 @@ export function CetakHasilVerifikasi({
                 <div>
                   * Untuk mendapatkan informasi lebih lanjut, silahkan kunjungi
                   website dinas pendidikan{' '}
-                  <Link to="disdik.batubarakab.go.id">
+                  <Link to="https://disdik.batubarakab.go.id">
                     disdik.batubarakab.go.id
                   </Link>
                 </div>

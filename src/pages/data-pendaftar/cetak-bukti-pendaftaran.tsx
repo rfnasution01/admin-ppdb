@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import ReactToPrint from 'react-to-print'
 import dayjs from 'dayjs'
 import { enumVerifikasi } from '@/libs/enum/enum-verifikasi'
@@ -14,22 +14,31 @@ export function CetakBuktiPendaftaran({
   profil: PendaftarType
   jenjang: string
 }) {
-  const ref = useRef<HTMLDivElement>()
+  const ref = useRef<HTMLDivElement>(null)
+  const [dataSiap, setDataSiap] = useState(false)
+
+  useEffect(() => {
+    if (profil && jenjang) {
+      setDataSiap(true)
+    }
+  }, [profil, jenjang])
 
   return (
     <>
-      <ReactToPrint
-        bodyClass="print-agreement"
-        content={() => ref.current}
-        trigger={() => (
-          <div className="flex items-center gap-12 hover:cursor-pointer">
-            <p className="text-nowrap rounded-full bg-slate-200 px-24 py-12 text-[2rem] text-slate-700 phones:text-[2.4rem]">
-              Bukti Daftar
-            </p>
-          </div>
-        )}
-      />
-      {ref && (
+      {dataSiap && (
+        <ReactToPrint
+          bodyClass="print-agreement"
+          content={() => ref.current}
+          trigger={() => (
+            <div className="flex items-center gap-12 hover:cursor-pointer">
+              <p className="text-nowrap rounded-full bg-slate-200 px-24 py-12 text-[2rem] text-slate-700 phones:text-[2.4rem]">
+                Bukti Daftar
+              </p>
+            </div>
+          )}
+        />
+      )}
+      {dataSiap && (
         <section
           className="absolute left-[-10000px] top-auto h-auto overflow-hidden"
           aria-hidden
@@ -55,9 +64,9 @@ export function CetakBuktiPendaftaran({
               </div>
               {/* --- Content Header --- */}
               <div className="flex flex-col items-center gap-12 text-[4rem] font-bold uppercase">
-                <p>bukti pendaftaran</p>
+                <p>Bukti Pendaftaran</p>
                 <p className="text-center">
-                  jenjang {jenjang?.toUpperCase()} PPDB Online tahun pelajaran
+                  Jenjang {jenjang?.toUpperCase()} PPDB Online Tahun Pelajaran
                   2024/2025
                 </p>
               </div>
@@ -166,7 +175,7 @@ export function CetakBuktiPendaftaran({
                 <div>
                   * Untuk mendapatkan informasi lebih lanjut, silahkan kunjungi
                   website dinas pendidikan{' '}
-                  <Link to="disdik.batubarakab.go.id">
+                  <Link to="https://disdik.batubarakab.go.id">
                     disdik.batubarakab.go.id
                   </Link>
                 </div>
