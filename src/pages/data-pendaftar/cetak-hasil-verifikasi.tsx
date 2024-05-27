@@ -120,7 +120,7 @@ export function CetakHasilVerifikasi({
                     label="Pilihan 1"
                     value={
                       profil?.pilihan1
-                        ? `${profil?.pilihan1} (Skor Sementara: ${profil?.skor1})`
+                        ? `${profil?.pilihan1} (Skor: ${profil?.skor1})`
                         : '-'
                     }
                   />
@@ -129,7 +129,7 @@ export function CetakHasilVerifikasi({
                       label="Pilihan 2"
                       value={
                         profil?.pilihan2
-                          ? `${profil?.pilihan2} (Skor Sementara: ${profil?.skor2})`
+                          ? `${profil?.pilihan2} (Skor: ${profil?.skor2})`
                           : '-'
                       }
                     />
