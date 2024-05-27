@@ -34,7 +34,7 @@ export function MenubarPrestasi({
         </MenubarTrigger>
         <MenubarContent className="shadow-grey-light-1 absolute right-0 top-0 w-[30rem] transition-all duration-300">
           <div className="flex flex-col gap-12 rounded-2xl bg-white p-24 text-[2rem] phones:text-[2.4rem]">
-            {['Edit', 'Delete'].map((item, idx) => (
+            {['Edit'].map((item, idx) => (
               <div
                 className={clsx(
                   'flex items-center gap-12 text-nowrap border-l-2 border-transparent p-8 hover:cursor-pointer  hover:border-danger-100 hover:bg-danger-tint-1 hover:bg-opacity-30 hover:text-danger-100',
