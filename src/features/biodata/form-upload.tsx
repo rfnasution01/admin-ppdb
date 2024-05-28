@@ -248,7 +248,7 @@ export const FileUploadForm = ({
         </form>
       </Form>
 
-      <div className="flex flex-col gap-8">
+      <div className="h-{10rem} flex flex-col gap-8">
         {dok_siswa ? (
           <Zoom>
             <img
