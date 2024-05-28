@@ -16,6 +16,7 @@ import { FormLabelComponent } from '@/components/form/form-label-component'
 import { Form } from '@/components/Form'
 import { PernyataanType } from '@/libs/types/pendaftaran-type'
 import { useGetPernyataanQuery } from '@/store/slices/pendaftaranAPI'
+import { AlertCircle } from 'lucide-react'
 
 export function DataPilihSekolah({
   setName,
@@ -137,6 +138,23 @@ export function DataPilihSekolah({
     defaultValues: {},
   })
 
+  // --- Mengecek apakah masih ada dokumen yang belum di setujui ---
+  const isWajibFileNotVerified = item?.dokumen?.some(
+    (list) => list?.status_verifikasi !== 1,
+  )
+
+  const isFileNotVerified = item?.dokumen?.some(
+    (list) => list?.status_verifikasi === 0,
+  )
+
+  // --- Mengecek apakah masih ada prestasi yang belum di validasi ---
+  const isPrestasiNotVerified = item?.prestasi?.data?.some(
+    (list) => list?.validasi === 0,
+  )
+
+  const disableSetuju = isWajibFileNotVerified || isPrestasiNotVerified
+  const disableTOlak = isFileNotVerified || isPrestasiNotVerified
+
   return (
     <div className="flex h-full flex-col gap-12">
       <div className="flex h-full gap-32">
@@ -219,26 +237,54 @@ export function DataPilihSekolah({
         isOpen={isShowSetuju}
         setIsOpen={setIsShowSetuju}
         children={
-          <div className="flex w-full flex-col gap-32 text-[2rem]">
-            <div dangerouslySetInnerHTML={{ __html: Pernyataan?.operator }} />
-            <div className="flex items-center justify-end gap-12">
-              <button
-                disabled={isLoadingVerifikasiSetuju}
-                className="rounded-lg bg-rose-700 px-24 py-12 text-center text-white hover:bg-rose-900"
-                type="button"
-                onClick={() => setIsShowSetuju(false)}
-              >
-                Tidak
-              </button>
-              <button
-                disabled={isLoadingVerifikasiSetuju}
-                className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
-                type="button"
-                onClick={handleVerifikasiSetuju}
-              >
-                Ya
-              </button>
-            </div>
+          <div>
+            {disableSetuju ? (
+              <div className="flex flex-col gap-32">
+                <div className="flex items-center gap-12 border border-red-700 text-[2.2rem] text-red-700">
+                  <span className="bg-red-700 p-12 text-white">
+                    <AlertCircle size={16} />
+                  </span>
+                  <p>
+                    Maaf! Masih ada Dokumen yang belum di Verifikasi / di
+                    Setujui.
+                  </p>
+                </div>
+                <div className="flex items-center justify-end gap-12">
+                  <button
+                    disabled={isLoadingVerifikasiSetuju}
+                    className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
+                    type="button"
+                    onClick={() => setIsShowSetuju(false)}
+                  >
+                    Kembali
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex w-full flex-col gap-32 text-[2rem]">
+                <div
+                  dangerouslySetInnerHTML={{ __html: Pernyataan?.operator }}
+                />
+                <div className="flex items-center justify-end gap-12">
+                  <button
+                    disabled={isLoadingVerifikasiSetuju}
+                    className="rounded-lg bg-rose-700 px-24 py-12 text-center text-white hover:bg-rose-900"
+                    type="button"
+                    onClick={() => setIsShowSetuju(false)}
+                  >
+                    Tidak
+                  </button>
+                  <button
+                    disabled={isLoadingVerifikasiSetuju}
+                    className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
+                    type="button"
+                    onClick={handleVerifikasiSetuju}
+                  >
+                    Ya
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         }
       />
@@ -247,43 +293,66 @@ export function DataPilihSekolah({
         isOpen={isShowTolak}
         setIsOpen={setIsShowTolak}
         children={
-          <div className="flex w-full flex-col gap-32 text-[2rem]">
-            <Form {...form}>
-              <form
-                className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto"
-                onSubmit={form.handleSubmit(handleVerifikasiTolak)}
-              >
-                <FormLabelComponent
-                  form={form}
-                  label="Komentar"
-                  placeHolder="Masukkan Komentar"
-                  name="komentar"
-                  type="text"
-                  isKomentar
-                />
-                <div
-                  dangerouslySetInnerHTML={{ __html: Pernyataan?.operator }}
-                />
-
+          <div>
+            {disableTOlak ? (
+              <div className="flex flex-col gap-32">
+                <div className="flex items-center gap-12 border border-red-700 text-[2.2rem] text-red-700">
+                  <span className="bg-red-700 p-12 text-white">
+                    <AlertCircle size={16} />
+                  </span>
+                  <p>Maaf! Masih ada Dokumen yang belum di Verifikasi.</p>
+                </div>
                 <div className="flex items-center justify-end gap-12">
                   <button
                     disabled={isLoadingVerifikasiSetuju}
-                    className="rounded-lg bg-rose-700 px-24 py-12 text-center text-white hover:bg-rose-900"
+                    className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
                     type="button"
                     onClick={() => setIsShowTolak(false)}
                   >
-                    Tidak
-                  </button>
-                  <button
-                    disabled={isLoadingVerifikasiSetuju}
-                    className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
-                    type="submit"
-                  >
-                    Ya
+                    Kembali
                   </button>
                 </div>
-              </form>
-            </Form>
+              </div>
+            ) : (
+              <div className="flex w-full flex-col gap-32 text-[2rem]">
+                <Form {...form}>
+                  <form
+                    className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto"
+                    onSubmit={form.handleSubmit(handleVerifikasiTolak)}
+                  >
+                    <FormLabelComponent
+                      form={form}
+                      label="Komentar"
+                      placeHolder="Masukkan Komentar"
+                      name="komentar"
+                      type="text"
+                      isKomentar
+                    />
+                    <div
+                      dangerouslySetInnerHTML={{ __html: Pernyataan?.operator }}
+                    />
+
+                    <div className="flex items-center justify-end gap-12">
+                      <button
+                        disabled={isLoadingVerifikasiSetuju}
+                        className="rounded-lg bg-rose-700 px-24 py-12 text-center text-white hover:bg-rose-900"
+                        type="button"
+                        onClick={() => setIsShowTolak(false)}
+                      >
+                        Tidak
+                      </button>
+                      <button
+                        disabled={isLoadingVerifikasiSetuju}
+                        className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
+                        type="submit"
+                      >
+                        Ya
+                      </button>
+                    </div>
+                  </form>
+                </Form>
+              </div>
+            )}
           </div>
         }
       />
