@@ -62,7 +62,7 @@ export function DataPilihSekolah({
   async function handleVerifikasiSetuju() {
     const body = {
       id: id,
-      status: '1',
+      status: '2',
     }
 
     try {
@@ -75,7 +75,7 @@ export function DataPilihSekolah({
   async function handleVerifikasiTolak(values) {
     const body = {
       id: id,
-      status: '2',
+      status: '3',
       komentar: values?.komentar,
     }
 

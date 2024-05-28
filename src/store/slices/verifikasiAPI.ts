@@ -53,7 +53,7 @@ export const VerifikasiEndpoints = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['verifikasi', 'verifikasi-detail'],
+      invalidatesTags: ['verifikasi', 'verifikasi-detail', 'pendaftar'],
     }),
     createVerifikasiPrestasi: builder.mutation<
       void,

@@ -42,7 +42,6 @@ export const FileUploadForm = ({
   id: string
 }) => {
   const [file, setFile] = useState<File | null>(null)
-  const [selectedFile, setSelectedFile] = useState('')
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0]
@@ -58,10 +57,8 @@ export const FileUploadForm = ({
       selectedFile.size <= maxSize
     ) {
       setFile(selectedFile)
-      setSelectedFile(selectedFile?.name)
     } else {
       setFile(null)
-      setSelectedFile('Tidak ada file yang dipilih')
 
       if (!allowedTypes.includes(selectedFile?.type || '')) {
         toast.error(
@@ -194,25 +191,10 @@ export const FileUploadForm = ({
             render={({ field }) => (
               <FormItem className="flex w-full items-center  text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]">
                 <div className="flex w-full flex-col gap-12 phones:w-full">
-                  <label
-                    htmlFor="filesUpload"
-                    className="flex items-center justify-center text-nowrap rounded-lg border bg-white px-24 py-12"
-                  >
-                    Pilih File
-                  </label>
-                  {selectedFile !== '' && (
-                    <p
-                      className={`${selectedFile === 'Tidak ada file yang dipilih' ? 'text-danger-300' : 'text-black'}`}
-                    >
-                      File: {selectedFile}
-                    </p>
-                  )}
-
                   <FormControl>
                     <Input
-                      id="filesUpload"
                       type="file"
-                      className="hidden"
+                      className="bg-white"
                       disabled={status_verifikasi === 1 || isLoading}
                       onChange={(e) => {
                         field.onChange(e)
@@ -248,7 +230,7 @@ export const FileUploadForm = ({
         </form>
       </Form>
 
-      <div className="h-{10rem} flex flex-col gap-8">
+      <div className="flex flex-col gap-8">
         {dok_siswa ? (
           <Zoom>
             <img
