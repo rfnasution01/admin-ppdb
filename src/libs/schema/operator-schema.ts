@@ -30,3 +30,7 @@ export const TolakPrestasi = zod.object({
 export const UploadSchema = zod.object({
   file: zod.string().optional(),
 })
+
+export const VerifikasiSchema = zod.object({
+  verifikasi: zod.number().optional(),
+})

@@ -19,6 +19,21 @@ export type PendaftarParams = {
   page_size: number
   jalur: string
   search: string
+  verifikasi?: number
+}
+
+export type CariSiswaType = {
+  nama: string
+  jalur: string
+  nisn: string
+  nik: string
+  tanggal_lahir: string
+}
+
+export type NISNParams = {
+  page: number
+  page_size: number
+  search: string
 }
 
 export type PendaftarType = {

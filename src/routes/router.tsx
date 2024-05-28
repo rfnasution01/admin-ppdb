@@ -1,5 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
+  CariPage,
   ComingSoonPage,
   DashBoardPage,
   DataOperatorPage,
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
       {
         path: 'data-operator',
         element: <DataOperatorPage />,
+      },
+      {
+        path: 'cari-siswa',
+        element: <CariPage />,
       },
       {
         path: 'open-ticket',

@@ -20,6 +20,9 @@ type Props<T, P> = {
   onItemClick?: (rowData: T) => void
   collapseComponent?: React.ReactNode
   checkbox?: boolean
+  isNo?: boolean
+  page?: number
+  pageSize?: number
 }
 
 export function Table<T, P>({
@@ -32,6 +35,9 @@ export function Table<T, P>({
   onItemClick,
   collapseComponent,
   checkbox,
+  isNo,
+  page,
+  pageSize,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
 
@@ -50,11 +56,19 @@ export function Table<T, P>({
         >
           {/* ----- No Data/Fallback UI ----- */}
           {!data || data.length === 0 ? (
-            <p className="text-24 text-typography-disabled">No data.</p>
+            <p className="text-[2rem] text-typography-disabled">No data.</p>
           ) : (
-            <table className="flex-1 border-collapse text-24">
+            <table className="flex-1 border-collapse text-[2rem]">
               <thead className="relative z-10 align-top leading-medium">
                 <tr className="border-b-[1.6rem] border-transparent">
+                  {/* ----- Detail Header ----- */}
+                  {isNo && (
+                    <th className="sticky right-0 top-0 bg-background p-16 text-left ">
+                      <span className="shadow-[-2.4rem_0_0.4rem_rgb(255,255,255)]">
+                        No
+                      </span>
+                    </th>
+                  )}
                   {/* ----- Table Headers ----- */}
                   {columnArray
                     .filter((column) => !column.header.includes('Aksi'))
@@ -86,6 +100,12 @@ export function Table<T, P>({
                       )}
                       onClick={onItemClick ? () => onItemClick(row) : undefined}
                     >
+                      {isNo && (
+                        <td className="text-center align-middle">
+                          {page * pageSize - pageSize + rowIndex + 1}
+                        </td>
+                      )}
+
                       {/* ----- Table Data ----- */}
                       {columnArray
                         .filter((column) => !column.header.includes('Aksi'))

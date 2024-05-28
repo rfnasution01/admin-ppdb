@@ -35,3 +35,4 @@ export const DataPendaftarPage = loadable(
 )
 
 export const PendaftarPage = loadable(() => import('@/pages/pendaftaran'))
+export const CariPage = loadable(() => import('@/pages/cari'))

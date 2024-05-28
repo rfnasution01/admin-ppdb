@@ -19,6 +19,7 @@ export const LoginEndpoints = api.injectEndpoints({
         'verifikasi',
         'verifikasi-detail',
         'pendaftar',
+        'cari',
       ],
     }),
   }),

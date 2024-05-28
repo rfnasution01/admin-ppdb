@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   PencilLine,
   School,
+  Search,
   ShieldCheck,
   Ticket,
   UserRound,
@@ -34,6 +35,10 @@ export const ListNavigasi = [
   {
     title: 'Data Operator',
     icon: <UserRound size={16} />,
+  },
+  {
+    title: 'Cari Siswa',
+    icon: <Search size={16} />,
   },
   {
     title: 'Open Ticket',

@@ -15,15 +15,23 @@ import { FormListDataPerPage } from '@/components/form/formListDataPerPage'
 import { Pagination } from '@/components/Pagination'
 import { ProfilType } from '@/libs/types/profil-type'
 import { useGetProfilQuery } from '@/store/slices/profilAPI'
+import { FormListVerifikasi } from '@/components/form/formListVerifikasi'
+import { UploadSchema } from '@/libs/schema/operator-schema'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+import { Form } from '@/components/Form'
 
 export default function DataPendaftar() {
   const [search, setSearch] = useState<string>('')
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(10)
   const [jalur, setJalur] = useState<string>('')
+  const [verifikasi, setVerifikasi] = useState<number>(0)
   const [isShow, setIsShow] = useState<boolean>(false)
 
   const handleSearch = debounce((searchValue: string) => {
+    setPage(1)
     setSearch(searchValue)
   }, 300)
 
@@ -53,6 +61,7 @@ export default function DataPendaftar() {
     page: page,
     page_size: pageSize,
     search: search,
+    verifikasi: verifikasi,
   })
 
   useEffect(() => {
@@ -75,6 +84,11 @@ export default function DataPendaftar() {
     }
   }, [data?.data])
 
+  const form = useForm<zod.infer<typeof UploadSchema>>({
+    resolver: zodResolver(UploadSchema),
+    defaultValues: {},
+  })
+
   return (
     <div className="flex h-full w-full flex-col gap-32">
       {/* --- Header --- */}
@@ -88,6 +102,17 @@ export default function DataPendaftar() {
             <p>Filter</p>
             <Filter size={16} />
           </div>
+
+          <Form {...form}>
+            <form className="z-50">
+              <FormListVerifikasi
+                isDisabled={isLoading}
+                setIsVerrifikasi={setVerifikasi}
+                name="verifikasi"
+                form={form}
+              />
+            </form>
+          </Form>
 
           {/* --- Search --- */}
           <div className="flex flex-1 justify-end">
@@ -110,6 +135,7 @@ export default function DataPendaftar() {
             </button>
           </div>
         </div>
+
         {isShow && (
           <div className="scrollbar flex items-center gap-16 overflow-x-auto">
             <div

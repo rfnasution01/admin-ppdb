@@ -1,6 +1,7 @@
 import { Column } from '@/components/Table'
 import { VerifikasiType } from '../types/verifikasi-type'
 import dayjs from 'dayjs'
+import { CariSiswaType } from '../types/pendaftar-type'
 
 export const columnsVerifikasi: Column<VerifikasiType>[] = [
   { header: 'Nama', key: 'nama', width: '!min-w-[12rem]' },
@@ -46,6 +47,28 @@ export const columnsVerifikasi: Column<VerifikasiType>[] = [
             {dayjs(rowData?.diajukan)
               .locale('id')
               .format('DD MMMM YYYY HH:mm:ss')}
+          </p>
+        </div>
+      )
+    },
+  },
+]
+
+export const columnsCari: Column<CariSiswaType>[] = [
+  { header: 'Nama ', key: 'nama', width: '!min-w-[12rem]' },
+  { header: 'Jalur', key: 'jalur', width: '!min-w-[12rem]' },
+  { header: 'NISN', key: 'nisn', width: '!min-w-[12rem]' },
+  { header: 'NIK', key: 'nik', width: '!min-w-[12rem]' },
+
+  {
+    header: 'Tanggal Lahir',
+    key: 'tanggal_lahir',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>
+            {dayjs(rowData?.tanggal_lahir).locale('id').format('DD MMMM YYYY')}
           </p>
         </div>
       )
