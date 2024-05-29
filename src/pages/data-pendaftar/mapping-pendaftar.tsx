@@ -7,6 +7,7 @@ import React from 'react'
 import { ExpandData } from './expand-data'
 import { CetakBuktiPendaftaran } from './cetak-bukti-pendaftaran'
 import { CetakHasilVerifikasi } from './cetak-hasil-verifikasi'
+import { MenubarVerifikasi } from './menubar-verifikasi'
 
 export function MappingDataPendaftar({
   loading,
@@ -95,12 +96,14 @@ export function MappingDataPendaftar({
                             .locale('id')
                             .format('DD-MM-YYYY HH:mm:ss')}
                         </p>
-                        <p className="italic text-danger-100">
-                          Diverifikasi Sekolah{' '}
-                          {dayjs(item?.verifikasi_on)
-                            .locale('id')
-                            .format('DD-MM-YYYY HH:mm:ss')}
-                        </p>
+
+                        <button onClick={handlePrintClick}>
+                          <MenubarVerifikasi
+                            verifikasiPetugas={item?.verifikasi_user ?? '-'}
+                            verifikasiSekolah={item?.verifikasi_sekolah ?? '-'}
+                            verifikasiTanggal={item?.verifikasi_on}
+                          />
+                        </button>
                       </div>
                     </div>
                   </td>
