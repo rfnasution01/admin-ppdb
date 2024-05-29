@@ -5,9 +5,9 @@ import dayjs from 'dayjs'
 import { useState } from 'react'
 import React from 'react'
 import { ExpandData } from './expand-data'
-import { CetakBuktiPendaftaran } from './cetak-bukti-pendaftaran'
-import { CetakHasilVerifikasi } from './cetak-hasil-verifikasi'
 import { MenubarVerifikasi } from './menubar-verifikasi'
+import { BuktiPendaftaran } from './cetak-bukti'
+import { HasilPendaftaran } from './cetak-hasil'
 
 export function MappingDataPendaftar({
   loading,
@@ -81,7 +81,7 @@ export function MappingDataPendaftar({
                   <td className="text-nowrap px-24 py-12 align-top leading-medium">
                     <div className="flex items-start gap-24">
                       <div className="h-[10rem] w-[10rem]">
-                        <img src="/img/tutwuri.png" className="h-full w-full" />
+                        <img src={item?.pasfoto} className="h-full w-full" />
                       </div>
                       <div className="flex flex-col gap-4">
                         <p>{item?.nama ?? '-'}</p>
@@ -123,13 +123,10 @@ export function MappingDataPendaftar({
                   <td className="px-24 py-12 align-top leading-medium">
                     <div className="flex flex-col items-start justify-start gap-12">
                       <button onClick={handlePrintClick}>
-                        <CetakBuktiPendaftaran
-                          profil={item}
-                          jenjang={jenjang}
-                        />
+                        <BuktiPendaftaran profil={item} jenjang={jenjang} />
                       </button>
                       <button onClick={handlePrintClick}>
-                        <CetakHasilVerifikasi profil={item} jenjang={jenjang} />
+                        <HasilPendaftaran profil={item} jenjang={jenjang} />
                       </button>
                     </div>
                   </td>

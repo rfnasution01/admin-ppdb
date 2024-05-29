@@ -57,4 +57,5 @@ export type PendaftarType = {
   verifikasi: string
   skor1: string
   skor2: string
+  pasfoto: string
 }
