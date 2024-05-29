@@ -24,10 +24,12 @@ export function MappingGelombang({ data }: { data: DashboardType }) {
             <DataComponent
               value={item?.diverifikasi ?? 0}
               label="Diverifikasi"
+              link="/data-pendaftar"
             />
             <DataComponent
               value={item?.belum_diverifikasi ?? 0}
               label="Belum Verifikasi"
+              link="/permintaan-verifikasi"
             />
           </div>
         </div>
