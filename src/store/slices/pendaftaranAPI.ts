@@ -3,6 +3,7 @@ import {
   AlamatParams,
   BiodataParams,
   OrangTuaParams,
+  PendaftarDetailType,
   PendaftaranParams,
   PendidikanType,
   PernyataanType,
@@ -76,6 +77,19 @@ export const PendaftaranEndpoints = api.injectEndpoints({
     getPekerjaan: builder.query<Res<PendidikanType[]>, void>({
       query: () => ({
         url: `referensi/pekerjaan`,
+      }),
+    }),
+    getPendaftarDetail: builder.query<
+      Res<PendidikanType[]>,
+      PendaftarDetailType
+    >({
+      query: ({ page, page_size, search }) => ({
+        url: `sekolah/pendaftar_detail`,
+        params: {
+          page: page,
+          page_size: page_size,
+          search: search,
+        },
       }),
     }),
     createJalur: builder.mutation<void, { data: PendaftaranParams }>({
@@ -167,4 +181,5 @@ export const {
   useGetPendidikanQuery,
   useGetPernyataanQuery,
   useGetPrestasiQuery,
+  useGetPendaftarDetailQuery,
 } = PendaftaranEndpoints

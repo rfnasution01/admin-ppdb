@@ -75,3 +75,69 @@ export const columnsCari: Column<CariSiswaType>[] = [
     },
   },
 ]
+
+export const columnsPendaftar: Column<CariSiswaType>[] = [
+  {
+    header: 'NISN/NIK',
+    key: 'nik',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          {rowData?.nisn ? (
+            <p>
+              {rowData?.nisn}/{rowData?.nik}
+            </p>
+          ) : (
+            <p>{rowData?.nik}</p>
+          )}
+        </div>
+      )
+    },
+  },
+  { header: 'Nama', key: 'nama', width: '!min-w-[12rem]' },
+  {
+    header: 'Tanggal Lahir',
+    key: 'tanggal_lahir',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>
+            {dayjs(rowData?.tanggal_lahir).locale('id').format('DD-MM-YYYY')}
+          </p>
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Validasi Pendaftar',
+    key: 'validasi_pendaftar',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>
+            {rowData?.validasi_pendaftar
+              ? dayjs(rowData?.validasi_pendaftar)
+                  .locale('id')
+                  .format('DD-MM-YYYY HH:mm:ss')
+              : '-'}
+          </p>
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Validasi Sekolah',
+    key: 'verifikasi',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>{rowData?.verifikasi === 0 ? 'Belum' : 'Sudah'}</p>
+        </div>
+      )
+    },
+  },
+]

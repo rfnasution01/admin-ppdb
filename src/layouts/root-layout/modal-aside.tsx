@@ -27,7 +27,8 @@ export function ModalAside({
   const isActivePage = (item: string) => {
     if (
       convertToSlug(item) === firstPathname ||
-      (item.toLowerCase() === 'dashboard' && firstPathname === '')
+      (item.toLowerCase() === 'dashboard' && firstPathname === '') ||
+      (item.toLowerCase() === 'dashboard' && firstPathname === 'pendaftar')
     ) {
       return true
     }

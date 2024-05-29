@@ -1,5 +1,8 @@
 import { PageInfoType, PendaftarJalur } from '@/libs/types/pendaftar-type'
-import { VerifikasiType } from '@/libs/types/verifikasi-type'
+import {
+  VerifikasiPendaftarType,
+  VerifikasiType,
+} from '@/libs/types/verifikasi-type'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import Cookies from 'js-cookie'
 
@@ -20,6 +23,7 @@ export type Res<T, M = undefined> = {
   page_info?: PageInfoType
   pendaftar_jalur?: PendaftarJalur[]
   user_lain?: VerifikasiType[]
+  verifikasi: VerifikasiPendaftarType
 }
 
 const baseURL = import.meta.env.VITE_BASE_URL

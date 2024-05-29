@@ -15,6 +15,11 @@ export type VerifikasiType = {
   kode: string
 }
 
+export type VerifikasiPendaftarType = {
+  sudah: number
+  belum: number
+}
+
 export type BiodataType = {
   nomor_peserta: string
   nama: string

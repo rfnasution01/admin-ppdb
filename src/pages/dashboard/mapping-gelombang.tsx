@@ -20,7 +20,11 @@ export function MappingGelombang({ data }: { data: DashboardType }) {
             {item?.nama}
           </p>
           <div className="flex flex-col gap-12 p-32">
-            <DataComponent value={item?.pendaftar ?? 0} label="Pendaftar" />
+            <DataComponent
+              value={item?.pendaftar ?? 0}
+              label="Pendaftar"
+              link="/pendaftar"
+            />
             <DataComponent
               value={item?.diverifikasi ?? 0}
               label="Diverifikasi"

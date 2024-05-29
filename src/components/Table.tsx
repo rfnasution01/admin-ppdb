@@ -63,10 +63,8 @@ export function Table<T, P>({
                 <tr className="border-b-[1.6rem] border-transparent">
                   {/* ----- Detail Header ----- */}
                   {isNo && (
-                    <th className="sticky right-0 top-0 bg-background p-16 text-left ">
-                      <span className="shadow-[-2.4rem_0_0.4rem_rgb(255,255,255)]">
-                        No
-                      </span>
+                    <th className="sticky right-0 top-0 bg-background p-16 text-left">
+                      <span className="">#</span>
                     </th>
                   )}
                   {/* ----- Table Headers ----- */}

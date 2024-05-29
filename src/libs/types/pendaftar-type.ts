@@ -28,6 +28,8 @@ export type CariSiswaType = {
   nisn: string
   nik: string
   tanggal_lahir: string
+  validasi_pendaftar?: string
+  verifikasi?: number
 }
 
 export type NISNParams = {

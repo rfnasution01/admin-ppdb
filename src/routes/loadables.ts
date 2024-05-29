@@ -5,6 +5,9 @@ import loadable from '@loadable/component'
 // ------------------
 
 export const RootLayout = loadable(() => import('@/layouts/root-layout'))
+export const DashBoardLayout = loadable(
+  () => import('@/layouts/root-layout/dashboard-main'),
+)
 export const VerifikasiLayout = loadable(
   () => import('@/layouts/verifikasi-layout'),
 )
@@ -36,3 +39,6 @@ export const DataPendaftarPage = loadable(
 
 export const PendaftarPage = loadable(() => import('@/pages/pendaftaran'))
 export const CariPage = loadable(() => import('@/pages/cari'))
+export const LampiranPendaftarPage = loadable(
+  () => import('@/pages/dashboard/pendaftar'),
+)

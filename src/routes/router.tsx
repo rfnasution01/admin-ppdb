@@ -2,11 +2,13 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   CariPage,
   ComingSoonPage,
+  DashBoardLayout,
   DashBoardPage,
   DataOperatorPage,
   DataPendaftarPage,
   DayaTampungPage,
   GantiPasswordPage,
+  LampiranPendaftarPage,
   LoginPage,
   PendaftarPage,
   ProfilSekolahPage,
@@ -32,7 +34,17 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <DashBoardPage />,
+        element: <DashBoardLayout />,
+        children: [
+          {
+            path: '',
+            element: <DashBoardPage />,
+          },
+          {
+            path: 'pendaftar',
+            element: <LampiranPendaftarPage />,
+          },
+        ],
       },
       {
         path: 'profil-sekolah',

@@ -3,6 +3,12 @@ export type PendaftaranParams = {
   jalur: string
 }
 
+export type PendaftarDetailType = {
+  page: number
+  page_size: number
+  search: string
+}
+
 export type BiodataParams = {
   id?: string
   tempat_lahir: string
