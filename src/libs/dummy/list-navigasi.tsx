@@ -2,7 +2,6 @@ import {
   Clipboard,
   KeySquare,
   LayoutDashboard,
-  PencilLine,
   School,
   Search,
   ShieldCheck,
@@ -43,10 +42,6 @@ export const ListNavigasi = [
   {
     title: 'Open Ticket',
     icon: <Ticket size={16} />,
-  },
-  {
-    title: 'Pengguna Aplikasi',
-    icon: <PencilLine size={16} />,
   },
   {
     title: 'Ganti Password',

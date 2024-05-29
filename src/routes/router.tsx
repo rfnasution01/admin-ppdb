@@ -74,10 +74,6 @@ export const router = createBrowserRouter([
         element: <ComingSoonPage />,
       },
       {
-        path: 'pengguna-aplikasi',
-        element: <ComingSoonPage />,
-      },
-      {
         path: 'ganti-password',
         element: <GantiPasswordPage />,
       },
