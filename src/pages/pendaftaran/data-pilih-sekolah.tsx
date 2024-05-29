@@ -152,6 +152,18 @@ export function DataPilihSekolah({
     (list) => list?.validasi === 0,
   )
 
+  const fileNotVerified = item?.dokumen?.filter(
+    (list) => list?.status_verifikasi === 0,
+  )
+
+  const fileNotAccepted = item?.dokumen?.filter(
+    (list) => list?.status_verifikasi === 2,
+  )
+
+  const prestasiNotVerified = item?.prestasi?.data?.filter(
+    (list) => list?.validasi === 0,
+  )
+
   const disableSetuju = isWajibFileNotVerified || isPrestasiNotVerified
   const disableTOlak = isFileNotVerified || isPrestasiNotVerified
 
@@ -249,6 +261,41 @@ export function DataPilihSekolah({
                     Setujui.
                   </p>
                 </div>
+                <div className="flex flex-col gap-24 text-[2.4rem]">
+                  {/* --- DOkumen Belum Diverifikasi --- */}
+                  {fileNotVerified?.length > 0 && (
+                    <div className="flex flex-col gap-16">
+                      <p>Dokumen yang belum validasi:</p>
+                      <ol className="list-decimal pl-48">
+                        {fileNotVerified?.map((item, idx) => (
+                          <li key={idx}>{item?.nama}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
+                  {/* --- DOkumen Belum Disetujui --- */}
+                  {fileNotAccepted?.length > 0 && (
+                    <div className="flex flex-col gap-16">
+                      <p>Dokumen yang belum disetujui:</p>
+                      <ol className="list-decimal pl-48">
+                        {fileNotAccepted?.map((item, idx) => (
+                          <li key={idx}>{item?.nama}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
+                  {/* --- Prestasi Belum Divalidasi--- */}
+                  {prestasiNotVerified?.length > 0 && (
+                    <div className="flex flex-col gap-16">
+                      <p>Prestasi yang belum divalidasi:</p>
+                      <ol className="list-decimal pl-48">
+                        {prestasiNotVerified?.map((item, idx) => (
+                          <li key={idx}>{item?.nama_prestasi}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
+                </div>
                 <div className="flex items-center justify-end gap-12">
                   <button
                     disabled={isLoadingVerifikasiSetuju}
@@ -301,6 +348,31 @@ export function DataPilihSekolah({
                     <AlertCircle size={16} />
                   </span>
                   <p>Maaf! Masih ada Dokumen yang belum di Verifikasi.</p>
+                </div>
+                <div className="flex flex-col gap-24 text-[2.4rem]">
+                  {/* --- DOkumen Belum Diverifikasi --- */}
+                  {fileNotVerified?.length > 0 && (
+                    <div className="flex flex-col gap-16">
+                      <p>Dokumen yang belum validasi:</p>
+                      <ol className="list-decimal pl-48">
+                        {fileNotVerified?.map((item, idx) => (
+                          <li key={idx}>{item?.nama}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
+
+                  {/* --- Prestasi Belum Divalidasi--- */}
+                  {prestasiNotVerified?.length > 0 && (
+                    <div className="flex flex-col gap-16">
+                      <p>Prestasi yang belum divalidasi:</p>
+                      <ol className="list-decimal pl-48">
+                        {prestasiNotVerified?.map((item, idx) => (
+                          <li key={idx}>{item?.nama_prestasi}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-center justify-end gap-12">
                   <button
