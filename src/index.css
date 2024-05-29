@@ -120,3 +120,13 @@
 #RootLayout section:not(#RootLayout) > section {
   @apply flex -translate-y-2 flex-col gap-48 rounded-2xl border-[1.5px] border-border border-t-transparent bg-white p-32;
 }
+
+@media print {
+  html,
+  body {
+    height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+  }
+}
