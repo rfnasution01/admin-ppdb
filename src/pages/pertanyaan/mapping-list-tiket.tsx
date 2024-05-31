@@ -1,7 +1,7 @@
 import TimeSinceUploaded from '@/libs/helpers/format-time'
 import { TiketType } from '@/libs/types/tiket-type'
 import { PasPhoto } from './pas-photo'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import clsx from 'clsx'
 
 export function MappingListTiket({
@@ -13,11 +13,15 @@ export function MappingListTiket({
   name: string
   setName: Dispatch<SetStateAction<string>>
 }) {
+  const [show, setShow] = useState<boolean>(true)
   return (
     <div className="scrollbar flex h-full flex-col gap-24 overflow-y-auto">
       {item?.map((list, idx) => (
         <div
-          onClick={() => setName(list?.id)}
+          onClick={() => {
+            setShow(false)
+            setName(list?.id)
+          }}
           className={clsx(
             'flex flex-col gap-16 rounded-2xl border p-32 hover:cursor-pointer hover:border-[#73C2FF] hover:bg-[#f5faff]',
             {
@@ -53,7 +57,7 @@ export function MappingListTiket({
           {/* --- Deskripsi --- */}
           <div className="flex items-center justify-between">
             <p className="limited-text">{list?.judul}</p>
-            {list?.belum_baca > 0 && (
+            {list?.belum_baca > 0 && show && (
               <p className="flex h-[3rem] w-[3rem] items-center justify-center rounded-full bg-rose-500 p-8 text-[1.6rem] text-white">
                 {list?.belum_baca}
               </p>

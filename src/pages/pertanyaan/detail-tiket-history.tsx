@@ -92,11 +92,11 @@ export function DetailHistory({ detail }: { detail: TiketDetailType }) {
                 )}
                 <div className="items-canter flex justify-end gap-16 text-[2rem] italic">
                   <TimeSinceUploaded uploadTime={item?.tanggal} />
-                  {item?.baca === '0' && item?.jenis_chat === 'SISWA' ? (
+                  {item?.baca === '0' && item?.jenis_chat !== 'SISWA' ? (
                     <span className="text-slate-500">
                       <CheckCheck size={16} />
                     </span>
-                  ) : item?.baca === '1' && item?.jenis_chat === 'SISWA' ? (
+                  ) : item?.baca === '1' && item?.jenis_chat !== 'SISWA' ? (
                     <span className="text-primary">
                       <CheckCheck size={16} />
                     </span>

@@ -1,99 +1,40 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TiketDetailType } from '@/libs/types/tiket-type'
-import { Bounce, ToastContainer, toast } from 'react-toastify'
 import { PasPhoto } from './pas-photo'
 import { DetailTiketData } from './detail-tiket-data'
 import { DetailHistory } from './detail-tiket-history'
 import { FormChat } from './form-chat'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
-import { chatSchema } from '@/libs/schema/ticket-schema'
-import { useCreateTiketChatMutation } from '@/store/slices/pertanyaanAPI'
-import { useEffect, useState } from 'react'
 import clsx from 'clsx'
+import { Loader, Ticket } from 'lucide-react'
+import { Form } from '@/components/Form'
+import { UseFormReturn } from 'react-hook-form'
+import { Dispatch, SetStateAction } from 'react'
 
 export function MappingDetail({
   item,
-  name,
+  formClose,
+  form,
+  handleSubmit,
+  handleSubmitClose,
+  isLoadingClose,
+  isLoadingUpload,
+  setUrls,
 }: {
   item: TiketDetailType
-  name: string
+  formClose: UseFormReturn
+  form: UseFormReturn
+  handleSubmitClose: () => Promise<void>
+  handleSubmit: (values: any) => Promise<void>
+  isLoadingUpload: boolean
+  isLoadingClose: boolean
+  setUrls: Dispatch<SetStateAction<string[]>>
 }) {
-  const [urls, setUrls] = useState<string[]>([])
-
-  // --- Form Schema ---
-  const form = useForm<zod.infer<typeof chatSchema>>({
-    resolver: zodResolver(chatSchema),
-    defaultValues: {},
-  })
-
-  // --- Create Upload ---
-  const [
-    createUpload,
-    {
-      isError: isErrorUpload,
-      error: errorUpload,
-      isLoading: isLoadingUpload,
-      isSuccess: isSuccessUpload,
-    },
-  ] = useCreateTiketChatMutation()
-
-  const handleSubmit = async (values) => {
-    const body = {
-      id: name,
-      isi: values?.isi,
-      berkas: urls,
-    }
-    try {
-      await createUpload({ data: body })
-    } catch (error) {
-      console.error('Gagal mengunggah file:', error)
-    }
-  }
-
-  useEffect(() => {
-    if (isSuccessUpload) {
-      toast.success('Pesan berhasil dikirim!', {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-      form.reset()
-      setUrls([])
-      //   window.location.reload()
-    }
-  }, [isSuccessUpload])
-
-  useEffect(() => {
-    if (isErrorUpload) {
-      const errorMsg = errorUpload as { data?: { message?: string } }
-
-      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-  }, [isErrorUpload, errorUpload])
-
   return (
     <div className="flex h-full w-full flex-col gap-32">
       {/* --- Header --- */}
       <div className="flex flex-col gap-12 border-b border-[#ccd2da] pb-16">
         <p className="text-[3rem]">{item?.ticket?.judul ?? '-'}</p>
-        <div className="flex">
+        <div className="flex items-center justify-between">
           <div
             className={clsx('rounded-full px-24 py-8 text-[2rem]', {
               'bg-blue-300 text-blue-700': item?.ticket?.status === 0,
@@ -106,6 +47,29 @@ export function MappingDetail({
               : item?.ticket?.status === 2
                 ? 'Selesai'
                 : 'Menunggu'}
+          </div>
+          <div className="flex">
+            <Form {...formClose}>
+              <form
+                className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto rounded-2xl border"
+                onSubmit={formClose.handleSubmit(handleSubmitClose)}
+              >
+                <button
+                  disabled={item?.ticket?.status === 2}
+                  type="submit"
+                  className="flex items-center gap-12 rounded-full bg-blue-500 px-24 py-12 text-[2rem] text-white hover:bg-blue-700 disabled:hover:cursor-not-allowed"
+                >
+                  Tutup Tiket
+                  {isLoadingClose ? (
+                    <span className="animate-spin duration-300">
+                      <Loader size={16} />
+                    </span>
+                  ) : (
+                    <Ticket size={16} />
+                  )}
+                </button>
+              </form>
+            </Form>
           </div>
         </div>
       </div>
@@ -122,19 +86,27 @@ export function MappingDetail({
         {/* --- Chat --- */}
         <DetailHistory detail={item} />
 
-        <div className="flex gap-32">
-          {/* --- Image Profil --- */}
-          <PasPhoto pasPhoto={item?.ticket?.photo} name={item?.ticket?.nama} />
-          {/* --- Data Tiket --- */}
-          <FormChat
-            form={form}
-            handleSubmit={handleSubmit}
-            isLoadingUpload={isLoadingUpload}
-            setUrls={setUrls}
-          />
-        </div>
+        {item?.ticket?.status !== 2 ? (
+          <div className="flex gap-32">
+            {/* --- Image Profil --- */}
+            <PasPhoto
+              pasPhoto={item?.ticket?.photo}
+              name={item?.ticket?.nama}
+            />
+            {/* --- Data Tiket --- */}
+            <FormChat
+              form={form}
+              handleSubmit={handleSubmit}
+              isLoadingUpload={isLoadingUpload}
+              setUrls={setUrls}
+            />
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-red-300 bg-red-100 p-24 text-red-700">
+            Tiket telah ditutup
+          </div>
+        )}
       </div>
-      <ToastContainer />
     </div>
   )
 }

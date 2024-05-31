@@ -60,6 +60,21 @@ export const TiketEndpoints = api.injectEndpoints({
       }),
       invalidatesTags: ['tiket', 'detail-tiket', 'notifikasi'],
     }),
+    createTutupChat: builder.mutation<
+      void,
+      {
+        data: {
+          id: string
+        }
+      }
+    >({
+      query: ({ data }) => ({
+        url: `sekolah/layanan_close`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['tiket', 'detail-tiket', 'notifikasi'],
+    }),
   }),
 })
 
@@ -69,4 +84,5 @@ export const {
   useGetTiketNotifikasiQuery,
   useCreateFileMutation,
   useCreateTiketChatMutation,
+  useCreateTutupChatMutation,
 } = TiketEndpoints
