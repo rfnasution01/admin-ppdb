@@ -11,7 +11,7 @@ export default function Pertanyaan() {
         <ListPertanyaanSiswa name={name} setName={setName} />
       </div>
       <div className="scrollbar col-span-7 h-full overflow-y-auto">
-        <DetailPertanyaanSiswa />
+        <DetailPertanyaanSiswa name={name} />
       </div>
     </div>
   )

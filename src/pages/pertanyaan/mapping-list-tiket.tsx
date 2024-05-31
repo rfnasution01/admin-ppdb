@@ -29,7 +29,22 @@ export function MappingListTiket({
           <div className="flex items-center justify-between gap-16">
             <div className="flex items-center gap-16">
               <PasPhoto pasPhoto={list?.photo} name={list?.nama} />
-              <p>{list?.nama}</p>
+              <div className="flex flex-col gap-8">
+                <p>{list?.nama}</p>
+                <div
+                  className={clsx('rounded-full px-24 py-8 text-[1.8rem]', {
+                    'bg-blue-300 text-blue-700': list?.status === 0,
+                    'bg-orange-300 text-orange-700': list?.status === 1,
+                    'bg-green-300 text-green-700': list?.status === 2,
+                  })}
+                >
+                  {list?.status === 1
+                    ? 'Berlangsung'
+                    : list?.status === 2
+                      ? 'Selesai'
+                      : 'Menunggu'}
+                </div>
+              </div>
             </div>
             <div className="text-[1.8rem] italic">
               <TimeSinceUploaded uploadTime={list?.tanggal} />

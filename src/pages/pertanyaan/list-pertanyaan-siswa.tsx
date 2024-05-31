@@ -62,7 +62,7 @@ export function ListPertanyaanSiswa({
     <div className="flex h-full flex-col gap-32 rounded-2xl bg-white p-32">
       {/* --- Filter --- */}
       <div className="flex flex-col gap-16">
-        <div className="items-centr flex gap-16">
+        <div className="flex items-center gap-16">
           {/* --- Search --- */}
           <div className="flex w-full flex-1">
             <input
@@ -102,15 +102,15 @@ export function ListPertanyaanSiswa({
         </div>
         {isShow && (
           <div className="flex items-center gap-16">
-            {['Semua', 'Menunggu', 'On Progress', 'Selesai'].map(
+            {['Semua', 'Menunggu', 'Berlangsung', 'Selesai'].map(
               (item, idx) => (
                 <div
                   className={clsx(
-                    'text-nowrap rounded-full bg-red-300 px-24 py-12 text-[1.6rem] hover:cursor-pointer',
+                    'text-nowrap rounded-full px-24 py-12 text-[1.6rem] hover:cursor-pointer',
                     {
                       'bg-red-300 text-red-700': item === 'Semua',
                       'bg-blue-300 text-blue-700': item === 'Menunggu',
-                      'bg-orange-300 text-orange-700': item === 'On Progress',
+                      'bg-orange-300 text-orange-700': item === 'Berlangsung',
                       'bg-green-300 text-green-700': item === 'Selesai',
                     },
                   )}
@@ -118,13 +118,13 @@ export function ListPertanyaanSiswa({
                   onClick={() => {
                     switch (item) {
                       case 'Menunggu':
+                        setStatus(0)
+                        break
+                      case 'Berlangsung':
                         setStatus(1)
                         break
-                      case 'On Progress':
-                        setStatus(2)
-                        break
                       case 'Selesai':
-                        setStatus(3)
+                        setStatus(2)
                         break
                       default:
                         setStatus(null)

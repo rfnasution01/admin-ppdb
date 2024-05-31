@@ -1,9 +1,34 @@
+import { useEffect, useState } from 'react'
 import { NoDetail } from './no-detail'
+import { TiketDetailType } from '@/libs/types/tiket-type'
+import { useGetTiketDetailQuery } from '@/store/slices/pertanyaanAPI'
+import { MultiSkeleton } from '@/components/skeleton'
+import { MappingDetail } from './mapping-detail'
 
-export function DetailPertanyaanSiswa() {
+export function DetailPertanyaanSiswa({ name }: { name: string }) {
+  const [detail, setDetail] = useState<TiketDetailType>()
+  const { data, isLoading, isFetching } = useGetTiketDetailQuery(
+    { id: name },
+    { skip: !name },
+  )
+  const loading = isLoading || isFetching
+
+  useEffect(() => {
+    if (data?.data) {
+      setDetail(data?.data)
+    }
+  }, [data?.data])
   return (
-    <div className="flex h-full flex-col gap-32">
-      <NoDetail />
+    <div className="flex h-full flex-col gap-32 rounded-2xl bg-white p-32">
+      {name ? (
+        loading ? (
+          <MultiSkeleton />
+        ) : (
+          <MappingDetail item={detail} name={name} />
+        )
+      ) : (
+        <NoDetail />
+      )}
     </div>
   )
 }
