@@ -140,17 +140,19 @@ export function ListPertanyaanSiswa({
         )}
       </div>
       {/* --- Mapping --- */}
-      {loading ? (
-        <MultiSkeleton />
-      ) : listTiket ? (
-        listTiket?.length === 0 ? (
-          <NoData />
+      <div className="scrollbar h-full w-full flex-1 overflow-y-auto">
+        {loading ? (
+          <MultiSkeleton />
+        ) : listTiket ? (
+          listTiket?.length === 0 ? (
+            <NoData />
+          ) : (
+            <MappingListTiket item={listTiket} name={name} setName={setName} />
+          )
         ) : (
-          <MappingListTiket item={listTiket} name={name} setName={setName} />
-        )
-      ) : (
-        ''
-      )}
+          ''
+        )}
+      </div>
 
       {/* --- Footer --- */}
       {listTiket?.length > 0 && (

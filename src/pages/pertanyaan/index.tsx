@@ -146,21 +146,23 @@ export default function Pertanyaan() {
   }, [isErrorClose, errorClose])
 
   return (
-    <div className="grid h-full w-full grid-cols-12 gap-32">
-      <div className="col-span-5 h-full">
-        <ListPertanyaanSiswa name={name} setName={setName} />
-      </div>
-      <div className="scrollbar col-span-7 h-full overflow-y-auto">
-        <DetailPertanyaanSiswa
-          name={name}
-          form={form}
-          formClose={formClose}
-          handleSubmit={handleSubmit}
-          handleSubmitClose={handleSubmitClose}
-          setUrls={setUrls}
-          isLoadingClose={isLoadingClose}
-          isLoadingUpload={isLoadingUpload}
-        />
+    <div className="h-full w-full grid-cols-12 gap-32">
+      <div className="grid h-full grid-cols-12 gap-32">
+        <div className="scrollbar col-span-5 h-full w-full overflow-y-auto">
+          <ListPertanyaanSiswa name={name} setName={setName} />
+        </div>
+        <div className="scrollbar col-span-7 h-full overflow-y-auto">
+          <DetailPertanyaanSiswa
+            name={name}
+            form={form}
+            formClose={formClose}
+            handleSubmit={handleSubmit}
+            handleSubmitClose={handleSubmitClose}
+            setUrls={setUrls}
+            isLoadingClose={isLoadingClose}
+            isLoadingUpload={isLoadingUpload}
+          />
+        </div>
       </div>
       <ToastContainer />
     </div>

@@ -49,27 +49,29 @@ export function MappingDetail({
                 : 'Menunggu'}
           </div>
           <div className="flex">
-            <Form {...formClose}>
-              <form
-                className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto rounded-2xl border"
-                onSubmit={formClose.handleSubmit(handleSubmitClose)}
-              >
-                <button
-                  disabled={item?.ticket?.status === 2}
-                  type="submit"
-                  className="flex items-center gap-12 rounded-full bg-blue-500 px-24 py-12 text-[2rem] text-white hover:bg-blue-700 disabled:hover:cursor-not-allowed"
+            {item?.ticket?.status !== 2 && (
+              <Form {...formClose}>
+                <form
+                  className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto rounded-2xl border"
+                  onSubmit={formClose.handleSubmit(handleSubmitClose)}
                 >
-                  Tutup Tiket
-                  {isLoadingClose ? (
-                    <span className="animate-spin duration-300">
-                      <Loader size={16} />
-                    </span>
-                  ) : (
-                    <Ticket size={16} />
-                  )}
-                </button>
-              </form>
-            </Form>
+                  <button
+                    disabled={item?.ticket?.status === 2}
+                    type="submit"
+                    className="flex items-center gap-12 rounded-full bg-blue-500 px-24 py-12 text-[2rem] text-white hover:bg-blue-700 disabled:hover:cursor-not-allowed"
+                  >
+                    Tutup Tiket
+                    {isLoadingClose ? (
+                      <span className="animate-spin duration-300">
+                        <Loader size={16} />
+                      </span>
+                    ) : (
+                      <Ticket size={16} />
+                    )}
+                  </button>
+                </form>
+              </Form>
+            )}
           </div>
         </div>
       </div>
