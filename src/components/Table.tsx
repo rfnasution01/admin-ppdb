@@ -64,7 +64,7 @@ export function Table<T, P>({
                   {/* ----- Detail Header ----- */}
                   {isNo && (
                     <th className="sticky right-0 top-0 bg-background p-16 text-left">
-                      <span className="">#</span>
+                      <span className=" ">#</span>
                     </th>
                   )}
                   {/* ----- Table Headers ----- */}
