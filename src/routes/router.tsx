@@ -11,6 +11,7 @@ import {
   LampiranPendaftarPage,
   LoginPage,
   PendaftarPage,
+  PertanyaanPage,
   ProfilSekolahPage,
   RootLayout,
   VerifPage,
@@ -83,7 +84,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'open-ticket',
-        element: <ComingSoonPage />,
+        element: <PertanyaanPage />,
       },
       {
         path: 'ganti-password',

@@ -42,3 +42,4 @@ export const CariPage = loadable(() => import('@/pages/cari'))
 export const LampiranPendaftarPage = loadable(
   () => import('@/pages/dashboard/pendaftar'),
 )
+export const PertanyaanPage = loadable(() => import('@/pages/pertanyaan'))
