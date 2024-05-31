@@ -16,8 +16,25 @@ export type TiketType = {
   status: number
   status_user: string
   status_at: string
+  belum_baca: number
 }
 
+export type TikeetNotificationType = {
+  status: string
+  message: string
+  data: NotifikasiType[]
+  jlh: number
+  id: string
+}
+
+export type NotifikasiType = {
+  id: string
+  nama: string
+  photo: string
+  jalur: string
+  judul: string
+  status: number
+}
 export type TiketDetailType = {
   ticket: TiketType
   chat: TiketChatType[]

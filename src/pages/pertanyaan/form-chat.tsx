@@ -74,7 +74,7 @@ export function FormChat({
   return (
     <Form {...form}>
       <form
-        className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto rounded-2xl border border-[#73C2FF] bg-[#f5faff] p-24"
+        className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto rounded-2xl border border-[#73C2FF] p-24 hover:bg-[#f5faff]"
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <div className="flex items-center gap-32">

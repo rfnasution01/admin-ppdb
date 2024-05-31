@@ -1,5 +1,6 @@
 import { Res, api } from '../api'
 import {
+  TikeetNotificationType,
   TiketDetailType,
   TiketParams,
   TiketType,
@@ -26,7 +27,13 @@ export const TiketEndpoints = api.injectEndpoints({
           id: id,
         },
       }),
-      providesTags: ['tiket'],
+      providesTags: ['detail-tiket'],
+    }),
+    getTiketNotifikasi: builder.query<TikeetNotificationType, void>({
+      query: () => ({
+        url: `sekolah/notifikasi`,
+      }),
+      providesTags: ['notifikasi'],
     }),
     createFile: builder.mutation<{ url: string }, FormData>({
       query: (foto) => ({
@@ -51,7 +58,7 @@ export const TiketEndpoints = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['tiket', 'detail-tiket'],
+      invalidatesTags: ['tiket', 'detail-tiket', 'notifikasi'],
     }),
   }),
 })
@@ -59,6 +66,7 @@ export const TiketEndpoints = api.injectEndpoints({
 export const {
   useGetTiketQuery,
   useGetTiketDetailQuery,
+  useGetTiketNotifikasiQuery,
   useCreateFileMutation,
   useCreateTiketChatMutation,
 } = TiketEndpoints

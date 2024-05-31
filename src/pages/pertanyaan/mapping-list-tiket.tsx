@@ -51,10 +51,14 @@ export function MappingListTiket({
             </div>
           </div>
           {/* --- Deskripsi --- */}
-          <div
-            dangerouslySetInnerHTML={{ __html: list?.keterangan }}
-            className="limited-text-2-lines"
-          />
+          <div className="flex items-center justify-between">
+            <p className="limited-text">{list?.judul}</p>
+            {list?.belum_baca > 0 && (
+              <p className="flex h-[3rem] w-[3rem] items-center justify-center rounded-full bg-rose-500 p-8 text-[1.6rem] text-white">
+                {list?.belum_baca}
+              </p>
+            )}
+          </div>
         </div>
       ))}
     </div>
