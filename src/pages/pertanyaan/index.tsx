@@ -13,7 +13,9 @@ import {
 import 'react-toastify/dist/ReactToastify.css'
 
 export default function Pertanyaan() {
-  const [name, setName] = useState<string>(null)
+  const searchParams = new URLSearchParams(location.search)
+  const detailParams = searchParams.get('detail')
+  const [name, setName] = useState<string>(detailParams ?? null)
 
   const [urls, setUrls] = useState<string[]>([])
 

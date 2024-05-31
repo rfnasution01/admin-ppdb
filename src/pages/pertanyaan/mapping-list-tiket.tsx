@@ -3,6 +3,7 @@ import { TiketType } from '@/libs/types/tiket-type'
 import { PasPhoto } from './pas-photo'
 import { Dispatch, SetStateAction, useState } from 'react'
 import clsx from 'clsx'
+import { useNavigate } from 'react-router-dom'
 
 export function MappingListTiket({
   item,
@@ -14,6 +15,7 @@ export function MappingListTiket({
   setName: Dispatch<SetStateAction<string>>
 }) {
   const [show, setShow] = useState<boolean>(true)
+  const navigate = useNavigate()
   return (
     <div className="scrollbar flex h-full flex-col gap-24 overflow-y-auto">
       {item?.map((list, idx) => (
@@ -21,6 +23,7 @@ export function MappingListTiket({
           onClick={() => {
             setShow(false)
             setName(list?.id)
+            navigate(`/open-ticket?detail=${list?.id}`)
           }}
           className={clsx(
             'flex flex-col gap-16 rounded-2xl border p-32 hover:cursor-pointer hover:border-[#73C2FF] hover:bg-[#f5faff]',
