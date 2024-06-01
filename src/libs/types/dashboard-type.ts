@@ -9,6 +9,7 @@ export type GelombangType = {
   tgl_awal_daftar: string
   tgl_akhir_daftar: string
   pendaftar: number
+  validasi: number
   diverifikasi: number
   belum_diverifikasi: number
 }

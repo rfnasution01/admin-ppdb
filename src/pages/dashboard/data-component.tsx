@@ -6,13 +6,13 @@ export function DataComponent({
   link = '',
 }: {
   label?: string
-  value?: number
+  value?: number | string
   link?: string
 }) {
   return (
-    <Link to={link} className="flex items-center justify-between gap-32">
-      <p>{label}</p>
-      <p className="hover:text-danger-100">{value}</p>
+    <Link to={link} className="flex w-full items-center gap-32">
+      <p className="w-1/5">{label}</p>
+      <p className="w-4/5">: {value}</p>
     </Link>
   )
 }

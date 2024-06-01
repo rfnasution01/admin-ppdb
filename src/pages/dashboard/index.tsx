@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
-import { MappingGelombang } from './mapping-gelombang'
 import { useGetDashboardQuery } from '@/store/slices/dashboardAPI'
 import { DashboardType } from '@/libs/types/dashboard-type'
-import { MultiSkeleton, SingleSkeleton } from '@/components/skeleton'
-import dayjs from 'dayjs'
+import { SingleSkeleton } from '@/components/skeleton'
+import { DashboardDayaTampung } from './dashboard-daya-tampung'
+import { DashboardVerifikasiData } from './dashboard-verifikaasi-data'
+import { DashboardTiket } from './dashboard-ticket'
+import { DashboardPendaftar } from './dashboard-pendaftar'
 
 export default function Dashboard() {
   // --- Dashboard ---
@@ -31,8 +33,21 @@ export default function Dashboard() {
           </p>
         </div>
       )}
+      {/* --- Daya Tampung --- */}
+      <DashboardDayaTampung />
+      {/* --- Pendaftar --- */}
+      <DashboardPendaftar dashboard={dashboard} />
+      {/* --- Link Info --- */}
+      <div className="grid w-full grid-cols-12 gap-32">
+        <div className="col-span-6 rounded-2xl bg-white p-32 shadow-md phones:col-span-12">
+          <DashboardVerifikasiData />
+        </div>
+        <div className="col-span-6 rounded-2xl bg-white p-32 shadow-md phones:col-span-12">
+          <DashboardTiket />
+        </div>
+      </div>
       {/* --- Gelombang --- */}
-      <div className="flex w-full flex-col gap-16">
+      {/* <div className="flex w-full flex-col gap-16">
         {dashboard?.gelombang?.map((item, idx) => (
           <div className="w-full" key={idx}>
             <div className="flex w-5/12 items-center justify-between phones:w-full phones:flex-col phones:items-start">
@@ -46,14 +61,14 @@ export default function Dashboard() {
             </div>
           </div>
         ))}
-      </div>
-      {loading ? (
+      </div> */}
+      {/* {loading ? (
         <div className="w-1/3 phones:w-full">
           <MultiSkeleton />
         </div>
       ) : (
         <MappingGelombang data={dashboard} />
-      )}
+      )} */}
     </div>
   )
 }

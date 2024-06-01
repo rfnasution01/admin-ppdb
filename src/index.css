@@ -148,3 +148,15 @@
   text-overflow: ellipsis;
   white-space: normal; /* Allows the use of -webkit-line-clamp */
 }
+
+.clip-gradient {
+  background: linear-gradient(
+    to right,
+    red 10%,
+    blue 20%,
+    green 30%,
+    yellow 50%
+  );
+  -webkit-clip-path: circle(50% at center);
+  clip-path: circle(50% at center);
+}
