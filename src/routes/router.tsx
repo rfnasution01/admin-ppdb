@@ -14,6 +14,7 @@ import {
   PertanyaanPage,
   ProfilSekolahPage,
   RootLayout,
+  TiketTambahPage,
   VerifPage,
   VerifikasiLayout,
 } from './loadables'
@@ -84,7 +85,14 @@ export const router = createBrowserRouter([
       },
       {
         path: 'open-ticket',
-        element: <PertanyaanPage />,
+        element: <DashBoardLayout />,
+        children: [
+          {
+            path: '',
+            element: <PertanyaanPage />,
+          },
+          { path: 'tambah', element: <TiketTambahPage /> },
+        ],
       },
       {
         path: 'ganti-password',

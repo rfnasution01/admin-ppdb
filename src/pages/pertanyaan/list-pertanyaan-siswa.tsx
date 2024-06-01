@@ -2,7 +2,7 @@ import { TiketType } from '@/libs/types/tiket-type'
 import { useGetTiketQuery } from '@/store/slices/pertanyaanAPI'
 import clsx from 'clsx'
 import { debounce } from 'lodash'
-import { ListFilter, RefreshCcw, Search } from 'lucide-react'
+import { ListFilter, Pencil, RefreshCcw, Search } from 'lucide-react'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { MappingListTiket } from './mapping-list-tiket'
 import { MultiSkeleton } from '@/components/skeleton'
@@ -10,6 +10,8 @@ import { FormListDataPerPage } from '@/components/form/formListDataPerPage'
 import { Pagination } from '@/components/Pagination'
 import { PageInfoType } from '@/libs/types/pendaftar-type'
 import { NoData } from '@/components/NoData'
+import Tooltips from '@/components/Tooltip'
+import { useNavigate } from 'react-router-dom'
 
 export function ListPertanyaanSiswa({
   name,
@@ -58,6 +60,8 @@ export function ListPertanyaanSiswa({
     handleSearch(inputElement.value)
   }
 
+  const navigate = useNavigate()
+
   return (
     <div className="flex h-full flex-col gap-32 rounded-2xl bg-white p-32">
       {/* --- Filter --- */}
@@ -87,18 +91,36 @@ export function ListPertanyaanSiswa({
               <Search size={20} />
             </button>
           </div>
-          <span
+          <div
             onClick={() => setIsShow(!isShow)}
             className="rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
           >
-            <ListFilter size={16} />
-          </span>
-          <span
+            <Tooltips
+              triggerComponent={<ListFilter size={16} />}
+              tooltipContent={<span>Filter</span>}
+            />
+          </div>
+
+          <div
             onClick={refetch}
             className="rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
           >
-            <RefreshCcw size={16} />
-          </span>
+            <Tooltips
+              triggerComponent={<RefreshCcw size={16} />}
+              tooltipContent={<span>Perbarui</span>}
+            />
+          </div>
+          <div
+            onClick={() => {
+              navigate(`/open-ticket/tambah`)
+            }}
+            className="rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+          >
+            <Tooltips
+              triggerComponent={<Pencil size={16} />}
+              tooltipContent={<span>Tambah</span>}
+            />
+          </div>
         </div>
         {isShow && (
           <div className="flex items-center gap-16">

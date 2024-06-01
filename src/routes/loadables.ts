@@ -43,3 +43,6 @@ export const LampiranPendaftarPage = loadable(
   () => import('@/pages/dashboard/pendaftar'),
 )
 export const PertanyaanPage = loadable(() => import('@/pages/pertanyaan'))
+export const TiketTambahPage = loadable(
+  () => import('@/pages/pertanyaan/ticket-tambah'),
+)
