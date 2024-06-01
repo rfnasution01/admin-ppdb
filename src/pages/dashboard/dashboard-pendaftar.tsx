@@ -34,7 +34,10 @@ export function DashboardPendaftar({
       {/* --- Data --- */}
       <div className="flex phones:flex-col">
         {/* --- Gelombang --- */}
-        <div className="flex flex-1 gap-32 border-r border-[#e0e4e5] p-32 text-slate-500">
+        <Link
+          to="/pendaftar"
+          className="flex flex-1 gap-32 border-r border-[#e0e4e5] p-32 text-slate-500"
+        >
           <StatistikPendaftar
             jsonData={[
               {
@@ -58,9 +61,12 @@ export function DashboardPendaftar({
               / {dashboard?.gelombang?.[0]?.pendaftar} Pendaftar
             </p>
           </div>
-        </div>
+        </Link>
         {/* --- Pendaftar --- */}
-        <div className="flex flex-1 gap-32 border-r border-[#e0e4e5] p-32 text-slate-500">
+        <Link
+          to="/data-pendaftar"
+          className="flex flex-1 gap-32 border-r border-[#e0e4e5] p-32 text-slate-500"
+        >
           <StatistikPendaftar
             jsonData={[
               {
@@ -82,9 +88,12 @@ export function DashboardPendaftar({
               / {dashboard?.gelombang?.[0]?.validasi} Diverifikasi
             </p>
           </div>
-        </div>
+        </Link>
         {/* --- Lulus --- */}
-        <div className="flex flex-1 gap-32 border-r border-[#e0e4e5] p-32 text-slate-500">
+        <Link
+          to="/permintaan-verifikasi"
+          className="flex flex-1 gap-32 border-r border-[#e0e4e5] p-32 text-slate-500"
+        >
           <StatistikPendaftar
             jsonData={[
               { nama: 'Lulus', jumlah: dashboard?.lulus?.lulus },
@@ -104,7 +113,7 @@ export function DashboardPendaftar({
               / {dashboard?.lulus?.daya_tampung} Lulus
             </p>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   )
