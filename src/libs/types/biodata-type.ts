@@ -4,4 +4,5 @@ export type BiodataType = {
   hp: string
   email: string
   gambar: string
+  sekolah: string
 }

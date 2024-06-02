@@ -13,7 +13,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { MenubarNotifikasi } from './menubar-notifikasi'
 
 export function ContentTitle() {
-  const { firstPathname, splittedPath } = usePathname()
+  const { firstPathname, secondPathname, splittedPath } = usePathname()
   const navigate = useNavigate()
 
   // --- Biodata ---
@@ -68,7 +68,8 @@ export function ContentTitle() {
           </>
         ) : (
           <p className="text-[3rem] font-bold">
-            {convertSlugToText(firstPathname)}
+            {convertSlugToText(firstPathname)}{' '}
+            {secondPathname === 'sekolah' && 'Sekolah'}
           </p>
         )}
       </div>
@@ -80,14 +81,15 @@ export function ContentTitle() {
             <div className="flex items-center gap-12" key={idx}>
               <Link
                 to={idx !== splittedPath.length - 1 ? convertToSlug(item) : ''}
-                className={clsx('', {
-                  'text-nowrap hover:cursor-not-allowed':
-                    idx === splittedPath.length - 1,
+                className={clsx('text-nowrap', {
+                  'hover:cursor-not-allowed': idx === splittedPath.length - 1,
                 })}
               >
                 {item === '' ? 'Dashboard' : convertSlugToText(item)}
               </Link>
-              <p>{idx < splittedPath.length - 1 ? ' / ' : ''}</p>
+              <p className="text-nowrap">
+                {idx < splittedPath.length - 1 ? ' / ' : ''}
+              </p>
             </div>
           ))}
         </div>

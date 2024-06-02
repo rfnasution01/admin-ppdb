@@ -91,7 +91,7 @@ export const router = createBrowserRouter([
             path: '',
             element: <PertanyaanPage />,
           },
-          { path: 'tambah', element: <TiketTambahPage /> },
+          { path: 'sekolah', element: <TiketTambahPage /> },
         ],
       },
       {

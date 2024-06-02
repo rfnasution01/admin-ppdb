@@ -19,6 +19,22 @@ export type TiketType = {
   belum_baca: number
 }
 
+export type TiketSekolahType = {
+  id: string
+  pengirim: string
+  judul: string
+  id_masalah: string
+  masalah: string
+  id_pendaftaran: string
+  siswa: string
+  keterangan: string
+  lampiran: LampiranType[]
+  tanggal: string
+  status: number
+  status_user: string
+  status_at: string
+}
+
 export type TikeetNotificationType = {
   status: string
   message: string
@@ -53,4 +69,36 @@ export type TiketChatType = {
 export type LampiranType = {
   id: string
   dokumen: string
+}
+
+export type SiswaType = {
+  id_pendaftaran: string
+  nama: string
+  jalur: string
+  nisn: string
+  nik: string
+  tanggal_lahir: string
+}
+
+export type TiketSekolahParams = {
+  page?: number
+  page_size?: number
+  id_masalah?: string
+  search?: string
+  status?: number
+}
+
+export type TiketSekolahCreateParams = {
+  id?: string
+  id_masalah: string
+  id_pendaftaran: string | null
+  judul: string
+  keterangan: string
+  berkas: string[]
+}
+
+export type ReferensiMasalahType = {
+  id: string
+  nama: string
+  siswa: string
 }

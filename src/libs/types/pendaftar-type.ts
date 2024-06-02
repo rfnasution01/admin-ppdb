@@ -17,8 +17,8 @@ export type PendaftarJalur = {
 export type PendaftarParams = {
   page: number
   page_size: number
-  jalur: string
-  search: string
+  jalur?: string
+  search?: string
   verifikasi?: number
 }
 

@@ -10,6 +10,11 @@ export const tiketSchema = zod.object({
     invalid_type_error: 'Format keterangan tidak valid',
   }),
   berkas: zod.array(zod.string()).optional().nullable().nullish(),
+  idPendaftaran: zod?.string().optional().nullable().nullish(),
+  idMasalah: zod.string({
+    required_error: 'Jenis masalah harus di isi',
+    invalid_type_error: 'Format jenis masalah tidak valid',
+  }),
 })
 
 export const chatSchema = zod.object({
@@ -22,4 +27,8 @@ export const chatSchema = zod.object({
 
 export const closeSchema = zod.object({
   id: zod.array(zod.string()).optional().nullable().nullish(),
+})
+
+export const masalahSchema = zod.object({
+  idMasalah: zod.string().optional().nullable().nullish(),
 })

@@ -2,7 +2,7 @@ import { TiketType } from '@/libs/types/tiket-type'
 import { useGetTiketQuery } from '@/store/slices/pertanyaanAPI'
 import clsx from 'clsx'
 import { debounce } from 'lodash'
-import { ListFilter, Pencil, RefreshCcw, Search } from 'lucide-react'
+import { Home, ListFilter, RefreshCcw, Search } from 'lucide-react'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { MappingListTiket } from './mapping-list-tiket'
 import { MultiSkeleton } from '@/components/skeleton'
@@ -112,13 +112,13 @@ export function ListPertanyaanSiswa({
           </div>
           <div
             onClick={() => {
-              navigate(`/open-ticket/tambah`)
+              navigate(`/open-ticket/sekolah`)
             }}
             className="rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
           >
             <Tooltips
-              triggerComponent={<Pencil size={16} />}
-              tooltipContent={<span>Tambah</span>}
+              triggerComponent={<Home size={16} />}
+              tooltipContent={<span>Ticket Sekolah</span>}
             />
           </div>
         </div>
