@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { FormListMasalah } from '@/components/form/formListMasalah'
+import { useNavigate } from 'react-router-dom'
 
 export function TiketSekolahHeader({
   onSearch,
@@ -33,6 +34,8 @@ export function TiketSekolahHeader({
     resolver: zodResolver(chatSchema),
     defaultValues: {},
   })
+
+  const navigate = useNavigate()
 
   return (
     <div className="flex flex-col gap-16">
@@ -73,7 +76,10 @@ export function TiketSekolahHeader({
         </div>
 
         <div
-          onClick={() => setName('tambah')}
+          onClick={() => {
+            setName('tambah')
+            navigate('/open-ticket/sekolah?page=tambah')
+          }}
           className="rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
         >
           <Tooltips

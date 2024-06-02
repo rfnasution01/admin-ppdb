@@ -14,6 +14,7 @@ import {
   Trash,
 } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export function MenubarLayanan({
   isDisabled,
@@ -26,6 +27,7 @@ export function MenubarLayanan({
   setName: Dispatch<SetStateAction<string>>
   setId: Dispatch<SetStateAction<string>>
 }) {
+  const navigate = useNavigate()
   return (
     <Menubar className="px-4">
       <MenubarMenu>
@@ -43,6 +45,7 @@ export function MenubarLayanan({
             {['Edit'].map((item, idx) => (
               <div
                 onClick={() => {
+                  navigate(`/open-ticket/sekolah?page=edit&id=${id}`)
                   setName('edit')
                   setId(id)
                 }}

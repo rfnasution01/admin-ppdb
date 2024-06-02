@@ -3,6 +3,7 @@ import { TiketSekolahType } from '@/libs/types/tiket-type'
 import { Dispatch, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { MenubarLayanan } from './menubar-edit'
+import { useNavigate } from 'react-router-dom'
 
 export function MappingListTiket({
   item,
@@ -15,15 +16,16 @@ export function MappingListTiket({
   setName: Dispatch<SetStateAction<string>>
   setId: Dispatch<SetStateAction<string>>
 }) {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   return (
     <div className="scrollbar flex h-full flex-col gap-24 overflow-y-auto">
       {item?.map((list, idx) => (
         <div
-          // onClick={() => {
-          //   setName(list?.id)
-          //   navigate(`/open-ticket/sekolah?detail=${list?.id}`)
-          // }}
+          onClick={() => {
+            setName(list?.id)
+            setId(list?.id)
+            navigate(`/open-ticket/sekolah?page=detail&id=${list?.id}`)
+          }}
           className={clsx(
             'flex flex-col gap-16 rounded-2xl border p-32 hover:cursor-pointer hover:border-[#73C2FF] hover:bg-[#f5faff]',
             {
@@ -33,7 +35,6 @@ export function MappingListTiket({
           key={idx}
         >
           <div className="flex items-center justify-between gap-16">
-            {/* <PasPhoto pasPhoto={list?.} name={list?.nama} /> */}
             <div className="flex w-full flex-col gap-8">
               <div className="flex justify-between gap-32">
                 <div className="flex flex-col gap-8">

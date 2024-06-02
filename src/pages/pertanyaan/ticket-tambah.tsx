@@ -2,11 +2,17 @@ import { useEffect, useState } from 'react'
 import { TiketSekolahDetail, TiketSekolahMain } from './ticket-sekolah'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { tiketSchema } from '@/libs/schema/ticket-schema'
+import {
+  chatSchema,
+  closeSchema,
+  tiketSchema,
+} from '@/libs/schema/ticket-schema'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import {
+  useCreateTiketChatSekolahMutation,
   useCreateTiketSekolahMutation,
+  useCreateTutupChatSekolahMutation,
   useEditTiketSekolahMutation,
 } from '@/store/slices/tiketSekolahAPI'
 import { useGetBiodataQuery } from '@/store/slices/biodataAPI'
@@ -14,8 +20,11 @@ import { BiodataType } from '@/libs/types/biodata-type'
 import 'react-toastify/dist/ReactToastify.css'
 
 export default function TIcketTambah() {
-  const [name, setName] = useState<string>('')
-  const [id, setId] = useState<string>('')
+  const searchParams = new URLSearchParams(location.search)
+  const detailParams = searchParams.get('page')
+  const [name, setName] = useState<string>(detailParams ?? null)
+  const idParams = searchParams.get('id')
+  const [id, setId] = useState<string>(idParams ?? null)
   const [siswa, setSiswa] = useState<number>()
 
   const [urls, setUrls] = useState<string[]>([])
@@ -167,6 +176,134 @@ export default function TIcketTambah() {
     }
   }, [isErrorEdit, errorEdit])
 
+  // --- Form Schema ---
+  const formChat = useForm<zod.infer<typeof chatSchema>>({
+    resolver: zodResolver(chatSchema),
+    defaultValues: {},
+  })
+
+  // --- Create Chat ---
+  const [
+    createChat,
+    {
+      isError: isErrorChat,
+      error: errorChat,
+      isLoading: isLoadingChat,
+      isSuccess: isSuccessChat,
+    },
+  ] = useCreateTiketChatSekolahMutation()
+
+  const handleSubmitChat = async (values) => {
+    const body = {
+      id: id,
+      isi: values?.isi,
+      berkas: urls,
+    }
+    try {
+      await createChat({ data: body })
+    } catch (error) {
+      console.error('Gagal mengunggah file:', error)
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccessChat) {
+      toast.success('Pesan berhasil dikirim!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      form.reset()
+      setUrls([])
+      //   window.location.reload()
+    }
+  }, [isSuccessChat])
+
+  useEffect(() => {
+    if (isErrorChat) {
+      const errorMsg = errorChat as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isErrorChat, errorChat])
+
+  // --- Create Close ---
+  const [
+    createClose,
+    {
+      isError: isErrorClose,
+      isLoading: isLoadingClose,
+      error: errorClose,
+      isSuccess: isSuccessClose,
+    },
+  ] = useCreateTutupChatSekolahMutation()
+
+  const formClose = useForm<zod.infer<typeof closeSchema>>({
+    resolver: zodResolver(closeSchema),
+    defaultValues: {},
+  })
+
+  const handleSubmitClose = async () => {
+    const body = {
+      id: id,
+    }
+    try {
+      await createClose({ data: body })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccessClose) {
+      toast.success('Tiket berhasil ditutup!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isSuccessClose])
+
+  useEffect(() => {
+    if (isErrorClose) {
+      const errorMsg = errorClose as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isErrorClose, errorClose])
+
   return (
     <>
       <div className="grid h-full w-full grid-cols-12 flex-col gap-32 ">
@@ -174,7 +311,7 @@ export default function TIcketTambah() {
           <TiketSekolahMain
             setName={setName}
             setSiswa={setSiswa}
-            name={name}
+            name={id}
             setId={setId}
           />
         </div>
@@ -191,6 +328,12 @@ export default function TIcketTambah() {
             setUrls={setUrls}
             setSiswa={setSiswa}
             id={id}
+            handleSubmitChat={handleSubmitChat}
+            handleSubmitClose={handleSubmitClose}
+            isLoadingChat={isLoadingChat}
+            isLoadingClose={isLoadingClose}
+            formChat={formChat}
+            formClose={formClose}
           />
         </div>
       </div>

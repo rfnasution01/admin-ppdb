@@ -56,6 +56,28 @@ export type TiketDetailType = {
   chat: TiketChatType[]
 }
 
+export type TiketSekolahDetailType = {
+  ticket: TIketDetail
+  chat: TiketChatType[]
+}
+
+export type TIketDetail = {
+  id: string
+  pengirim: string
+  photo: string
+  id_masalah: string
+  masalah: string
+  id_pendaftaran: string
+  siswa: string
+  judul: string
+  keterangan: string
+  lampiran: LampiranType[]
+  tanggal: string
+  status: number
+  status_user: string
+  status_at: number
+}
+
 export type TiketChatType = {
   id: string
   jenis_chat: string

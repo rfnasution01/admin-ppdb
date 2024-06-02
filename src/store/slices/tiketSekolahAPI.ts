@@ -2,6 +2,7 @@ import {
   ReferensiMasalahType,
   SiswaType,
   TiketSekolahCreateParams,
+  TiketSekolahDetailType,
   TiketSekolahParams,
   TiketSekolahType,
 } from '@/libs/types/tiket-type'
@@ -25,6 +26,18 @@ export const TiketSekolahEndpoints = api.injectEndpoints({
         providesTags: ['tiket-sekolah'],
       },
     ),
+    getTiketDetailSekolah: builder.query<
+      Res<TiketSekolahDetailType>,
+      { id: string }
+    >({
+      query: ({ id }) => ({
+        url: `sekolah/tiket_detail`,
+        params: {
+          id: id,
+        },
+      }),
+      providesTags: ['tiket-detail-sekolah'],
+    }),
     getMasalah: builder.query<Res<ReferensiMasalahType[]>, void>({
       query: () => ({
         url: `referensi/masalah`,
@@ -71,13 +84,56 @@ export const TiketSekolahEndpoints = api.injectEndpoints({
         'notifikasi-sekolah',
       ],
     }),
+    createTiketChatSekolah: builder.mutation<
+      void,
+      {
+        data: {
+          id: string
+          isi: string
+          berkas: string[]
+        }
+      }
+    >({
+      query: ({ data }) => ({
+        url: `sekolah/tiket_chat`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [
+        'tiket-sekolah',
+        'tiket-detail-sekolah',
+        'notifikasi-sekolah',
+      ],
+    }),
+    createTutupChatSekolah: builder.mutation<
+      void,
+      {
+        data: {
+          id: string
+        }
+      }
+    >({
+      query: ({ data }) => ({
+        url: `sekolah/tiket_close`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [
+        'tiket-sekolah',
+        'tiket-detail-sekolah',
+        'notifikasi-sekolah',
+      ],
+    }),
   }),
 })
 
 export const {
+  useGetTiketDetailSekolahQuery,
   useGetTiketSekolahQuery,
   useGetMasalahQuery,
   useCreateTiketSekolahMutation,
   useGetSiswaQuery,
   useEditTiketSekolahMutation,
+  useCreateTiketChatSekolahMutation,
+  useCreateTutupChatSekolahMutation,
 } = TiketSekolahEndpoints
