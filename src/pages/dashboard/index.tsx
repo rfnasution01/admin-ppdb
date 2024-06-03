@@ -46,29 +46,6 @@ export default function Dashboard() {
           <DashboardTiket />
         </div>
       </div>
-      {/* --- Gelombang --- */}
-      {/* <div className="flex w-full flex-col gap-16">
-        {dashboard?.gelombang?.map((item, idx) => (
-          <div className="w-full" key={idx}>
-            <div className="flex w-5/12 items-center justify-between phones:w-full phones:flex-col phones:items-start">
-              <p>Masa Pendaftaran {item?.nama}</p>
-              <p>
-                {dayjs(item?.tgl_awal_daftar).locale('id').format('DD MMMM')} -{' '}
-                {dayjs(item?.tgl_akhir_daftar)
-                  .locale('id')
-                  .format('DD MMMM YYYY')}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div> */}
-      {/* {loading ? (
-        <div className="w-1/3 phones:w-full">
-          <MultiSkeleton />
-        </div>
-      ) : (
-        <MappingGelombang data={dashboard} />
-      )} */}
     </div>
   )
 }

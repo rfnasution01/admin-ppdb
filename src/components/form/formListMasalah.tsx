@@ -156,6 +156,7 @@ export function FormListMasalah({
                   onInputChange={search}
                   onChange={(optionSelected) => {
                     field.onChange(optionSelected.value)
+                    useFormReturn.setValue('idSiswa', optionSelected?.siswa)
                     if (setIdMasalah) {
                       setIdMasalah(optionSelected?.value)
                     }

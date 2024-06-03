@@ -10,15 +10,19 @@ import {
   Printer,
   RefreshCcw,
   Search,
+  TriangleAlert,
   User,
 } from 'lucide-react'
 import { FormListLulus } from '@/components/form/formListLulus'
 import { Form } from '@/components/Form'
 import { FormListJalurMasuk } from '@/components/form/formListJalurMasuk'
 import { FormListGelombang } from '@/components/form/formListGelombang'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { debounce } from 'lodash'
 import Tooltips from '@/components/Tooltip'
+import { DashboardType } from '@/libs/types/dashboard-type'
+import { useGetDashboardQuery } from '@/store/slices/dashboardAPI'
+import dayjs from 'dayjs'
 
 export default function HasilPPDB() {
   const form = useForm<zod.infer<typeof hasilFilterSchema>>({
@@ -49,13 +53,28 @@ export default function HasilPPDB() {
   console.log({ search })
   console.log({ page })
 
+  // --- Dashboard ---
+  const [dashboard, setDashboard] = useState<DashboardType>()
+  const { data } = useGetDashboardQuery()
+
+  useEffect(() => {
+    if (data?.data) {
+      setDashboard(data?.data)
+    }
+  }, [data?.data])
+
   return (
     <div className="flex h-full w-full flex-col gap-32">
       {/* --- Header --- */}
       <div className="flex rounded-2xl border border-[#e0e4e5] bg-white p-32 shadow">
-        <HasilHeader value="Daya Tampung" label="124" icon={<Box />} isBorder />
-        <HasilHeader value="Lulus" label="124" icon={<Award />} isBorder />
-        <HasilHeader value="Kekurangan" label="124" icon={<User />} />
+        <HasilHeader
+          value="Daya Tampung"
+          label={dashboard?.lulus?.daya_tampung?.toString()}
+          icon={<Box />}
+          isBorder
+        />
+        <HasilHeader value="Lulus" label="-" icon={<Award />} isBorder />
+        <HasilHeader value="Kekurangan" label="-" icon={<User />} />
       </div>
       {/* --- Filter --- */}
       <div className="flex items-center justify-between gap-32">
@@ -126,6 +145,16 @@ export default function HasilPPDB() {
             </div>
           </form>
         </Form>
+      </div>
+
+      <div className="flex items-center justify-center gap-12 rounded-2xl bg-danger-100 p-32 text-danger-tint-1 shadow-md">
+        <TriangleAlert size={16} />
+        <p className="text-center">
+          Hasil PPDB akan diumumkan pada tanggal{' '}
+          {dayjs(dashboard?.tgl_pengumuman)
+            .locale('id')
+            .format('DD MMMM YYYY HH:mm:ss')}
+        </p>
       </div>
     </div>
   )

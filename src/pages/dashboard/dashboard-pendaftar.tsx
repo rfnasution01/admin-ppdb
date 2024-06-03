@@ -80,18 +80,18 @@ export function DashboardPendaftar({
             ]}
           />
           <div className="flex flex-col gap-8">
-            <p className="text-[4rem] font-bold text-[#005479]">Pendaftar</p>
+            <p className="text-[4rem] font-bold text-[#005479]">Diverifikasi</p>
             <p>
               <span className="text-[4rem] font-bold text-[#005479]">
                 {dashboard?.gelombang?.[0]?.diverifikasi}
               </span>{' '}
-              / {dashboard?.gelombang?.[0]?.validasi} Diverifikasi
+              / {dashboard?.gelombang?.[0]?.validasi} Pendaftar
             </p>
           </div>
         </Link>
         {/* --- Lulus --- */}
         <Link
-          to="/permintaan-verifikasi"
+          to="/hasil-ppdb"
           className="flex flex-1 gap-32 border-r border-[#e0e4e5] p-32 text-slate-500"
         >
           <StatistikPendaftar
@@ -105,12 +105,12 @@ export function DashboardPendaftar({
             ]}
           />
           <div className="flex flex-col gap-8">
-            <p className="text-[4rem] font-bold text-[#005479]">Seleksi</p>
+            <p className="text-[4rem] font-bold text-[#005479]">Lulus</p>
             <p>
               <span className="text-[4rem] font-bold text-[#005479]">
                 {dashboard?.lulus?.lulus}
               </span>{' '}
-              / {dashboard?.lulus?.daya_tampung} Lulus
+              / {dashboard?.lulus?.daya_tampung} Daya Tampung
             </p>
           </div>
         </Link>

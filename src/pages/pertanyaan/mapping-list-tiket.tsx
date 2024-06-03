@@ -15,6 +15,7 @@ export function MappingListTiket({
   setName: Dispatch<SetStateAction<string>>
 }) {
   const navigate = useNavigate()
+
   return (
     <div className="scrollbar flex h-full flex-col gap-24 overflow-y-auto">
       {item?.map((list, idx) => (
