@@ -36,11 +36,15 @@ export type TiketSekolahType = {
 }
 
 export type TikeetNotificationType = {
-  status: string
-  message: string
-  data: NotifikasiType[]
-  jlh: number
+  siswa: NotifikasiType[]
+  admin: AdminNotifType[]
+}
+
+export type AdminNotifType = {
   id: string
+  nama: string
+  photo: string
+  masalah: string
 }
 
 export type NotifikasiType = {

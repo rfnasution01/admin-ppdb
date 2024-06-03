@@ -20,6 +20,7 @@ export type Res<T, M = undefined> = {
   related: T
   meta: Meta
   mapped?: M
+  jlh?: number
   page_info?: PageInfoType
   pendaftar_jalur?: PendaftarJalur[]
   user_lain?: VerifikasiType[]

@@ -29,7 +29,7 @@ export const TiketEndpoints = api.injectEndpoints({
       }),
       providesTags: ['detail-tiket'],
     }),
-    getTiketNotifikasi: builder.query<TikeetNotificationType, void>({
+    getTiketNotifikasi: builder.query<Res<TikeetNotificationType>, void>({
       query: () => ({
         url: `sekolah/notifikasi`,
       }),

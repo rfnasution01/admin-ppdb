@@ -3,7 +3,7 @@ import { convertSlugToText, convertToSlug } from '@/libs/helpers/format-text'
 import { getGreetingBasedOnTime } from '@/libs/helpers/time-greetings'
 import { usePathname } from '@/libs/hooks/usePathname'
 import { BiodataType } from '@/libs/types/biodata-type'
-import { TikeetNotificationType } from '@/libs/types/tiket-type'
+import { AdminNotifType, NotifikasiType } from '@/libs/types/tiket-type'
 import { useGetBiodataQuery } from '@/store/slices/biodataAPI'
 import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
 import clsx from 'clsx'
@@ -39,12 +39,16 @@ export function ContentTitle() {
   const loading = isFetching || isLoading
 
   // --- Notifikasi ---
-  const [notifikasi, setNotifikasi] = useState<TikeetNotificationType>()
+  const [notifikasiJumlah, setNotifikasiJumlah] = useState<number>()
+  const [notifikasiSiswa, setNotifikasiSiswa] = useState<NotifikasiType[]>()
+  const [notifikasiSekolah, setNotifikasiSekolah] = useState<AdminNotifType[]>()
   const { data: getNotifikasi } = useGetTiketNotifikasiQuery()
 
   useEffect(() => {
     if (getNotifikasi) {
-      setNotifikasi(getNotifikasi)
+      setNotifikasiSiswa(getNotifikasi?.data?.siswa)
+      setNotifikasiSekolah(getNotifikasi?.data?.admin)
+      setNotifikasiJumlah(getNotifikasi?.jlh)
     }
   }, [getNotifikasi])
 
@@ -75,7 +79,11 @@ export function ContentTitle() {
       </div>
       {/* --- BreadCrumbs ---- */}
       <div className="flex items-center gap-32">
-        <MenubarNotifikasi data={notifikasi} />
+        <MenubarNotifikasi
+          dataSiswa={notifikasiSiswa}
+          dataSekolah={notifikasiSekolah}
+          jlh={notifikasiJumlah}
+        />
         <div className="flex items-center gap-12">
           {splittedPath?.map((item, idx) => (
             <div className="flex items-center gap-12" key={idx}>

@@ -8,6 +8,7 @@ import {
   DataPendaftarPage,
   DayaTampungPage,
   GantiPasswordPage,
+  HasilPPDBPage,
   LampiranPendaftarPage,
   LoginPage,
   PendaftarPage,
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
       {
         path: 'data-pendaftar',
         element: <DataPendaftarPage />,
+      },
+      {
+        path: 'hasil-ppdb',
+        element: <HasilPPDBPage />,
       },
       {
         path: 'data-operator',

@@ -17,7 +17,7 @@ export function DetailHistory({ detail }: { detail: TiketDetailType }) {
 
   useEffect(() => {
     if (getNotifikasi) {
-      setNotifikasi(getNotifikasi)
+      setNotifikasi(getNotifikasi?.data)
     }
   }, [getNotifikasi])
 
@@ -30,11 +30,11 @@ export function DetailHistory({ detail }: { detail: TiketDetailType }) {
       {detail?.chat?.map((item, idx) => (
         <div className={`flex w-full flex-col gap-24`} key={idx}>
           {item?.jenis_chat !== 'ADMIN' &&
-            notifikasi?.jlh > 0 &&
+            notifikasi?.siswa?.length > 0 &&
             notReadNewsId === item?.id && (
               <div className="flex w-full justify-center">
                 <p className="rounded-full border bg-white px-24 py-12">
-                  {notifikasi?.jlh} Pesan Belum dibaca
+                  {notifikasi?.siswa?.length} Pesan Belum dibaca
                 </p>
               </div>
             )}

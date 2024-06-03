@@ -17,7 +17,7 @@ type inputProps = {
   placeholder: string
   isDisabled?: boolean
   name: string
-  headerLabel: string
+  headerLabel?: string
   useFormReturn: UseFormReturn
   className?: string
 }
@@ -82,9 +82,11 @@ export function FormListDayaTampung({
               className,
             )}
           >
-            <div className="w-2/6 text-right text-emerald-900 phones:w-full phones:text-left">
-              <FormLabel>{headerLabel}</FormLabel>
-            </div>
+            {headerLabel && (
+              <div className="w-2/6 text-right text-emerald-900 phones:w-full phones:text-left">
+                <FormLabel>{headerLabel}</FormLabel>
+              </div>
+            )}
             <div className="w-2/6 phones:w-full">
               <FormControl>
                 <Select

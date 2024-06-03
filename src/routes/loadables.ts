@@ -46,3 +46,4 @@ export const PertanyaanPage = loadable(() => import('@/pages/pertanyaan'))
 export const TiketTambahPage = loadable(
   () => import('@/pages/pertanyaan/ticket-tambah'),
 )
+export const HasilPPDBPage = loadable(() => import('@/pages/hasil'))

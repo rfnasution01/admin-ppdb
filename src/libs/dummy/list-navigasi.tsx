@@ -3,9 +3,11 @@ import {
   KeySquare,
   LayoutDashboard,
   School,
+  Scroll,
   Search,
   ShieldCheck,
   Ticket,
+  TicketSlash,
   UserRound,
   Users2,
 } from 'lucide-react'
@@ -32,6 +34,10 @@ export const ListNavigasi = [
     icon: <Clipboard size={16} />,
   },
   {
+    title: 'Hasil PPDB',
+    icon: <Scroll size={16} />,
+  },
+  {
     title: 'Data Operator',
     icon: <UserRound size={16} />,
   },
@@ -42,6 +48,10 @@ export const ListNavigasi = [
   {
     title: 'Open Ticket',
     icon: <Ticket size={16} />,
+  },
+  {
+    title: 'Open Ticket Sekolah',
+    icon: <TicketSlash size={16} />,
   },
   {
     title: 'Ganti Password',

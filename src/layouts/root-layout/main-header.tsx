@@ -7,14 +7,20 @@ import { Trash2 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 
 export function MainHeader() {
-  const { firstPathname } = usePathname()
+  const { firstPathname, secondPathname } = usePathname()
   const navigate = useNavigate()
 
   const isActivePage = (item: string) => {
     if (
-      convertToSlug(item) === firstPathname ||
       (item.toLowerCase() === 'dashboard' && firstPathname === '') ||
-      (item.toLowerCase() === 'dashboard' && firstPathname === 'pendaftar')
+      (item.toLowerCase() === 'dashboard' && firstPathname === 'pendaftar') ||
+      (item.toLowerCase() === 'open-ticket' &&
+        firstPathname === 'open-ticket' &&
+        secondPathname !== 'sekolah') ||
+      (convertToSlug(item) === firstPathname && secondPathname !== 'sekolah') ||
+      (item.toLowerCase() === 'open-ticket-sekolah' &&
+        firstPathname === 'open-ticket' &&
+        secondPathname === 'sekolah')
     ) {
       return true
     }
@@ -52,7 +58,9 @@ export function MainHeader() {
               to={
                 item?.title === 'Dashboard'
                   ? ''
-                  : `/${convertToSlug(item?.title)}`
+                  : item?.title === 'Open Ticket Sekolah'
+                    ? '/open-ticket/sekolah'
+                    : `/${convertToSlug(item?.title)}`
               }
               key={idx}
               className={clsx(
