@@ -5,9 +5,12 @@ import {
   MenubarTrigger,
 } from '@/components/Menubar'
 import { AdminNotifType, NotifikasiType } from '@/libs/types/tiket-type'
+import { setStatePertanyaanSekolah } from '@/store/reducer/statePertanyaanSekolah'
+import { setStatePertanyaanSiswa } from '@/store/reducer/statePertanyaanSiswa'
 import clsx from 'clsx'
 import { Bell } from 'lucide-react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 export function MenubarNotifikasi({
@@ -28,6 +31,8 @@ export function MenubarNotifikasi({
   const handleCloseMenubarContent = () => {
     setIsMenuOpen(false)
   }
+
+  const dispatch = useDispatch()
 
   return (
     <Menubar className="px-4">
@@ -73,7 +78,12 @@ export function MenubarNotifikasi({
                             'hover: flex items-center gap-16 text-nowrap p-8 hover:cursor-pointer hover:bg-yellow-50',
                           )}
                           key={idx}
-                          onClick={handleCloseMenubarContent}
+                          onClick={() => {
+                            dispatch(
+                              setStatePertanyaanSiswa({ detail: item?.id }),
+                            )
+                            handleCloseMenubarContent()
+                          }}
                         >
                           <div className="h-[6rem] w-[5rem]">
                             <img
@@ -120,7 +130,15 @@ export function MenubarNotifikasi({
                             'hover: flex items-center gap-16 text-nowrap p-8 hover:cursor-pointer hover:bg-yellow-50',
                           )}
                           key={idx}
-                          onClick={handleCloseMenubarContent}
+                          onClick={() => {
+                            dispatch(
+                              setStatePertanyaanSekolah({
+                                detail: item?.id,
+                                page: 'detail',
+                              }),
+                            )
+                            handleCloseMenubarContent()
+                          }}
                         >
                           <div className="h-[6rem] w-[5rem]">
                             <img

@@ -18,13 +18,32 @@ import {
 import { useGetBiodataQuery } from '@/store/slices/biodataAPI'
 import { BiodataType } from '@/libs/types/biodata-type'
 import 'react-toastify/dist/ReactToastify.css'
+import { useSelector } from 'react-redux'
+import { getPertanyaanSekolahSlice } from '@/store/reducer/statePertanyaanSekolah'
 
 export default function TIcketTambah() {
+  const stateName = useSelector(getPertanyaanSekolahSlice)?.detail
+  const stateId = useSelector(getPertanyaanSekolahSlice)?.page
+
+  useEffect(() => {
+    if (stateName) {
+      setName(stateName)
+    }
+  }, [stateName])
+
+  useEffect(() => {
+    if (stateId) {
+      setId(stateId)
+    }
+  }, [stateId])
+
   const searchParams = new URLSearchParams(location.search)
   const detailParams = searchParams.get('page')
-  const [name, setName] = useState<string>(detailParams ?? null)
   const idParams = searchParams.get('id')
-  const [id, setId] = useState<string>(idParams ?? null)
+
+  const [name, setName] = useState<string>(detailParams ?? stateName ?? '')
+
+  const [id, setId] = useState<string>(idParams ?? stateId ?? null)
   const [siswa, setSiswa] = useState<number>()
 
   const [urls, setUrls] = useState<string[]>([])

@@ -11,11 +11,22 @@ import {
   useCreateTutupChatMutation,
 } from '@/store/slices/pertanyaanAPI'
 import 'react-toastify/dist/ReactToastify.css'
+import { useSelector } from 'react-redux'
+import { getPertanyaanSiswaSlice } from '@/store/reducer/statePertanyaanSiswa'
 
 export default function Pertanyaan() {
+  const stateName = useSelector(getPertanyaanSiswaSlice)?.detail
+
+  useEffect(() => {
+    if (stateName) {
+      setName(stateName)
+    }
+  }, [stateName])
+
   const searchParams = new URLSearchParams(location.search)
   const detailParams = searchParams.get('detail')
-  const [name, setName] = useState<string>(detailParams ?? null)
+
+  const [name, setName] = useState<string>(detailParams ?? stateName ?? '')
 
   const [urls, setUrls] = useState<string[]>([])
 

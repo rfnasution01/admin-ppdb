@@ -5,6 +5,8 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
 import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
+import { useDispatch } from 'react-redux'
+import { setStatePertanyaanSiswa } from '@/store/reducer/statePertanyaanSiswa'
 
 export function MappingListTiket({
   item,
@@ -20,12 +22,14 @@ export function MappingListTiket({
   const { refetch } = useGetTiketNotifikasiQuery()
   const [isShow, setIsShow] = useState<boolean>(true)
   const [id, setId] = useState<string>('')
+  const dispath = useDispatch()
 
   return (
     <div className="scrollbar flex h-full flex-col gap-24 overflow-y-auto">
       {item?.map((list, idx) => (
         <div
           onClick={() => {
+            dispath(setStatePertanyaanSiswa({ detail: list?.id }))
             setName(list?.id)
             setId(list?.id)
             if (id === list?.id) {

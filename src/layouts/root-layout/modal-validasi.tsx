@@ -14,6 +14,9 @@ import { AdminNotifType, NotifikasiType } from '@/libs/types/tiket-type'
 import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
+import { useDispatch } from 'react-redux'
+import { setStatePertanyaanSiswa } from '@/store/reducer/statePertanyaanSiswa'
+import { setStatePertanyaanSekolah } from '@/store/reducer/statePertanyaanSekolah'
 
 export function ModalValidasi({
   isOpen,
@@ -36,6 +39,7 @@ export function ModalValidasi({
     }
   }, [getNotifikasi])
 
+  const dispatch = useDispatch()
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
@@ -77,7 +81,12 @@ export function ModalValidasi({
                               'hover: flex items-center gap-16 text-nowrap p-8 hover:cursor-pointer hover:bg-yellow-50',
                             )}
                             key={idx}
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => {
+                              dispatch(
+                                setStatePertanyaanSiswa({ detail: item?.id }),
+                              )
+                              setIsOpen(false)
+                            }}
                           >
                             <div className="h-[6rem] w-[5rem]">
                               <img
@@ -128,7 +137,15 @@ export function ModalValidasi({
                               'hover: flex items-center gap-16 text-nowrap p-8 hover:cursor-pointer hover:bg-yellow-50',
                             )}
                             key={idx}
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => {
+                              dispatch(
+                                setStatePertanyaanSekolah({
+                                  detail: item?.id,
+                                  page: 'detail',
+                                }),
+                              )
+                              setIsOpen(false)
+                            }}
                           >
                             <div className="h-[6rem] w-[5rem]">
                               <img

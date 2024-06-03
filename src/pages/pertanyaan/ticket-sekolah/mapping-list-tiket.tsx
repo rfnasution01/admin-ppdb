@@ -5,6 +5,8 @@ import clsx from 'clsx'
 import { MenubarLayanan } from './menubar-edit'
 import { useNavigate } from 'react-router-dom'
 import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
+import { useDispatch } from 'react-redux'
+import { setStatePertanyaanSekolah } from '@/store/reducer/statePertanyaanSekolah'
 
 export function MappingListTiket({
   item,
@@ -20,6 +22,7 @@ export function MappingListTiket({
   const navigate = useNavigate()
 
   const { refetch } = useGetTiketNotifikasiQuery()
+  const dispatch = useDispatch()
 
   return (
     <div className="scrollbar flex h-full flex-col gap-24 overflow-y-auto">
@@ -28,6 +31,12 @@ export function MappingListTiket({
           onClick={() => {
             setName(list?.id)
             setId(list?.id)
+            dispatch(
+              setStatePertanyaanSekolah({
+                page: 'detail',
+                detail: list?.id,
+              }),
+            )
             refetch()
             navigate(`/open-ticket/sekolah?page=detail&id=${list?.id}`)
           }}
