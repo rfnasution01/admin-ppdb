@@ -33,11 +33,13 @@ export type TiketSekolahType = {
   status: number
   status_user: string
   status_at: string
+  belum_baca: number
 }
 
 export type TikeetNotificationType = {
   siswa: NotifikasiType[]
   admin: AdminNotifType[]
+  belum_baa: number
 }
 
 export type AdminNotifType = {
@@ -58,11 +60,13 @@ export type NotifikasiType = {
 export type TiketDetailType = {
   ticket: TiketType
   chat: TiketChatType[]
+  belum_baca: number
 }
 
 export type TiketSekolahDetailType = {
   ticket: TIketDetail
   chat: TiketChatType[]
+  belum_baca: number
 }
 
 export type TIketDetail = {

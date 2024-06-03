@@ -1,25 +1,12 @@
-import {
-  TikeetNotificationType,
-  TiketSekolahDetailType,
-} from '@/libs/types/tiket-type'
+import { TiketSekolahDetailType } from '@/libs/types/tiket-type'
 import { CheckCheck, Download } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import TimeSinceUploaded from '@/libs/helpers/format-time'
-import { useEffect, useState } from 'react'
-import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
 import clsx from 'clsx'
 import { PasPhoto } from '../pas-photo'
 
 export function DetailHistory({ detail }: { detail: TiketSekolahDetailType }) {
   // --- Notifikasi ---
-  const [notifikasi, setNotifikasi] = useState<TikeetNotificationType>()
-  const { data: getNotifikasi } = useGetTiketNotifikasiQuery()
-
-  useEffect(() => {
-    if (getNotifikasi) {
-      setNotifikasi(getNotifikasi?.data)
-    }
-  }, [getNotifikasi])
 
   const notReadNewsId = detail?.chat?.find(
     (item) => item?.baca === '0' && item?.jenis_chat !== 'ADMIN',
@@ -30,11 +17,11 @@ export function DetailHistory({ detail }: { detail: TiketSekolahDetailType }) {
       {detail?.chat?.map((item, idx) => (
         <div className={`flex w-full flex-col gap-24`} key={idx}>
           {item?.jenis_chat === 'ADMIN' &&
-            notifikasi?.admin?.length > 0 &&
+            detail?.belum_baca > 0 &&
             notReadNewsId === item?.id && (
               <div className="flex w-full justify-center">
                 <p className="rounded-full border bg-white px-24 py-12">
-                  {notifikasi?.admin?.length} Pesan Belum dibaca
+                  {detail?.belum_baca} Pesan Belum dibaca
                 </p>
               </div>
             )}
