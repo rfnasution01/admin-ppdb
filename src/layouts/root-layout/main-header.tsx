@@ -1,6 +1,7 @@
 import { ListNavigasi } from '@/libs/dummy/list-navigasi'
 import { convertToSlug } from '@/libs/helpers/format-text'
 import { usePathname } from '@/libs/hooks/usePathname'
+import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
 import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import { Trash2 } from 'lucide-react'
@@ -39,6 +40,9 @@ export function MainHeader() {
 
   const menu = level === 'Operator' ? menuOperator : ListNavigasi
 
+  // --- Notifikasi ---
+  const { refetch } = useGetTiketNotifikasiQuery()
+
   return (
     <div className="flex h-full flex-col gap-64">
       {/* --- Logo --- */}
@@ -63,6 +67,7 @@ export function MainHeader() {
                     : `/${convertToSlug(item?.title)}`
               }
               key={idx}
+              onClick={refetch}
               className={clsx(
                 'flex items-center gap-16 border-l-2 px-24 py-8 hover:cursor-pointer hover:border-danger-300 hover:bg-danger-tint-1 hover:bg-opacity-20 hover:text-danger-300',
                 {

@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { MenubarLayanan } from './menubar-edit'
 import { useNavigate } from 'react-router-dom'
+import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
 
 export function MappingListTiket({
   item,
@@ -18,6 +19,8 @@ export function MappingListTiket({
 }) {
   const navigate = useNavigate()
 
+  const { refetch } = useGetTiketNotifikasiQuery()
+
   return (
     <div className="scrollbar flex h-full flex-col gap-24 overflow-y-auto">
       {item?.map((list, idx) => (
@@ -25,6 +28,7 @@ export function MappingListTiket({
           onClick={() => {
             setName(list?.id)
             setId(list?.id)
+            refetch()
             navigate(`/open-ticket/sekolah?page=detail&id=${list?.id}`)
           }}
           className={clsx(
