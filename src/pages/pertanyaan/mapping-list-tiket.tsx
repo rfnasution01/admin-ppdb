@@ -1,7 +1,7 @@
 import TimeSinceUploaded from '@/libs/helpers/format-time'
 import { TiketType } from '@/libs/types/tiket-type'
 import { PasPhoto } from './pas-photo'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
 import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
@@ -18,6 +18,8 @@ export function MappingListTiket({
   const navigate = useNavigate()
 
   const { refetch } = useGetTiketNotifikasiQuery()
+  const [isShow, setIsShow] = useState<boolean>(true)
+  const [id, setId] = useState<string>('')
 
   return (
     <div className="scrollbar flex h-full flex-col gap-24 overflow-y-auto">
@@ -25,6 +27,10 @@ export function MappingListTiket({
         <div
           onClick={() => {
             setName(list?.id)
+            setId(list?.id)
+            if (id === list?.id) {
+              setIsShow(false)
+            }
             refetch()
             navigate(`/open-ticket?detail=${list?.id}`)
           }}
@@ -63,7 +69,7 @@ export function MappingListTiket({
           {/* --- Deskripsi --- */}
           <div className="flex items-center justify-between">
             <p className="limited-text">{list?.judul}</p>
-            {list?.belum_baca > 0 && (
+            {list?.belum_baca > 0 && isShow && (
               <p className="flex h-[3rem] w-[3rem] items-center justify-center rounded-full bg-rose-500 p-8 text-[1.6rem] text-white">
                 {list?.belum_baca}
               </p>
