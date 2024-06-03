@@ -78,7 +78,7 @@ export function TiketSekolahHeader({
         <div
           onClick={() => {
             setName('tambah')
-            navigate('/open-ticket/sekolah?page=tambah')
+            navigate('/pertanyaan-siswa/sekolah?page=tambah')
           }}
           className="rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
         >

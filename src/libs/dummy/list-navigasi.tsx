@@ -1,13 +1,12 @@
 import {
   Clipboard,
+  HelpCircle,
   KeySquare,
   LayoutDashboard,
   School,
   Scroll,
   Search,
   ShieldCheck,
-  Ticket,
-  TicketSlash,
   UserRound,
   Users2,
 } from 'lucide-react'
@@ -46,12 +45,12 @@ export const ListNavigasi = [
     icon: <Search size={16} />,
   },
   {
-    title: 'Open Ticket',
-    icon: <Ticket size={16} />,
+    title: 'Pertanyaan Siswa',
+    icon: <HelpCircle size={16} />,
   },
   {
-    title: 'Open Ticket Sekolah',
-    icon: <TicketSlash size={16} />,
+    title: 'Hubungi Disdik',
+    icon: <HelpCircle size={16} />,
   },
   {
     title: 'Ganti Password',

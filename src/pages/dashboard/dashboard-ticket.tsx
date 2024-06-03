@@ -54,12 +54,15 @@ export function DashboardTiket() {
       <div className="flex justify-between gap-32 text-[#005479]">
         <p className="text-[3.2rem] font-bold">Ticket Terbaru</p>
         {menu === 'Siswa' ? (
-          <Link to="/open-ticket" className="underline hover:text-primary">
+          <Link
+            to="/pertanyaan-siswat"
+            className="underline hover:text-primary"
+          >
             Lihat Semua
           </Link>
         ) : (
           <Link
-            to="/open-ticket/sekolah"
+            to="/pertanyaan-siswa/sekolah"
             className="underline hover:text-primary"
           >
             Lihat Semua
@@ -99,7 +102,7 @@ export function DashboardTiket() {
                   className="flex items-center gap-32 border-b border-[#e0e4e5] py-24 hover:cursor-pointer hover:bg-yellow-50"
                   key={idx}
                   onClick={() => {
-                    navigate(`/open-ticket?detail=${item?.id}`)
+                    navigate(`/pertanyaan-siswa?detail=${item?.id}`)
                   }}
                 >
                   <div className="limited-text-2-lines flex-1 overflow-hidden">
@@ -125,7 +128,7 @@ export function DashboardTiket() {
                 className="flex items-center gap-32 border-b border-[#e0e4e5] py-24 hover:cursor-pointer hover:bg-yellow-50"
                 key={idx}
                 onClick={() => {
-                  navigate(`/open-ticket?detail=${item?.id}`)
+                  navigate(`/pertanyaan-siswa?detail=${item?.id}`)
                 }}
               >
                 <div className="limited-text-2-lines flex-1 overflow-hidden">

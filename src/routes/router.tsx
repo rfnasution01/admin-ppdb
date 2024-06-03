@@ -89,7 +89,7 @@ export const router = createBrowserRouter([
         element: <CariPage />,
       },
       {
-        path: 'open-ticket',
+        path: 'pertanyaan-siswa',
         element: <DashBoardLayout />,
         children: [
           {

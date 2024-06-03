@@ -15,12 +15,12 @@ export function MainHeader() {
     if (
       (item.toLowerCase() === 'dashboard' && firstPathname === '') ||
       (item.toLowerCase() === 'dashboard' && firstPathname === 'pendaftar') ||
-      (item.toLowerCase() === 'open-ticket' &&
-        firstPathname === 'open-ticket' &&
+      (item.toLowerCase() === 'pertanyaan-siswa' &&
+        firstPathname === 'pertanyaan-siswa' &&
         secondPathname !== 'sekolah') ||
       (convertToSlug(item) === firstPathname && secondPathname !== 'sekolah') ||
-      (item.toLowerCase() === 'open-ticket-sekolah' &&
-        firstPathname === 'open-ticket' &&
+      (item.toLowerCase() === 'hubungi-disdik' &&
+        firstPathname === 'pertanyaan-siswa' &&
         secondPathname === 'sekolah')
     ) {
       return true
@@ -62,8 +62,8 @@ export function MainHeader() {
               to={
                 item?.title === 'Dashboard'
                   ? ''
-                  : item?.title === 'Open Ticket Sekolah'
-                    ? '/open-ticket/sekolah'
+                  : item?.title === 'Hubungi Disdik'
+                    ? '/pertanyaan-siswa/sekolah'
                     : `/${convertToSlug(item?.title)}`
               }
               key={idx}

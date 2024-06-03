@@ -73,7 +73,7 @@ export function MenubarNotifikasi({
                     {dataSiswa?.length > 0 ? (
                       dataSiswa?.slice(0, 3).map((item, idx) => (
                         <Link
-                          to={`/open-ticket?detail=${item?.id}`}
+                          to={`/pertanyaan-siswa?detail=${item?.id}`}
                           className={clsx(
                             'hover: flex items-center gap-16 text-nowrap p-8 hover:cursor-pointer hover:bg-yellow-50',
                           )}
@@ -111,7 +111,7 @@ export function MenubarNotifikasi({
                     )}
                     <hr className="border" />
                     <Link
-                      to={'/open-ticket'}
+                      to={'/pertanyaan-siswa'}
                       className="text-center italic hover:text-primary"
                       onClick={handleCloseMenubarContent}
                     >
@@ -125,7 +125,7 @@ export function MenubarNotifikasi({
                     {dataSekolah?.length > 0 ? (
                       dataSekolah.slice(0, 3).map((item, idx) => (
                         <Link
-                          to={`/open-ticket/sekolah?page=detail&id=${item?.id}`}
+                          to={`/pertanyaan-siswa/sekolah?page=detail&id=${item?.id}`}
                           className={clsx(
                             'hover: flex items-center gap-16 text-nowrap p-8 hover:cursor-pointer hover:bg-yellow-50',
                           )}
@@ -166,7 +166,7 @@ export function MenubarNotifikasi({
                     )}
                     <hr className="border" />
                     <Link
-                      to={'/open-ticket/sekolah'}
+                      to={'/pertanyaan-siswa/sekolah'}
                       className="text-center italic hover:text-primary"
                       onClick={handleCloseMenubarContent}
                     >

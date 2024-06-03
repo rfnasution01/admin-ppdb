@@ -22,8 +22,8 @@ import { useSelector } from 'react-redux'
 import { getPertanyaanSekolahSlice } from '@/store/reducer/statePertanyaanSekolah'
 
 export default function TIcketTambah() {
-  const stateName = useSelector(getPertanyaanSekolahSlice)?.detail
-  const stateId = useSelector(getPertanyaanSekolahSlice)?.page
+  const stateName = useSelector(getPertanyaanSekolahSlice)?.page
+  const stateId = useSelector(getPertanyaanSekolahSlice)?.detail
 
   useEffect(() => {
     if (stateName) {

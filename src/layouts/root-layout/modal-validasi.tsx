@@ -76,7 +76,7 @@ export function ModalValidasi({
                       {notifikasiSiswa?.length > 0 ? (
                         notifikasiSiswa?.slice(0, 3).map((item, idx) => (
                           <Link
-                            to={`/open-ticket?detail=${item?.id}`}
+                            to={`/pertanyaan-siswa?detail=${item?.id}`}
                             className={clsx(
                               'hover: flex items-center gap-16 text-nowrap p-8 hover:cursor-pointer hover:bg-yellow-50',
                             )}
@@ -115,7 +115,7 @@ export function ModalValidasi({
                       <hr className="border" />
                       <div className="flex justify-end">
                         <Link
-                          to={'/open-ticket'}
+                          to={'/pertanyaan-siswa'}
                           className="rounded-lg bg-green-700 px-24 py-8 text-center italic text-white hover:bg-green-900"
                           onClick={() => setIsOpen(false)}
                         >
@@ -132,7 +132,7 @@ export function ModalValidasi({
                       {notifikasiSekolah?.length > 0 ? (
                         notifikasiSekolah.slice(0, 3).map((item, idx) => (
                           <Link
-                            to={`/open-ticket/sekolah?page=detail&id=${item?.id}`}
+                            to={`/pertanyaan-siswa/sekolah?page=detail&id=${item?.id}`}
                             className={clsx(
                               'hover: flex items-center gap-16 text-nowrap p-8 hover:cursor-pointer hover:bg-yellow-50',
                             )}
@@ -174,7 +174,7 @@ export function ModalValidasi({
                       <hr className="border" />
                       <div className="flex justify-end">
                         <Link
-                          to={'/open-ticket/sekolah'}
+                          to={'/pertanyaan-siswa/sekolah'}
                           className="rounded-lg bg-green-700 px-24 py-8 text-center italic text-white hover:bg-green-900"
                           onClick={() => setIsOpen(false)}
                         >

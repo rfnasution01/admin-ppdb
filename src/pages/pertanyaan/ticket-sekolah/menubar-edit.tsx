@@ -45,7 +45,7 @@ export function MenubarLayanan({
             {['Edit'].map((item, idx) => (
               <div
                 onClick={() => {
-                  navigate(`/open-ticket/sekolah?page=edit&id=${id}`)
+                  navigate(`/pertanyaan-siswa/sekolah?page=edit&id=${id}`)
                   setName('edit')
                   setId(id)
                 }}

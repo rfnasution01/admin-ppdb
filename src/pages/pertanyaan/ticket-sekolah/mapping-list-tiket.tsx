@@ -29,7 +29,7 @@ export function MappingListTiket({
       {item?.map((list, idx) => (
         <div
           onClick={() => {
-            setName(list?.id)
+            setName('detail')
             setId(list?.id)
             dispatch(
               setStatePertanyaanSekolah({
@@ -38,7 +38,7 @@ export function MappingListTiket({
               }),
             )
             refetch()
-            navigate(`/open-ticket/sekolah?page=detail&id=${list?.id}`)
+            navigate(`/pertanyaan-siswa/sekolah?page=detail&id=${list?.id}`)
           }}
           className={clsx(
             'flex flex-col gap-16 rounded-2xl border p-32 hover:cursor-pointer hover:border-[#73C2FF] hover:bg-[#f5faff]',

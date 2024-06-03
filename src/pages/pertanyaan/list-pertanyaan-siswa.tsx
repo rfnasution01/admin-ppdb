@@ -112,7 +112,7 @@ export function ListPertanyaanSiswa({
           </div>
           <div
             onClick={() => {
-              navigate(`/open-ticket/sekolah`)
+              navigate(`/pertanyaan-siswa/sekolah`)
             }}
             className="rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
           >

@@ -36,7 +36,7 @@ export function MappingListTiket({
               setIsShow(false)
             }
             refetch()
-            navigate(`/open-ticket?detail=${list?.id}`)
+            navigate(`/pertanyaan-siswa?detail=${list?.id}`)
           }}
           className={clsx(
             'flex flex-col gap-16 rounded-2xl border p-32 hover:cursor-pointer hover:border-[#73C2FF] hover:bg-[#f5faff]',
