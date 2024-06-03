@@ -39,7 +39,6 @@ export type TiketSekolahType = {
 export type TikeetNotificationType = {
   siswa: NotifikasiType[]
   admin: AdminNotifType[]
-  belum_baa: number
 }
 
 export type AdminNotifType = {

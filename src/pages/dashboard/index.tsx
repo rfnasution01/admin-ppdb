@@ -6,6 +6,8 @@ import { DashboardDayaTampung } from './dashboard-daya-tampung'
 import { DashboardVerifikasiData } from './dashboard-verifikaasi-data'
 import { DashboardTiket } from './dashboard-ticket'
 import { DashboardPendaftar } from './dashboard-pendaftar'
+import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
+import { ModalValidasi } from '@/layouts/root-layout/modal-validasi'
 
 export default function Dashboard() {
   // --- Dashboard ---
@@ -19,6 +21,15 @@ export default function Dashboard() {
   }, [data?.data])
 
   const loading = isFetching || isLoading
+
+  const [isShowModal, setIsShowModal] = useState<boolean>(false)
+  const { data: notifData } = useGetTiketNotifikasiQuery()
+
+  useEffect(() => {
+    if (notifData?.jlh > 0) {
+      setIsShowModal(true)
+    }
+  }, [notifData])
 
   return (
     <div className="flex h-full w-full flex-col items-start justify-start gap-32 text-left">
@@ -46,6 +57,7 @@ export default function Dashboard() {
           <DashboardTiket />
         </div>
       </div>
+      <ModalValidasi isOpen={isShowModal} setIsOpen={setIsShowModal} />
     </div>
   )
 }

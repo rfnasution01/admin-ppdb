@@ -19,6 +19,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import Loading from '@/components/Loading'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
+import { ModalValidasi } from '@/layouts/root-layout/modal-validasi'
 
 export default function ProfilSekolah() {
   // --- Form Schema ---
@@ -126,6 +128,15 @@ export default function ProfilSekolah() {
 
   const loading = isLoading || isFetching || isLoadingProfil
 
+  const [isShowModal, setIsShowModal] = useState<boolean>(false)
+  const { data: notifData } = useGetTiketNotifikasiQuery()
+
+  useEffect(() => {
+    if (notifData?.jlh > 0) {
+      setIsShowModal(true)
+    }
+  }, [notifData])
+
   return (
     <>
       {isLoading ? (
@@ -196,6 +207,7 @@ export default function ProfilSekolah() {
           </form>
         </Form>
       )}
+      <ModalValidasi isOpen={isShowModal} setIsOpen={setIsShowModal} />
     </>
   )
 }

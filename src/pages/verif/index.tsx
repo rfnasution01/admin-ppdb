@@ -17,6 +17,8 @@ import { ProfilType } from '@/libs/types/profil-type'
 import { useGetProfilQuery } from '@/store/slices/profilAPI'
 import { Table } from '@/components/Table'
 import { columnsVerifikasi } from '@/libs/dummy/table'
+import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
+import { ModalValidasi } from '@/layouts/root-layout/modal-validasi'
 
 export default function Verif() {
   const navigate = useNavigate()
@@ -114,6 +116,15 @@ export default function Verif() {
   }, [isErrorClaim, errorClaim])
 
   const loading = isFetching || isLoading
+
+  const [isShowModal, setIsShowModal] = useState<boolean>(false)
+  const { data: notifData } = useGetTiketNotifikasiQuery()
+
+  useEffect(() => {
+    if (notifData?.jlh > 0) {
+      setIsShowModal(true)
+    }
+  }, [notifData])
 
   return (
     <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto pb-32">
@@ -265,6 +276,7 @@ export default function Verif() {
           />
         </div>
       )}
+      <ModalValidasi isOpen={isShowModal} setIsOpen={setIsShowModal} />
       <ToastContainer />
     </div>
   )

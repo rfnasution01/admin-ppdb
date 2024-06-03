@@ -15,6 +15,8 @@ import { MenubarOperator } from './menubar-operator'
 import { ModalTambahOperator } from './modal-tambah-operator'
 import { ModalEditOperator } from './modal-edit-operator'
 import { ModalEditPassword } from './modal-edit-password'
+import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
+import { ModalValidasi } from '@/layouts/root-layout/modal-validasi'
 
 export default function DataOperator() {
   const [name, setName] = useState<string | null>(null)
@@ -95,6 +97,15 @@ export default function DataOperator() {
   }, [isErrorGantiStatus, errorGantiStatus])
 
   const loading = isFetching || isLoading
+
+  const [isShowModal, setIsShowModal] = useState<boolean>(false)
+  const { data: notifData } = useGetTiketNotifikasiQuery()
+
+  useEffect(() => {
+    if (notifData?.jlh > 0) {
+      setIsShowModal(true)
+    }
+  }, [notifData])
 
   return (
     <div className="scrollbar flex h-full w-full flex-col gap-32">
@@ -219,6 +230,7 @@ export default function DataOperator() {
           </tbody>
         </table>
       </div>
+      <ModalValidasi isOpen={isShowModal} setIsOpen={setIsShowModal} />
       <ToastContainer />
     </div>
   )

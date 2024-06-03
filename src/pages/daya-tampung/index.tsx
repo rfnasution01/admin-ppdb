@@ -13,6 +13,8 @@ import { useGetDayaTampungQuery } from '@/store/slices/dayaTampungAPI'
 import { enumJalur } from '@/libs/enum/enum-jalur'
 import clsx from 'clsx'
 import Loading from '@/components/Loading'
+import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
+import { ModalValidasi } from '@/layouts/root-layout/modal-validasi'
 
 export default function DayaTampung() {
   // --- DayaTampung ---
@@ -26,6 +28,15 @@ export default function DayaTampung() {
       setDayaTampung(data?.data)
     }
   }, [data?.data])
+
+  const [isShowModal, setIsShowModal] = useState<boolean>(false)
+  const { data: notifData } = useGetTiketNotifikasiQuery()
+
+  useEffect(() => {
+    if (notifData?.jlh > 0) {
+      setIsShowModal(true)
+    }
+  }, [notifData])
 
   return (
     <div className="grid w-full grid-cols-12 gap-32">
@@ -95,6 +106,7 @@ export default function DayaTampung() {
           ))}
         </>
       )}
+      <ModalValidasi isOpen={isShowModal} setIsOpen={setIsShowModal} />
     </div>
   )
 }

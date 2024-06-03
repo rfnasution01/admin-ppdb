@@ -1,9 +1,11 @@
 import { Pagination } from '@/components/Pagination'
 import { Table } from '@/components/Table'
 import { FormListDataPerPage } from '@/components/form/formListDataPerPage'
+import { ModalValidasi } from '@/layouts/root-layout/modal-validasi'
 import { columnsCari } from '@/libs/dummy/table'
 import { PageInfoType } from '@/libs/types/pendaftar-type'
 import { useGetNISNQuery } from '@/store/slices/dataPendaftarAPI'
+import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
 import { debounce } from 'lodash'
 import { Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -44,6 +46,15 @@ export default function CariSiswa() {
     ) as HTMLInputElement
     handleSearch(inputElement.value)
   }
+
+  const [isShowModal, setIsShowModal] = useState<boolean>(false)
+  const { data: notifData } = useGetTiketNotifikasiQuery()
+
+  useEffect(() => {
+    if (notifData?.jlh > 0) {
+      setIsShowModal(true)
+    }
+  }, [notifData])
 
   return (
     <div className="flex h-full w-full flex-col gap-32">
@@ -95,6 +106,7 @@ export default function CariSiswa() {
           />
         )}
       </div>
+      <ModalValidasi isOpen={isShowModal} setIsOpen={setIsShowModal} />
     </div>
   )
 }
