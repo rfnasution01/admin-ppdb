@@ -140,7 +140,7 @@ export function DataPilihSekolah({
 
   // --- Mengecek apakah masih ada dokumen yang belum di setujui ---
   const isWajibFileNotVerified = item?.dokumen?.some(
-    (list) => list?.status_verifikasi !== 1,
+    (list) => list?.status_verifikasi !== 1 && list?.status === 'Wajib',
   )
 
   const isFileNotVerified = item?.dokumen?.some(

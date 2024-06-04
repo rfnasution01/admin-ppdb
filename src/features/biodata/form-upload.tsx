@@ -108,6 +108,7 @@ export const FileUploadForm = ({
   const handleSubmit = async () => {
     if (file) {
       const formData = new FormData()
+      formData.append('id', id)
       formData.append('id_dokumen', id_dokumen)
       formData.append('berkas', file)
 
@@ -246,10 +247,10 @@ export const FileUploadForm = ({
         {dok_siswa && (
           <button
             type="button"
-            disabled={status_verifikasi !== 0}
+            disabled={isLoadingUpload || status_verifikasi === 1}
             onClick={() => {
               setIsShowSetuju(true)
-              setIsIdDokumen(id)
+              setIsIdDokumen(id_dokumen)
             }}
             className="flex items-center justify-center gap-8 text-nowrap rounded-lg bg-green-700 p-8 text-center text-[2rem] text-white hover:bg-green-900 disabled:cursor-not-allowed"
           >
@@ -266,10 +267,10 @@ export const FileUploadForm = ({
         {dok_siswa && (
           <button
             type="button"
-            disabled={status_verifikasi !== 0}
+            disabled={isLoadingUpload || status_verifikasi === 1}
             onClick={() => {
               setIsShowTolak(true)
-              setIsIdDokumen(id)
+              setIsIdDokumen(id_dokumen)
             }}
             className="flex items-center justify-center gap-8 text-nowrap rounded-lg bg-rose-700 p-8 text-center text-[2rem] text-white hover:bg-rose-900 disabled:cursor-not-allowed"
           >

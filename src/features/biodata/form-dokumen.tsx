@@ -51,6 +51,8 @@ export function FormDokumen({
 
   const [idDokumen, setIdDokumen] = useState<string>('')
 
+  console.log(idDokumen)
+
   const handleSubmitSetuju = async (values) => {
     const body = {
       id: id,
@@ -191,7 +193,7 @@ export function FormDokumen({
                       setIsShowSetuju={setIsShowSetuju}
                       setIsShowTolak={setIsShowTolak}
                       setIsIdDokumen={setIdDokumen}
-                      id={item?.id}
+                      id={id}
                     />
                   </td>
 
