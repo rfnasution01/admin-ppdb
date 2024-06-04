@@ -161,10 +161,10 @@ export default function Pertanyaan() {
   return (
     <div className="h-full w-full grid-cols-12 gap-32">
       <div className="grid h-full grid-cols-12 gap-32">
-        <div className="scrollbar col-span-5 h-full w-full overflow-y-auto">
+        <div className="scrollbar col-span-5 h-full w-full overflow-y-auto phones:col-span-12">
           <ListPertanyaanSiswa name={name} setName={setName} />
         </div>
-        <div className="scrollbar col-span-7 h-full overflow-y-auto">
+        <div className="scrollbar col-span-7 h-full overflow-y-auto phones:col-span-12">
           <DetailPertanyaanSiswa
             name={name}
             form={form}

@@ -10,7 +10,7 @@ export function DashboardPendaftar({
 }) {
   return (
     <div className="flex w-full flex-col gap-48 rounded-2xl bg-white p-32 shadow-md">
-      <div className="flex items-center justify-between gap-32">
+      <div className="flex items-center justify-between gap-32 phones:flex-col phones:items-start">
         {dashboard?.gelombang?.map((item, idx) => (
           <div className="w-full" key={idx}>
             <div className="flex items-center justify-between phones:w-full phones:flex-col phones:items-start">

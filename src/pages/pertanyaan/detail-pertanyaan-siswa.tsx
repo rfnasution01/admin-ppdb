@@ -39,7 +39,7 @@ export function DetailPertanyaanSiswa({
     }
   }, [data?.data])
   return (
-    <div className="flex h-full flex-col gap-32 rounded-2xl bg-white p-32">
+    <div className="flex h-full flex-col gap-32 rounded-2xl bg-white p-32 phones:h-auto">
       {name ? (
         loading ? (
           <MultiSkeleton />

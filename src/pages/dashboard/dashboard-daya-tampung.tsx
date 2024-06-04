@@ -24,7 +24,7 @@ export function DashboardDayaTampung() {
   ).reduce((acc, curr) => acc + curr, 0)
 
   return (
-    <div className="grid w-full grid-cols-12 flex-col gap-32 rounded-2xl bg-white p-32 shadow-md">
+    <div className="grid w-full grid-cols-12 flex-col gap-32 rounded-2xl bg-white p-32 shadow-md phones:w-full">
       <div className="col-span-6 phones:col-span-12">
         {loading ? (
           <Loading />
@@ -67,7 +67,7 @@ export function DashboardDayaTampung() {
           </div>
         )}
       </div>
-      <div className="col-span-6">
+      <div className="col-span-6 phones:col-span-12">
         {loading ? (
           <MultiSkeleton />
         ) : (

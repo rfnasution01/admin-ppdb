@@ -15,7 +15,7 @@ export function ModalAside({
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) {
-  const { firstPathname } = usePathname()
+  const { firstPathname, secondPathname } = usePathname()
   const token = Cookies.get('token')
   const navigate = useNavigate()
 
@@ -26,9 +26,15 @@ export function ModalAside({
 
   const isActivePage = (item: string) => {
     if (
-      convertToSlug(item) === firstPathname ||
       (item.toLowerCase() === 'dashboard' && firstPathname === '') ||
-      (item.toLowerCase() === 'dashboard' && firstPathname === 'pendaftar')
+      (item.toLowerCase() === 'dashboard' && firstPathname === 'pendaftar') ||
+      (item.toLowerCase() === 'pertanyaan-siswa' &&
+        firstPathname === 'pertanyaan-siswa' &&
+        secondPathname !== 'sekolah') ||
+      (convertToSlug(item) === firstPathname && secondPathname !== 'sekolah') ||
+      (item.toLowerCase() === 'hubungi-disdik' &&
+        firstPathname === 'pertanyaan-siswa' &&
+        secondPathname === 'sekolah')
     ) {
       return true
     }
@@ -77,9 +83,11 @@ export function ModalAside({
             {menu.map((item, idx) => (
               <Link
                 to={
-                  item?.title?.toLowerCase() === 'dashboard'
+                  item?.title === 'Dashboard'
                     ? ''
-                    : `/${convertToSlug(item?.title)}`
+                    : item?.title === 'Hubungi Disdik'
+                      ? '/pertanyaan-siswa/sekolah'
+                      : `/${convertToSlug(item?.title)}`
                 }
                 onClick={() => {
                   setIsOpen(false)

@@ -77,7 +77,7 @@ export default function HasilPPDB() {
   return (
     <div className="flex h-full w-full flex-col gap-32">
       {/* --- Header --- */}
-      <div className="flex rounded-2xl border border-[#e0e4e5] bg-white p-32 shadow">
+      <div className="flex rounded-2xl border border-[#e0e4e5] bg-white p-32 shadow phones:flex-col phones:items-start">
         <HasilHeader
           value="Daya Tampung"
           label={dashboard?.lulus?.daya_tampung?.toString()}
@@ -90,29 +90,62 @@ export default function HasilPPDB() {
       {/* --- Filter --- */}
       <div className="flex items-center justify-between gap-32">
         <Form {...form}>
-          <form className="flex h-full w-full gap-48">
-            <div className="flex w-full flex-1">
-              <input
-                type="text"
-                className="w-full border border-gray-300 p-16 text-[2rem] focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 phones:w-full"
-                style={{
-                  borderTopLeftRadius: '1rem',
-                  borderBottomLeftRadius: '1rem',
-                }}
-                placeholder="Search"
-                onChange={(e) => onSearch(e)}
-              />
-              <button
-                className="bg-green-700 px-12 text-white"
-                type="button"
-                style={{
-                  borderTopRightRadius: '1rem',
-                  borderBottomRightRadius: '1rem',
-                }}
-                onClick={() => handleClick()}
-              >
-                <Search size={20} />
-              </button>
+          <form className="flex h-full w-full gap-48 phones:flex-col phones:items-start phones:gap-24">
+            <div className="flex w-full flex-1 gap-32">
+              <div className="flex w-full">
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 p-16 text-[2rem] focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 phones:w-full"
+                  style={{
+                    borderTopLeftRadius: '1rem',
+                    borderBottomLeftRadius: '1rem',
+                  }}
+                  placeholder="Search"
+                  onChange={(e) => onSearch(e)}
+                />
+                <button
+                  className="bg-green-700 px-12 text-white"
+                  type="button"
+                  style={{
+                    borderTopRightRadius: '1rem',
+                    borderBottomRightRadius: '1rem',
+                  }}
+                  onClick={() => handleClick()}
+                >
+                  <Search size={20} />
+                </button>
+              </div>
+              <div className="hidden phones:block">
+                <div className="flex items-center gap-24">
+                  <button
+                    type="button"
+                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                  >
+                    <Tooltips
+                      triggerComponent={<RefreshCcw size={16} />}
+                      tooltipContent={<span>Refresh</span>}
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                  >
+                    <Tooltips
+                      triggerComponent={<Download size={16} />}
+                      tooltipContent={<span>Unduh Excel</span>}
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                  >
+                    <Tooltips
+                      triggerComponent={<Printer size={16} />}
+                      tooltipContent={<span>Cetak</span>}
+                    />
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="flex flex-1 gap-24">
               <FormListJalurMasuk
@@ -126,33 +159,37 @@ export default function HasilPPDB() {
                 useFormReturn={form}
               />
               <FormListLulus name="lulus" placeholder="Status" form={form} />
-              <button
-                type="button"
-                className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
-              >
-                <Tooltips
-                  triggerComponent={<RefreshCcw size={16} />}
-                  tooltipContent={<span>Refresh</span>}
-                />
-              </button>
-              <button
-                type="button"
-                className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
-              >
-                <Tooltips
-                  triggerComponent={<Download size={16} />}
-                  tooltipContent={<span>Unduh Excel</span>}
-                />
-              </button>
-              <button
-                type="button"
-                className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
-              >
-                <Tooltips
-                  triggerComponent={<Printer size={16} />}
-                  tooltipContent={<span>Cetak</span>}
-                />
-              </button>
+              <div className="block phones:hidden">
+                <div className="flex items-center gap-24">
+                  <button
+                    type="button"
+                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                  >
+                    <Tooltips
+                      triggerComponent={<RefreshCcw size={16} />}
+                      tooltipContent={<span>Refresh</span>}
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                  >
+                    <Tooltips
+                      triggerComponent={<Download size={16} />}
+                      tooltipContent={<span>Unduh Excel</span>}
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                  >
+                    <Tooltips
+                      triggerComponent={<Printer size={16} />}
+                      tooltipContent={<span>Cetak</span>}
+                    />
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </Form>

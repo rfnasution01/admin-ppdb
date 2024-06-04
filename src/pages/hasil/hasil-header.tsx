@@ -13,7 +13,7 @@ export function HasilHeader({
 }) {
   return (
     <div
-      className={clsx('flex w-1/3 gap-32 border-r p-32', {
+      className={clsx('flex w-1/3 gap-32 border-r p-32 phones:w-full', {
         'border-[#e0e4e5]': isBorder,
         'border-transparent': !isBorder,
       })}

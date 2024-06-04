@@ -70,6 +70,8 @@ export function ContentTitle() {
               </p>
             )}
           </>
+        ) : firstPathname === 'hasil-ppdb' ? (
+          <p className="text-[3rem] font-bold">Hasil PPDB</p>
         ) : (
           <p className="text-[3rem] font-bold">
             {convertSlugToText(firstPathname)}{' '}
@@ -93,7 +95,11 @@ export function ContentTitle() {
                   'hover:cursor-not-allowed': idx === splittedPath.length - 1,
                 })}
               >
-                {item === '' ? 'Dashboard' : convertSlugToText(item)}
+                {item === ''
+                  ? 'Dashboard'
+                  : item === 'hasil-ppdb'
+                    ? 'Hasil PPDB'
+                    : convertSlugToText(item)}
               </Link>
               <p className="text-nowrap">
                 {idx < splittedPath.length - 1 ? ' / ' : ''}
