@@ -53,7 +53,9 @@ export function DashboardPendaftar({
             ]}
           />
           <div className="flex flex-col gap-8">
-            <p className="text-[4rem] font-bold text-[#005479]">Gelombang 1</p>
+            <p className="text-[4rem] font-bold text-[#005479]">
+              Validasi Siswa
+            </p>
             <p>
               <span className="text-[4rem] font-bold text-[#005479]">
                 {dashboard?.gelombang?.[0]?.validasi}

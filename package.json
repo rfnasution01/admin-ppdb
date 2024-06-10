@@ -29,6 +29,7 @@
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
     "dotenv": "^16.4.5",
+    "file-saver": "2.0.2",
     "js-cookie": "^3.0.5",
     "jsdom": "^24.0.0",
     "lodash": "^4.17.21",
@@ -48,6 +49,7 @@
     "react-to-print": "^2.15.1",
     "react-toastify": "^10.0.5",
     "tailwind-merge": "^2.2.2",
+    "xlsx": "0.16.0",
     "zod": "^3.22.5"
   },
   "devDependencies": {

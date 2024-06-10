@@ -25,6 +25,9 @@ import { useGetDashboardQuery } from '@/store/slices/dashboardAPI'
 import dayjs from 'dayjs'
 import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
 import { ModalValidasi } from '@/layouts/root-layout/modal-validasi'
+import { PendaftarType } from '@/libs/types/pendaftar-type'
+import { useGetDataPendaftarQuery } from '@/store/slices/dataPendaftarAPI'
+import ExportCSV from '@/components/ExportCSV'
 
 export default function HasilPPDB() {
   const form = useForm<zod.infer<typeof hasilFilterSchema>>({
@@ -73,6 +76,23 @@ export default function HasilPPDB() {
       setIsShowModal(true)
     }
   }, [notifData])
+
+  //   --- Jalur ---
+  const [pendaftarMasuk, setPendaftarMasuk] = useState<PendaftarType[]>([])
+
+  const { data: getPendaftarMasuk } = useGetDataPendaftarQuery({
+    jalur: '',
+    page: 1,
+    page_size: 1000,
+    search: '',
+    verifikasi: 0,
+  })
+
+  useEffect(() => {
+    if (getPendaftarMasuk) {
+      setPendaftarMasuk(getPendaftarMasuk?.data)
+    }
+  }, [getPendaftarMasuk?.data])
 
   return (
     <div className="flex h-full w-full flex-col gap-32">
@@ -170,15 +190,7 @@ export default function HasilPPDB() {
                       tooltipContent={<span>Refresh</span>}
                     />
                   </button>
-                  <button
-                    type="button"
-                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
-                  >
-                    <Tooltips
-                      triggerComponent={<Download size={16} />}
-                      tooltipContent={<span>Unduh Excel</span>}
-                    />
-                  </button>
+                  <ExportCSV csvData={pendaftarMasuk} />
                   <button
                     type="button"
                     className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
