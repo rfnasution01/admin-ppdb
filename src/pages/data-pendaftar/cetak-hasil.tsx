@@ -188,7 +188,11 @@ export function HasilPendaftaran({
             <div className="divider">Status Verifikasi Sekolah</div>
             <div className="verifikasi-data">
               <div>
-                Diverifikasi/Disetujui oleh: {profil?.verifikasi_sekolah}
+                Diverifikasi/
+                {Number(profil?.verifikasi) === 2
+                  ? 'Disetujui'
+                  : 'Ditolak'}{' '}
+                oleh: {profil?.verifikasi_sekolah}
               </div>
               <div>Petugas Verifikas: {profil?.verifikasi_user}</div>
               <div>

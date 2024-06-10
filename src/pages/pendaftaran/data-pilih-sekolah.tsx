@@ -143,9 +143,9 @@ export function DataPilihSekolah({
     (list) => list?.status_verifikasi !== 1 && list?.status === 'Wajib',
   )
 
-  const isFileNotVerified = item?.dokumen?.some(
-    (list) => list?.status_verifikasi === 0,
-  )
+  // const isFileNotVerified = item?.dokumen?.some(
+  //   (list) => list?.status_verifikasi === 0,
+  // )
 
   // --- Mengecek apakah masih ada prestasi yang belum di validasi ---
   const isPrestasiNotVerified = item?.prestasi?.data?.some(
@@ -165,7 +165,7 @@ export function DataPilihSekolah({
   )
 
   const disableSetuju = isWajibFileNotVerified || isPrestasiNotVerified
-  const disableTOlak = isFileNotVerified || isPrestasiNotVerified
+  // const disableTOlak = isFileNotVerified || isPrestasiNotVerified
 
   return (
     <div className="flex h-full flex-col gap-12">
@@ -340,91 +340,43 @@ export function DataPilihSekolah({
         isOpen={isShowTolak}
         setIsOpen={setIsShowTolak}
         children={
-          <div>
-            {disableTOlak ? (
-              <div className="flex flex-col gap-32">
-                <div className="flex items-center gap-12 border border-red-700 text-[2.2rem] text-red-700">
-                  <span className="bg-red-700 p-12 text-white">
-                    <AlertCircle size={16} />
-                  </span>
-                  <p>Maaf! Masih ada Dokumen yang belum di Verifikasi.</p>
-                </div>
-                <div className="flex flex-col gap-24 text-[2.4rem]">
-                  {/* --- DOkumen Belum Diverifikasi --- */}
-                  {fileNotVerified?.length > 0 && (
-                    <div className="flex flex-col gap-16">
-                      <p>Dokumen yang belum validasi:</p>
-                      <ol className="list-decimal pl-48">
-                        {fileNotVerified?.map((item, idx) => (
-                          <li key={idx}>{item?.nama}</li>
-                        ))}
-                      </ol>
-                    </div>
-                  )}
+          <div className="flex w-full flex-col gap-32 text-[2rem]">
+            <Form {...form}>
+              <form
+                className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto"
+                onSubmit={form.handleSubmit(handleVerifikasiTolak)}
+              >
+                <FormLabelComponent
+                  form={form}
+                  label="Alasan Menolak"
+                  placeHolder="Masukkan Komentar"
+                  name="komentar"
+                  type="text"
+                  isKomentar
+                />
+                {/* <div
+                  dangerouslySetInnerHTML={{ __html: Pernyataan?.operator }}
+                /> */}
 
-                  {/* --- Prestasi Belum Divalidasi--- */}
-                  {prestasiNotVerified?.length > 0 && (
-                    <div className="flex flex-col gap-16">
-                      <p>Prestasi yang belum divalidasi:</p>
-                      <ol className="list-decimal pl-48">
-                        {prestasiNotVerified?.map((item, idx) => (
-                          <li key={idx}>{item?.nama_prestasi}</li>
-                        ))}
-                      </ol>
-                    </div>
-                  )}
-                </div>
                 <div className="flex items-center justify-end gap-12">
                   <button
                     disabled={isLoadingVerifikasiSetuju}
-                    className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
+                    className="rounded-lg bg-rose-700 px-24 py-12 text-center text-white hover:bg-rose-900"
                     type="button"
                     onClick={() => setIsShowTolak(false)}
                   >
-                    Kembali
+                    Tidak
+                  </button>
+                  <button
+                    disabled={isLoadingVerifikasiSetuju}
+                    className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
+                    type="submit"
+                  >
+                    Ya
                   </button>
                 </div>
-              </div>
-            ) : (
-              <div className="flex w-full flex-col gap-32 text-[2rem]">
-                <Form {...form}>
-                  <form
-                    className="scrollbar flex h-full w-full flex-col gap-32 overflow-auto"
-                    onSubmit={form.handleSubmit(handleVerifikasiTolak)}
-                  >
-                    <FormLabelComponent
-                      form={form}
-                      label="Komentar"
-                      placeHolder="Masukkan Komentar"
-                      name="komentar"
-                      type="text"
-                      isKomentar
-                    />
-                    <div
-                      dangerouslySetInnerHTML={{ __html: Pernyataan?.operator }}
-                    />
-
-                    <div className="flex items-center justify-end gap-12">
-                      <button
-                        disabled={isLoadingVerifikasiSetuju}
-                        className="rounded-lg bg-rose-700 px-24 py-12 text-center text-white hover:bg-rose-900"
-                        type="button"
-                        onClick={() => setIsShowTolak(false)}
-                      >
-                        Tidak
-                      </button>
-                      <button
-                        disabled={isLoadingVerifikasiSetuju}
-                        className="rounded-lg bg-green-700 px-24 py-12 text-center text-white hover:bg-green-900"
-                        type="submit"
-                      >
-                        Ya
-                      </button>
-                    </div>
-                  </form>
-                </Form>
-              </div>
-            )}
+              </form>
+            </Form>
           </div>
         }
       />
