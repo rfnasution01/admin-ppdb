@@ -28,6 +28,7 @@ import { ModalValidasi } from '@/layouts/root-layout/modal-validasi'
 import { PendaftarType } from '@/libs/types/pendaftar-type'
 import { useGetDataPendaftarQuery } from '@/store/slices/dataPendaftarAPI'
 import ExportCSV from '@/components/ExportCSV'
+import { PrintHasil } from '@/components/PrintHasil'
 
 export default function HasilPPDB() {
   const form = useForm<zod.infer<typeof hasilFilterSchema>>({
@@ -191,15 +192,7 @@ export default function HasilPPDB() {
                     />
                   </button>
                   <ExportCSV csvData={pendaftarMasuk} />
-                  <button
-                    type="button"
-                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
-                  >
-                    <Tooltips
-                      triggerComponent={<Printer size={16} />}
-                      tooltipContent={<span>Cetak</span>}
-                    />
-                  </button>
+                  <PrintHasil profil={pendaftarMasuk} />
                 </div>
               </div>
             </div>
