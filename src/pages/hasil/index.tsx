@@ -125,7 +125,7 @@ export default function HasilPPDB() {
                   onChange={(e) => onSearch(e)}
                 />
                 <button
-                  className="bg-green-700 px-12 text-white"
+                  className="bg-[#005479] px-12 text-white"
                   type="button"
                   style={{
                     borderTopRightRadius: '1rem',
@@ -140,7 +140,7 @@ export default function HasilPPDB() {
                 <div className="flex items-center gap-24">
                   <button
                     type="button"
-                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                    className="flex items-center gap-12 rounded-2xl border border-[#005479] p-16 text-[#005479] hover:cursor-pointer hover:bg-[#005479] hover:text-white"
                   >
                     <Tooltips
                       triggerComponent={<RefreshCcw size={16} />}
@@ -149,7 +149,7 @@ export default function HasilPPDB() {
                   </button>
                   <button
                     type="button"
-                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                    className="flex items-center gap-12 rounded-2xl border border-[#005479] p-16 text-[#005479] hover:cursor-pointer hover:bg-[#005479] hover:text-white"
                   >
                     <Tooltips
                       triggerComponent={<Download size={16} />}
@@ -158,7 +158,7 @@ export default function HasilPPDB() {
                   </button>
                   <button
                     type="button"
-                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                    className="flex items-center gap-12 rounded-2xl border border-[#005479] p-16 text-[#005479] hover:cursor-pointer hover:bg-[#005479] hover:text-white"
                   >
                     <Tooltips
                       triggerComponent={<Printer size={16} />}
@@ -184,7 +184,7 @@ export default function HasilPPDB() {
                 <div className="flex items-center gap-24">
                   <button
                     type="button"
-                    className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+                    className="flex items-center gap-12 rounded-2xl border border-[#005479] p-16 text-[#005479] hover:cursor-pointer hover:bg-[#005479] hover:text-white"
                   >
                     <Tooltips
                       triggerComponent={<RefreshCcw size={16} />}

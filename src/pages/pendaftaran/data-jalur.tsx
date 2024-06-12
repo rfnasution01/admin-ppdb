@@ -29,7 +29,7 @@ export function DataJalur({
           label="Jalur"
           value={
             item?.jalur === enumJalur.AFIRMASI
-              ? 'Afirmasi Ekonomi Tidak Mampus'
+              ? 'Afirmasi Ekonomi Tidak Mampu'
               : item?.jalur === enumJalur.DISABILITAS
                 ? 'Afirmasi Penyandang Disabilitas'
                 : item?.jalur === enumJalur.PINDAHTUGAS

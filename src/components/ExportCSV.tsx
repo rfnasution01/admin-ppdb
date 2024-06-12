@@ -51,7 +51,7 @@ const ExportCSV = ({ csvData }) => {
       onClick={() => {
         exportToExcel(csvData)
       }}
-      className="flex items-center gap-12 rounded-2xl border border-primary p-16 text-primary hover:cursor-pointer hover:bg-primary hover:text-white"
+      className="flex items-center gap-12 rounded-2xl border border-[#005479] p-16 text-[#005479] hover:cursor-pointer hover:bg-[#005479] hover:text-white"
     >
       <Tooltips
         triggerComponent={<Download size={16} />}
