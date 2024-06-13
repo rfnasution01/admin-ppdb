@@ -1,12 +1,29 @@
 import { useRef } from 'react'
 import printJS from 'print-js'
-import { PendaftarType } from '@/libs/types/pendaftar-type'
 import dayjs from 'dayjs'
 import Tooltips from './Tooltip'
 import { Printer } from 'lucide-react'
+import { HasilDetailType } from '@/libs/types/hasil-type'
 
-export function PrintHasil({ profil }: { profil: PendaftarType[] }) {
+export function PrintHasil({
+  profil,
+  sekolah,
+  alamat,
+  diterbitkan_di,
+  diterbitkan_tgl,
+  kepsek,
+  nip_kepsek,
+}: {
+  profil: HasilDetailType[]
+  sekolah: string
+  alamat: string
+  diterbitkan_di: string
+  diterbitkan_tgl: string
+  kepsek: string
+  nip_kepsek: string
+}) {
   const printRef = useRef<HTMLDivElement>(null)
+  // const totalPage = Math.ceil((profil?.length + 2) / 15)
 
   const handlePrint = () => {
     if (printRef.current) {
@@ -27,6 +44,16 @@ export function PrintHasil({ profil }: { profil: PendaftarType[] }) {
               .header-space {
                 height: 136px;
                 padding-bottom: 32px;
+              }
+              .footer-space {
+                height: 50px;
+                padding: 0 16px 0 16px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+              }
+              .footer-space p {
+                font-style: italic
               }
               .content {
                 padding: 16px 16px 0 16px;
@@ -98,6 +125,50 @@ export function PrintHasil({ profil }: { profil: PendaftarType[] }) {
               .table-border p {
                 font-size: 12px;
               } 
+              .bold {
+                font-weight: 700;
+              }
+              .mengetahui {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                align-items: end;
+              }
+              .kadis {
+                dispay: flex;
+                flex-direction: column;
+                gap: 0;
+                flex: 1;
+              }
+              kadis p {
+                padding: 0;
+                margin: 0;
+              }
+              .kepsek {
+                dispay: flex;
+                flex-direction: column;
+                gap: 0;
+                flex: 1;
+              }
+              kepsek p {
+                padding: 0;
+                margin: 0;
+              }
+                .diterbitkan {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+              }
+              .diterbitkan p {
+                margin: 0;
+                padding: 0;  
+              }
+              .diterbitkan {
+                width: 50%;
+              }
+              .diterbitkan {
+                width: 50%;
+              }
             }
         `,
       })
@@ -113,14 +184,14 @@ export function PrintHasil({ profil }: { profil: PendaftarType[] }) {
               <td>
                 <div className="header-space">
                   <div className="header">
-                    <img src="/img/tutwuri.png" alt="PPDB" />
+                    <img src="/img/batubara.png" alt="PPDB" />
                     <div className="header-text">
                       <p className="title-header">
                         Pemerintah Kabupaten Batu Bara
                       </p>
                       <p className="title">Dinas Pendidikan</p>
-                      <p className="title">UPTD. SMP Negeri 1 Kampung Rakyat</p>
-                      <p className="description">Alamat: Kampung Rakyat</p>
+                      <p className="title">{sekolah}</p>
+                      <p className="description">Alamat: {alamat}</p>
                     </div>
                     <img src="/img/tutwuri.png" alt="PPDB" />
                   </div>
@@ -136,9 +207,7 @@ export function PrintHasil({ profil }: { profil: PendaftarType[] }) {
                     <p className="content-header">
                       Daftar calon siswa yang lulus
                     </p>
-                    <p className="content-header">
-                      pada uptd. smp negeri 1 kampung rakyat
-                    </p>
+                    <p className="content-header">pada {sekolah}</p>
                     <p className="content-header">gelombang 1</p>
                   </div>
                   <table>
@@ -152,6 +221,7 @@ export function PrintHasil({ profil }: { profil: PendaftarType[] }) {
                         <th className="table-border">Jalur</th>
                         <th className="table-border">Pilihan</th>
                         <th className="table-border">Skor</th>
+                        <th className="table-border">Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -176,7 +246,7 @@ export function PrintHasil({ profil }: { profil: PendaftarType[] }) {
                           </td>
                           <td className="table-border">
                             <p>
-                              {dayjs(item?.daftar)
+                              {dayjs(item?.tanggal_daftar)
                                 .locale('id')
                                 .format('DD-MM-YYYY HH:mm')}
                             </p>
@@ -185,15 +255,40 @@ export function PrintHasil({ profil }: { profil: PendaftarType[] }) {
                             <p>{item?.jalur}</p>
                           </td>
                           <td className="table-border">
-                            <p>{item?.pilihan1}</p>
+                            <p>{item?.pilihan}</p>
                           </td>
                           <td className="table-border">
-                            <p>{item?.skor1}</p>
+                            <p>{item?.skor}</p>
                           </td>
+                          <td className="table-border">{item?.status}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+                  <div className="mengetahui">
+                    <div className="kadis"></div>
+                    <div className="kepsek">
+                      <div className="diterbitkan">
+                        <p>Diterbitkan di</p>
+                        <p>: {diterbitkan_di}</p>
+                      </div>
+                      <div className="diterbitkan">
+                        <p>Pada Tanggal</p>
+                        <p>: {diterbitkan_tgl}</p>
+                      </div>
+                      <p>Mengetahui,</p>
+                      <p className="bold">Kepala Sekolah</p>
+                      <p className="bold">{sekolah}</p>
+                      <div style={{ height: '88px', width: '88px' }}></div>
+
+                      {/* <QrCode
+                        value={kepsek}
+                        style={{ height: '88px', width: '88px' }}
+                      /> */}
+                      <p className="bold">{kepsek}</p>
+                      <p>NIP. {nip_kepsek}</p>
+                    </div>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -201,22 +296,16 @@ export function PrintHasil({ profil }: { profil: PendaftarType[] }) {
           <tfoot>
             <tr>
               <td>
-                <div className="footer-space"></div>
+                <div className="footer-space">
+                  <p>Di cetak dari https://www.ppdb-online.batubara.com</p>
+                  {/* <p>
+                    Halaman {profil?.length} / {totalPage}
+                  </p> */}
+                </div>
               </td>
             </tr>
           </tfoot>
         </table>
-        {/* <div className="header">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed natus
-          quae, itaque officiis consectetur qui, at similique sunt perferendis
-          beatae in fugit doloribus modi illo reiciendis, alias atque magni cum.
-        </div>
-        <div className="footer">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-          fugit quam reprehenderit temporibus odio, illo optio saepe labore
-          consequatur quae suscipit nemo fugiat facilis pariatur sequi
-          exercitationem atque incidunt tempora.
-        </div> */}
       </div>
 
       <button

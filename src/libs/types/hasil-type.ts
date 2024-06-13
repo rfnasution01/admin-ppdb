@@ -1,0 +1,63 @@
+export type HasilDetailType = {
+  nompes: string
+  nisn: string
+  nama: string
+  tanggal_lahir: string
+  skor: string
+  tanggal_daftar: string
+  pilihan: number
+  status: string
+  jalur: string
+  nik: string
+  tempat_lahir: string
+  jk: string
+  nomor_kk: string
+  telepon: string
+  agama: string
+  provinsi: string
+  kabupaten: string
+  kecamatan: string
+  desa: string
+  alamat_lengkap: string
+  tahun_lulus: string
+  npsn: string
+  nama_sekolah: string
+  gelombang: string
+  pilihan1: string
+  pilihan2: string
+  skor1: string
+  skor2: string
+  validasi: number
+  verifikasi: number
+  status_ayah: string
+  nik_ayah: string
+  nama_ayah: string
+  hp_ayah: string
+  pekerjaan_ayah: string
+  pendidikan_ayah: string
+  status_ibu: string
+  nik_ibu: string
+  nama_ibu: string
+  hp_ibu: string
+  pekerjaan_ibu: string
+  pendidikan_ibu: string
+  nik_wali: string
+  nama_wali: string
+  hp_wali: string
+  pekerjaan_wali: string
+  pendidikan_wali: string
+}
+
+export type HasilType = {
+  lulus: HasilDetailType[]
+  tidak_lulus: HasilDetailType[]
+  daya_tampung?: number
+  jumlah_lulus?: number
+  kekurangan?: number
+  nama_sekolah?: string
+  alamat_sekolah?: string
+  nama_kepsek?: string
+  nip_kepsek?: string
+  tempat?: string
+  tanggal?: string
+}

@@ -3,14 +3,14 @@ import { saveAs } from 'file-saver'
 import Tooltips from './Tooltip'
 import { Download } from 'lucide-react'
 import dayjs from 'dayjs'
-import { PendaftarType } from '@/libs/types/pendaftar-type'
+import { HasilDetailType } from '@/libs/types/hasil-type'
 
 const ExportCSV = ({ csvData }) => {
   const exportToExcel = (customData) => {
-    const today = dayjs()
+    const today = dayjs('2024-07-01')
 
     // Contoh struktur data yang akan diexport ke XLSX
-    const data = customData.map((item: PendaftarType, idx) => {
+    const data = customData.map((item: HasilDetailType, idx) => {
       const birthday = dayjs(item?.tanggal_lahir, 'YYYY-MM-DD') // Parse tanggal lahir dengan format tertentu
       // Menghitung tahun, bulan, dan hari
       const diff = today.diff(birthday, 'day')
@@ -24,12 +24,53 @@ const ExportCSV = ({ csvData }) => {
         Nompes: item?.nompes,
         NISN: item?.nisn,
         Nama: item?.nama,
+        tempat_lahir: item?.tempat_lahir,
         'Tgl Lahir': birthday.locale('id').format('DD-MM-YYYY'),
         Umur: `${years} Thn ${months} Bln ${days} Hr`,
-        Skor: item?.skor1,
-        Daftar: dayjs(item?.daftar).locale('id').format('DD-MM-YYYY HH:mm'),
-        Urutan: idx + 1,
-        Status: item?.verifikasi === '2' ? 'Lulus' : 'Tidak Lulus',
+        Skor: item?.skor,
+        Daftar: dayjs(item?.tanggal_daftar)
+          .locale('id')
+          .format('DD-MM-YYYY HH:mm'),
+        Pilihan: item?.pilihan,
+        Status: item?.status,
+        jalur: item?.jalur,
+        nik: item?.nik,
+        jk: item?.jk,
+        nomor_kk: item?.nomor_kk,
+        telepon: item?.telepon,
+        agama: item?.agama,
+        provinsi: item?.provinsi,
+        kabupaten: item?.kabupaten,
+        kecamatan: item?.kecamatan,
+        desa: item?.desa,
+        alamat_lengkap: item?.alamat_lengkap,
+        tahun_lulus: item?.tahun_lulus,
+        npsn: item?.npsn,
+        nama_sekolah: item?.nama_sekolah,
+        gelombang: item?.gelombang,
+        pilihan1: item?.pilihan1,
+        pilihan2: item?.pilihan2,
+        skor1: item?.skor1,
+        skor2: item?.skor2,
+        validasi: item?.validasi,
+        verifikasi: item?.verifikasi,
+        status_ayah: item?.status_ayah,
+        nik_ayah: item?.nik_ayah,
+        nama_ayah: item?.nama_ayah,
+        hp_ayah: item?.hp_ayah,
+        pekerjaan_ayah: item?.pekerjaan_ayah,
+        pendidikan_ayah: item?.pendidikan_ayah,
+        status_ibu: item?.status_ibu,
+        nik_ibu: item?.nik_ibu,
+        nama_ibu: item?.nama_ibu,
+        hp_ibu: item?.hp_ibu,
+        pekerjaan_ibu: item?.pekerjaan_ibu,
+        pendidikan_ibu: item?.pendidikan_ibu,
+        nik_wali: item?.nik_wali,
+        nama_wali: item?.nama_wali,
+        hp_wali: item?.hp_wali,
+        pekerjaan_wali: item?.pekerjaan_wali,
+        pendidikan_wali: item?.pendidikan_wali,
       }
     })
 

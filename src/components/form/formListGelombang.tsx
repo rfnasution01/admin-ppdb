@@ -81,7 +81,7 @@ export function FormListGelombang({
         return (
           <FormItem
             className={cn(
-              'flex w-full items-center gap-32 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
+              'z-50 flex w-full items-center gap-32 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
               className,
             )}
           >

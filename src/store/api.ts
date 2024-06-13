@@ -59,6 +59,7 @@ export const api = createApi({
     'tiket-sekolah',
     'tiket-detail-sekolah',
     'notifikasi-sekolah',
+    'lulus',
   ],
   // * it's okay to disable eslint here, because the warning is unnecessary. Each endpoint will be injected from an api slice.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

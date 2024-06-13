@@ -2,6 +2,7 @@ import { Column } from '@/components/Table'
 import { VerifikasiType } from '../types/verifikasi-type'
 import dayjs from 'dayjs'
 import { CariSiswaType } from '../types/pendaftar-type'
+import { HasilDetailType } from '../types/hasil-type'
 
 export const columnsVerifikasi: Column<VerifikasiType>[] = [
   { header: 'Nama', key: 'nama', width: '!min-w-[12rem]' },
@@ -73,6 +74,70 @@ export const columnsCari: Column<CariSiswaType>[] = [
         </div>
       )
     },
+  },
+]
+
+export const columnsLulus: Column<HasilDetailType>[] = [
+  { header: 'Nompes', key: 'nompes', width: '!min-w-[12rem]' },
+  { header: 'NISN', key: 'nisn', width: '!min-w-[12rem]' },
+  { header: 'Nama', key: 'nama', width: '!min-w-[12rem]' },
+
+  {
+    header: 'Tanggal Lahir',
+    key: 'tanggal_lahir',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>
+            {dayjs(rowData?.tanggal_lahir).locale('id').format('DD MMMM YYYY')}
+          </p>
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Umur',
+    key: 'tanggal_lahir',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      const today = dayjs('2024-07-01')
+
+      // Contoh struktur data yang akan diexport ke XLSX
+      const birthday = dayjs(rowData?.tanggal_lahir, 'YYYY-MM-DD') // Parse tanggal lahir dengan format tertentu
+      // Menghitung tahun, bulan, dan hari
+      const diff = today.diff(birthday, 'day')
+      const years = Math.floor(diff / 365) // Menghitung tahun
+      const months = Math.floor((diff % 365) / 30.436875) // Menghitung bulan
+      const days = Math.floor(diff % 30.436875) // Menghitung sisa hari
+
+      return (
+        <div className="flex flex-col gap-8">
+          <p>{`${years} Thn ${months} Bln ${days} Hr`}</p>
+        </div>
+      )
+    },
+  },
+  { header: 'Skor', key: 'skor', width: '!min-w-[12rem]' },
+  {
+    header: 'Daftar',
+    key: 'daftar',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>
+            {dayjs(rowData?.tanggal_daftar).locale('id').format('DD MMMM YYYY')}
+          </p>
+        </div>
+      )
+    },
+  },
+  { header: 'Pilihan', key: 'pilihan', width: '!min-w-[12rem]' },
+  {
+    header: 'Status',
+    key: 'status',
+    width: '!min-w-[12rem]',
   },
 ]
 

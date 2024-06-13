@@ -7,7 +7,7 @@ export function HasilHeader({
   isBorder,
 }: {
   value: string
-  label: string
+  label: string | number
   icon: JSX.Element
   isBorder?: boolean
 }) {
