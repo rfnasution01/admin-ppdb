@@ -24,4 +24,4 @@ export const HasilEndpoints = api.injectEndpoints({
   }),
 })
 
-export const { useGetHasilQuery } = HasilEndpoints
+export const { useGetHasilQuery, useGetHasilExcelQuery } = HasilEndpoints

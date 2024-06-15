@@ -7,6 +7,7 @@ export type ResponseLoginType = {
   token: string
   level: string
   change_password: boolean
+  gelombang: string
 }
 
 export type ChangePasswordType = {

@@ -7,6 +7,8 @@ import * as zod from 'zod'
 import { loginSchema } from '@/libs/schema/logins-schema'
 import Cookies from 'js-cookie'
 import { LoginForm } from '@/features/login'
+import { useDispatch } from 'react-redux'
+import { setStateIdGelombang } from '@/store/reducer/stateIdGelombang'
 
 export default function Login() {
   const [msg, setMsg] = useState<string>('')
@@ -32,6 +34,7 @@ export default function Login() {
     defaultValues: {},
   })
 
+  const dispath = useDispatch()
   // --- Handle Login ---
   async function handleFormLogin(values) {
     const body = {
@@ -45,9 +48,12 @@ export default function Login() {
         const token = res?.data?.data?.token
         const level = res?.data?.data?.level
         const changePassword = res?.data?.data?.change_password
+        const idGelombang = res?.data?.data?.gelombang
         setIsChange(changePassword)
         Cookies.set('token', token)
         Cookies.set('level', level)
+        Cookies.set('idGelombang', idGelombang)
+        dispath(setStateIdGelombang({ id: idGelombang }))
       } else {
         console.error('Error occurred:', res.error)
       }

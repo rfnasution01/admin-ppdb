@@ -2,12 +2,30 @@ import { DashboardType } from '@/libs/types/dashboard-type'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import { StatistikPendaftar } from './statistik-pendaftar'
+import Cookies from 'js-cookie'
+import { useSelector } from 'react-redux'
+import { getIdGelombangSlice } from '@/store/reducer/stateIdGelombang'
+import { useEffect, useState } from 'react'
 
 export function DashboardPendaftar({
   dashboard,
 }: {
   dashboard: DashboardType
 }) {
+  const stateId = useSelector(getIdGelombangSlice)?.id
+
+  useEffect(() => {
+    if (stateId) {
+      setId(stateId)
+    }
+  }, [stateId])
+
+  const idGelombang = Cookies.get('idGelombang') ?? ''
+
+  const [id, setId] = useState<string>(idGelombang ?? stateId ?? null)
+
+  const gelombangNow = dashboard?.gelombang?.find((item) => item?.id === id)
+
   return (
     <div className="flex w-full flex-col gap-48 rounded-2xl bg-white p-32 shadow-md">
       <div className="flex items-center justify-between gap-32 phones:flex-col phones:items-start">
@@ -42,13 +60,11 @@ export function DashboardPendaftar({
             jsonData={[
               {
                 nama: 'Divalidasi',
-                jumlah: dashboard?.gelombang?.[0]?.validasi,
+                jumlah: gelombangNow?.validasi,
               },
               {
                 nama: 'Belum Divalidasi',
-                jumlah:
-                  dashboard?.gelombang?.[0]?.pendaftar -
-                  dashboard?.gelombang?.[0]?.validasi,
+                jumlah: gelombangNow?.pendaftar - gelombangNow?.validasi,
               },
             ]}
           />
@@ -58,9 +74,9 @@ export function DashboardPendaftar({
             </p>
             <p>
               <span className="text-[4rem] font-bold text-[#005479]">
-                {dashboard?.gelombang?.[0]?.validasi}
+                {gelombangNow?.validasi}
               </span>{' '}
-              / {dashboard?.gelombang?.[0]?.pendaftar} Pendaftar
+              / {gelombangNow?.pendaftar} Pendaftar
             </p>
           </div>
         </Link>
@@ -73,11 +89,11 @@ export function DashboardPendaftar({
             jsonData={[
               {
                 nama: 'Diverfikasi',
-                jumlah: dashboard?.gelombang?.[0]?.diverifikasi,
+                jumlah: gelombangNow?.diverifikasi,
               },
               {
                 nama: 'Validasi',
-                jumlah: dashboard?.gelombang?.[0]?.belum_diverifikasi,
+                jumlah: gelombangNow?.belum_diverifikasi,
               },
             ]}
           />
@@ -85,9 +101,9 @@ export function DashboardPendaftar({
             <p className="text-[4rem] font-bold text-[#005479]">Diverifikasi</p>
             <p>
               <span className="text-[4rem] font-bold text-[#005479]">
-                {dashboard?.gelombang?.[0]?.diverifikasi}
+                {gelombangNow?.diverifikasi}
               </span>{' '}
-              / {dashboard?.gelombang?.[0]?.validasi} Pendaftar
+              / {gelombangNow?.validasi} Pendaftar
             </p>
           </div>
         </Link>

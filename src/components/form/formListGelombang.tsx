@@ -12,6 +12,8 @@ import Select, { components } from 'react-select'
 import { customStyles } from '@/libs/dummy/selectProps'
 import { useGetDashboardQuery } from '@/store/slices/dashboardAPI'
 import { GelombangType } from '@/libs/types/dashboard-type'
+import { useDispatch } from 'react-redux'
+import { setStateIdGelombang } from '@/store/reducer/stateIdGelombang'
 
 type inputProps = {
   placeholder: string
@@ -20,6 +22,8 @@ type inputProps = {
   headerLabel?: string
   useFormReturn: UseFormReturn
   className?: string
+  handleFormGelombang(values: string): Promise<void>
+  id: string
 }
 
 export function FormListGelombang({
@@ -29,6 +33,8 @@ export function FormListGelombang({
   isDisabled,
   useFormReturn,
   className,
+  handleFormGelombang,
+  id,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
   const [listGelombang, setListGelombang] = useState<GelombangType[]>([])
@@ -37,6 +43,11 @@ export function FormListGelombang({
   useEffect(() => {
     if (!isFetching) {
       if (data?.meta?.page > 1) {
+        const gelombangNow = data?.data?.gelombang?.find(
+          (item) => item?.id === id,
+        )
+        useFormReturn?.setValue('gelombang', gelombangNow?.id)
+
         setListGelombang((prevData) => [
           ...prevData,
           ...(data?.data?.gelombang ?? []),
@@ -51,7 +62,7 @@ export function FormListGelombang({
   if (isSuccess) {
     GelombangOption = listGelombang.map((item) => {
       return {
-        value: item?.nama,
+        value: item?.id,
         label: item?.nama,
       }
     })
@@ -72,6 +83,8 @@ export function FormListGelombang({
       </components.Option>
     )
   }
+
+  const dispatch = useDispatch()
 
   return (
     <FormField
@@ -153,7 +166,9 @@ export function FormListGelombang({
                   placeholder={placeholder ?? 'Pilih'}
                   onInputChange={search}
                   onChange={(optionSelected) => {
-                    field.onChange(optionSelected.value)
+                    field.onChange(optionSelected?.value)
+                    handleFormGelombang(optionSelected?.value)
+                    dispatch(setStateIdGelombang({ id: optionSelected?.value }))
                   }}
                   isDisabled={isDisabled}
                   isLoading={isFetching || isLoading}

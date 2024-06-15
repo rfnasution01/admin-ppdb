@@ -9,7 +9,28 @@ export const DashboardEndpoints = api.injectEndpoints({
       }),
       providesTags: ['dashboard'],
     }),
+    createGelombang: builder.mutation<void, { data: { id: string } }>({
+      query: ({ data }) => ({
+        url: `sekolah/gelombang`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [
+        'profil',
+        'biodata',
+        'kecamatan',
+        'operator',
+        'daya-tampung',
+        'dashboard',
+        'verifikasi',
+        'verifikasi-detail',
+        'pendaftar',
+        'cari',
+        'lulus',
+      ],
+    }),
   }),
 })
 
-export const { useGetDashboardQuery } = DashboardEndpoints
+export const { useGetDashboardQuery, useCreateGelombangMutation } =
+  DashboardEndpoints

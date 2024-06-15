@@ -15,7 +15,6 @@ import {
 import { FormListLulus } from '@/components/form/formListLulus'
 import { Form } from '@/components/Form'
 import { FormListJalurMasuk } from '@/components/form/formListJalurMasuk'
-import { FormListGelombang } from '@/components/form/formListGelombang'
 import { useEffect, useState } from 'react'
 import Tooltips from '@/components/Tooltip'
 import { DashboardType } from '@/libs/types/dashboard-type'
@@ -25,7 +24,10 @@ import { useGetTiketNotifikasiQuery } from '@/store/slices/pertanyaanAPI'
 import { ModalValidasi } from '@/layouts/root-layout/modal-validasi'
 import ExportCSV from '@/components/ExportCSV'
 import { columnsLulus } from '@/libs/dummy/table'
-import { useGetHasilQuery } from '@/store/slices/hasilAPI'
+import {
+  useGetHasilExcelQuery,
+  useGetHasilQuery,
+} from '@/store/slices/hasilAPI'
 import { HasilType } from '@/libs/types/hasil-type'
 import { Table } from '@/components/Table'
 import { PrintHasil } from '@/components/PrintHasil'
@@ -60,7 +62,7 @@ export default function HasilPPDB() {
   const jalur = form.watch('jalur')
 
   const { data: getHasil } = useGetHasilQuery({
-    jalur: jalur,
+    jalur: jalur ?? '',
   })
 
   useEffect(() => {
@@ -68,6 +70,19 @@ export default function HasilPPDB() {
       setHasil(getHasil?.data)
     }
   }, [getHasil?.data, jalur])
+
+  //   --- Hasil Excel ---
+  const [hasilExcel, setHasilExcel] = useState<HasilType>()
+
+  const { data: getHasilExcel } = useGetHasilExcelQuery({
+    jalur: jalur ?? '',
+  })
+
+  useEffect(() => {
+    if (getHasilExcel) {
+      setHasilExcel(getHasilExcel?.data)
+    }
+  }, [getHasilExcel?.data, jalur])
 
   const lulus = form.watch('lulus')
 
@@ -79,6 +94,18 @@ export default function HasilPPDB() {
       : lulus === 'lulus'
         ? hasil?.lulus
         : hasil?.tidak_lulus
+
+  const showSemuaExcel = [
+    ...(hasilExcel?.lulus || []),
+    ...(hasilExcel?.tidak_lulus || []),
+  ]
+
+  const dataShowExcel =
+    lulus === undefined || lulus === 'semua'
+      ? showSemuaExcel
+      : lulus === 'lulus'
+        ? hasilExcel?.lulus
+        : hasilExcel?.tidak_lulus
 
   return (
     <div className="flex h-full w-full flex-col gap-32">
@@ -145,11 +172,7 @@ export default function HasilPPDB() {
                 placeholder="Jalur"
                 useFormReturn={form}
               />
-              <FormListGelombang
-                name="gelombang"
-                placeholder="Gelombang"
-                useFormReturn={form}
-              />
+
               <FormListLulus name="lulus" placeholder="Status" form={form} />
               <div className="block phones:hidden">
                 <div className="flex items-center gap-24">
@@ -162,7 +185,7 @@ export default function HasilPPDB() {
                       tooltipContent={<span>Refresh</span>}
                     />
                   </button>
-                  <ExportCSV csvData={dataShow} />
+                  <ExportCSV csvData={dataShowExcel} />
                   <PrintHasil
                     profil={showSemua}
                     sekolah={hasil?.nama_sekolah}
