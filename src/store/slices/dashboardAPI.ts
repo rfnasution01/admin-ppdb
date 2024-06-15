@@ -27,6 +27,7 @@ export const DashboardEndpoints = api.injectEndpoints({
         'pendaftar',
         'cari',
         'lulus',
+        'daftar-ulang',
       ],
     }),
   }),

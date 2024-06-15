@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   CariPage,
   ComingSoonPage,
+  DaptarUlangPage,
   DashBoardLayout,
   DashBoardPage,
   DataOperatorPage,
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
       {
         path: 'hasil-ppdb',
         element: <HasilPPDBPage />,
+      },
+      {
+        path: 'daftar-ulang',
+        element: <DaptarUlangPage />,
       },
       {
         path: 'data-operator',

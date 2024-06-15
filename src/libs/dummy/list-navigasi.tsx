@@ -1,4 +1,5 @@
 import {
+  Aperture,
   Clipboard,
   HelpCircle,
   KeySquare,
@@ -35,6 +36,10 @@ export const ListNavigasi = [
   {
     title: 'Hasil PPDB',
     icon: <Scroll size={16} />,
+  },
+  {
+    title: 'Daftar Ulang',
+    icon: <Aperture size={16} />,
   },
   {
     title: 'Data Operator',

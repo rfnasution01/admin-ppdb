@@ -1,8 +1,11 @@
 import { Column } from '@/components/Table'
 import { VerifikasiType } from '../types/verifikasi-type'
 import dayjs from 'dayjs'
+import 'dayjs/locale/id'
 import { CariSiswaType } from '../types/pendaftar-type'
 import { HasilDetailType } from '../types/hasil-type'
+import { SiswaType } from '../types/daftar-ulang-type'
+import clsx from 'clsx'
 
 export const columnsVerifikasi: Column<VerifikasiType>[] = [
   { header: 'Nama', key: 'nama', width: '!min-w-[12rem]' },
@@ -138,6 +141,65 @@ export const columnsLulus: Column<HasilDetailType>[] = [
     header: 'Status',
     key: 'status',
     width: '!min-w-[12rem]',
+  },
+]
+
+export const columnsDaftarUlang: Column<SiswaType>[] = [
+  { header: 'Nompes', key: 'nompes', width: '!min-w-[12rem]' },
+  { header: 'Nama', key: 'nama', width: '!min-w-[12rem]' },
+
+  {
+    header: 'Tanggal Lahir',
+    key: 'tanggal_lahir',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>
+            {dayjs(rowData?.tanggal_lahir).locale('id').format('DD MMMM YYYY')}
+          </p>
+        </div>
+      )
+    },
+  },
+
+  { header: 'Jalur', key: 'jalur', width: '!min-w-[12rem]' },
+  {
+    header: 'Daftar Ulang',
+    key: 'registrasi',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p
+            className={clsx('rounded-full px-12 py-4 text-center', {
+              'bg-green-700 text-green-100': rowData?.registrasi === 1,
+              'bg-red-700 text-red-100': rowData?.registrasi !== 1,
+            })}
+          >
+            {rowData?.registrasi === 1 ? 'Sudah' : 'Belum'}
+          </p>
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Tanggal',
+    key: 'tanggal_registrasi',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>
+            {rowData?.tanggal_registrasi
+              ? dayjs(rowData?.tanggal_registrasi)
+                  .locale('id')
+                  .format('DD MMMM YYYY')
+              : '-'}
+          </p>
+        </div>
+      )
+    },
   },
 ]
 

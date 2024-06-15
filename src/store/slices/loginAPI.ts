@@ -21,6 +21,7 @@ export const LoginEndpoints = api.injectEndpoints({
         'pendaftar',
         'cari',
         'lulus',
+        'daftar-ulang',
       ],
     }),
   }),
