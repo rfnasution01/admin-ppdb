@@ -5,7 +5,15 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
-import { Award, CheckCircle, Loader2, Search, XCircle } from 'lucide-react'
+import {
+  AlertTriangle,
+  Award,
+  CheckCircle,
+  Loader2,
+  Save,
+  Search,
+  XCircle,
+} from 'lucide-react'
 import {
   Form,
   FormControl,
@@ -27,7 +35,7 @@ import { DaftarUlangType } from '@/libs/types/daftar-ulang-type'
 import Loading from '@/components/Loading'
 import { NoData } from '@/components/NoData'
 import { HasilHeader } from '../hasil/hasil-header'
-import { columnsDaftarUlang } from '@/libs/dummy/table'
+import { columnsDaftarUlang, columnsDaftarUlangModal } from '@/libs/dummy/table'
 import { FormListStatus } from '@/components/form/formListStatus'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -122,7 +130,7 @@ export default function DaptarUlang() {
 
   useEffect(() => {
     if (isSuccessDaftarUlang) {
-      toast.success('Tiket berhasil dibuat!', {
+      toast.success('Daftar Ulang berhasil!', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -137,6 +145,7 @@ export default function DaptarUlang() {
         form.reset()
         setIsShowModalDaftar(false)
         setListIdSelect([])
+        setIsChecked(false)
       }, 2000)
     }
   }, [isSuccessDaftarUlang])
@@ -158,6 +167,12 @@ export default function DaptarUlang() {
       })
     }
   }, [isErrorDaftarUlang, errorDaftarUlang])
+
+  const filteredDaftarUlang =
+    daftarUlang?.siswa?.filter((item) => listIdSelect.includes(item.nompes)) ??
+    []
+
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
   return (
     <div className="flex h-full w-full flex-col gap-32">
@@ -213,6 +228,14 @@ export default function DaptarUlang() {
               />
 
               <FormListStatus name="status" placeholder="Status" form={form} />
+              <button
+                type="button"
+                onClick={() => setIsShowModalDaftar(true)}
+                className="flex items-center gap-12 rounded-lg bg-green-700 px-24 py-12 text-[2rem] text-green-100 hover:bg-green-900"
+              >
+                <Save size={16} />
+                Simpan
+              </button>
             </div>
           </form>
         </Form>
@@ -258,82 +281,134 @@ export default function DaptarUlang() {
       >
         <Form {...formSaveDaftarUlang}>
           <form
-            className="flex flex-col gap-32"
+            className="flex h-full flex-col gap-32 pb-32"
             onSubmit={formSaveDaftarUlang.handleSubmit(handleSubmit)}
           >
-            <div className="flex items-center gap-32">
-              <FormField
-                name="tanggal"
-                control={formSaveDaftarUlang.control}
-                render={({ field }) => (
-                  <FormItem
-                    className={`flex w-full items-center gap-32 text-[2rem] phones:w-full phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`}
+            <div className="flex h-full flex-col gap-32">
+              {/* --- Form --- */}
+              <div className="flex items-start gap-32">
+                <FormField
+                  name="tanggal"
+                  control={formSaveDaftarUlang.control}
+                  render={({ field }) => (
+                    <FormItem
+                      className={`flex w-full items-center gap-32 text-[2rem] phones:w-full phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`}
+                    >
+                      <div className="w-1/6 text-left phones:w-full phones:text-left">
+                        <FormLabel>Tanggal</FormLabel>
+                      </div>
+                      <div className={`w-full`}>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            className={`w-full disabled:cursor-not-allowed phones:w-full`}
+                            placeholder={dayjs().toISOString()}
+                            type="date"
+                            disabled={isLoadingDaftarUlang}
+                          />
+                        </FormControl>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="jam"
+                  control={formSaveDaftarUlang.control}
+                  render={({ field }) => (
+                    <FormItem
+                      className={`flex w-full items-center gap-32 text-[2rem] phones:w-full phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`}
+                    >
+                      <div className="w-1/6 text-left phones:w-full phones:text-left">
+                        <FormLabel>Jam</FormLabel>
+                      </div>
+                      <div className={`w-full`}>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            className={`w-full disabled:cursor-not-allowed phones:w-full`}
+                            placeholder={dayjs().toISOString()}
+                            type="time"
+                            disabled={isLoadingDaftarUlang}
+                          />
+                        </FormControl>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              {/* --- Data --- */}
+              <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto">
+                <p className="text-[2.4rem] font-bold">Data Siswa</p>
+                <div className="flex gap-32">
+                  {filteredDaftarUlang?.length > 0 ? (
+                    <TableDaftarUlang
+                      data={filteredDaftarUlang}
+                      columns={columnsDaftarUlangModal}
+                      containerClasses="w-full"
+                      loading={false}
+                      isNo
+                      page={1}
+                      pageSize={1000}
+                    />
+                  ) : (
+                    <div className="w-full text-[2rem]">
+                      <NoData title="Belum ada data yang dipilih, silahkan pilih data untuk melanjutkan" />
+                    </div>
+                  )}
+                </div>
+              </div>
+              {/* --- Checkbox --- */}
+              {filteredDaftarUlang?.length > 0 && (
+                <div
+                  className="flex items-center gap-12 hover:cursor-pointer"
+                  onClick={() => {
+                    setIsChecked(!isChecked)
+                  }}
+                >
+                  <input type="checkbox" checked={isChecked} />
+                  <p className="text-[2rem]">
+                    Saya setuju data diatas sudah benar
+                  </p>
+                </div>
+              )}
+              {/* --- Button --- */}
+              <div className="flex justify-between gap-32 rounded-lg bg-red-700 px-16 py-12 text-red-100">
+                <div className="flex items-center gap-12">
+                  <AlertTriangle size={20} />
+                  <p className="text-[2rem]">
+                    Informasi: Pastikan semua data sudah benar dan checkbox
+                    sudah di centang untuk melanjutkan proses daftar ulang
+                  </p>
+                </div>
+                <div className="flex items-center gap-32">
+                  <button
+                    type="button"
+                    disabled={isLoadingDaftarUlang}
+                    onClick={() => setIsShowModalDaftar(false)}
+                    className="rounded-lg bg-red-100 px-24 py-12 text-[2rem] text-red-700 hover:bg-red-200"
                   >
-                    <div className="w-1/6 text-left phones:w-full phones:text-left">
-                      <FormLabel>Tanggal</FormLabel>
-                    </div>
-                    <div className={`w-full`}>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          className={`w-full disabled:cursor-not-allowed phones:w-full`}
-                          placeholder={dayjs().toISOString()}
-                          type="date"
-                          disabled={isLoadingDaftarUlang}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="jam"
-                control={formSaveDaftarUlang.control}
-                render={({ field }) => (
-                  <FormItem
-                    className={`flex w-full items-center gap-32 text-[2rem] phones:w-full phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]`}
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={
+                      isLoadingDaftarUlang ||
+                      !isChecked ||
+                      filteredDaftarUlang?.length === 0
+                    }
+                    className="flex items-center gap-12 rounded-lg bg-green-700 px-24 py-12 text-[2rem] text-green-100 hover:bg-green-900 disabled:cursor-not-allowed"
                   >
-                    <div className="w-1/6 text-left phones:w-full phones:text-left">
-                      <FormLabel>Jam</FormLabel>
-                    </div>
-                    <div className={`w-full`}>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          className={`w-full disabled:cursor-not-allowed phones:w-full`}
-                          placeholder={dayjs().toISOString()}
-                          type="time"
-                          disabled={isLoadingDaftarUlang}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex justify-end gap-32">
-              <button
-                type="button"
-                disabled={isLoadingDaftarUlang}
-                onClick={() => setIsShowModalDaftar(false)}
-                className="rounded-lg bg-red-700 px-24 py-12 text-[2rem] text-red-100 hover:bg-red-900"
-              >
-                Batal
-              </button>
-              <button
-                type="submit"
-                disabled={isLoadingDaftarUlang}
-                className="flex items-center gap-12 rounded-lg bg-green-700 px-24 py-12 text-[2rem] text-green-100 hover:bg-green-900 disabled:cursor-not-allowed"
-              >
-                {isLoadingDaftarUlang && (
-                  <span className="animate-spin duration-300">
-                    <Loader2 size={16} />
-                  </span>
-                )}
-                Simpan
-              </button>
+                    {isLoadingDaftarUlang && (
+                      <span className="animate-spin duration-300">
+                        <Loader2 size={16} />
+                      </span>
+                    )}
+                    Simpan
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </Form>

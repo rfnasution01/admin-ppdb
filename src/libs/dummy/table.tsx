@@ -203,6 +203,26 @@ export const columnsDaftarUlang: Column<SiswaType>[] = [
   },
 ]
 
+export const columnsDaftarUlangModal: Column<SiswaType>[] = [
+  { header: 'Nompes', key: 'nompes', width: '!min-w-[12rem]' },
+  { header: 'Nama', key: 'nama', width: '!min-w-[12rem]' },
+
+  {
+    header: 'Tanggal Lahir',
+    key: 'tanggal_lahir',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-8">
+          <p>
+            {dayjs(rowData?.tanggal_lahir).locale('id').format('DD MMMM YYYY')}
+          </p>
+        </div>
+      )
+    },
+  },
+]
+
 export const columnsPendaftar: Column<CariSiswaType>[] = [
   {
     header: 'NISN/NIK',

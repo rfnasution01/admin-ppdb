@@ -25,10 +25,11 @@ export function ModalValidasiDaftarUlang({
         className="text-dark scrollbar flex flex-col overflow-y-auto bg-white text-black"
         position="middle"
         style={{
-          width: '50%',
+          width: '60%',
+          height: '80%',
         }}
       >
-        <div className="flex flex-col gap-16 p-32">
+        <div className="flex h-full flex-col gap-16 p-32">
           {/* --- Header --- */}
           <DialogHeader>
             <DialogTitle>
@@ -42,7 +43,7 @@ export function ModalValidasiDaftarUlang({
             </DialogPrimitive.Close>
           </DialogHeader>
           <hr className="border" />
-          <div className="flex flex-col gap-32">{children}</div>
+          <div className="h-full flex-1 flex-col gap-32">{children}</div>
         </div>
       </DialogContent>
     </Dialog>
